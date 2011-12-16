@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, CameraVideoPlay!</string>
+    <string name="app_name">CameraVideoPlay</string>
+    
+    <!-- The messsage shown when video record reaches size limit. -->
+    <string name="video_reach_size_limit">Size limit reached.</string>
+    <!-- Video Camera format string for new video files. Passed to java.text.SimpleDateFormat. -->
+    <string name="video_file_name_format" translatable="false">"'video'-yyyy-MM-dd-HH-mm-ss"</string>
+
+	<string name="text_run">Run</string>
+	<string name="text_stop">Stop</string>
+    
+</resources>
