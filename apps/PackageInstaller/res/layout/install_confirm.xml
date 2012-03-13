@@ -36,7 +36,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:paddingTop="20dip"
         android:paddingLeft="20dip"
-        android:paddingBottom="20dip"/>
+        android:paddingBottom="20dip"
+		android:textColor="#ff000000" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,7 +60,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:paddingTop="20dip"
                 android:paddingLeft="20dip"
-                android:paddingBottom="20dip"/>
+                android:paddingBottom="20dip"
+				android:textColor="#ff000000" />
 
             <LinearLayout
                 android:id="@+id/security_settings_list"

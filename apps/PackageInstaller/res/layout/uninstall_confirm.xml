@@ -41,8 +41,8 @@
         android:paddingTop="16dip"
         android:paddingLeft="16dip"
         android:layout_below="@id/app_snippet"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textAppearance="?android:attr/textAppearanceMedium"       
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ff000000"
         android:paddingBottom="36dip"/>
 
     <!-- uninstall application confirmation text -->
@@ -50,8 +50,8 @@
         android:id="@+id/uninstall_confirm_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textAppearance="?android:attr/textAppearanceMedium"       
+        android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textColor="#ff000000"
         android:layout_below="@id/uninstall_question"
         android:paddingLeft="16dip"/>
 
