@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!--
+     Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,86 +13,91 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
+
 -->
 
 <!--
-
   Defines the layout of the splash screen that displays the security
   settings required for an application and requests the confirmation of the
   user before it is installed.
+
 -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_weight="1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="#ffffffff"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/install_confirm_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="20dip"
+        android:paddingLeft="20dip"
+        android:paddingTop="20dip"
         android:text="@string/install_confirm_question"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingTop="20dip"
-        android:paddingLeft="20dip"
-        android:paddingBottom="20dip"
-		android:textColor="#ff000000" />
+        android:textColor="#ff000000" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true" >
 
         <!-- Security settings description. -->
+
         <LinearLayout
             android:id="@+id/permissions_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight = "2dip"
-            android:orientation="vertical">
+            android:layout_marginRight="2dip"
+            android:orientation="vertical" >
+
             <TextView
                 android:id="@+id/security_settings_desc"
-                android:text="@string/security_settings_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:paddingTop="20dip"
-                android:paddingLeft="20dip"
                 android:paddingBottom="20dip"
-				android:textColor="#ff000000" />
+                android:paddingLeft="20dip"
+                android:paddingTop="20dip"
+                android:text="@string/security_settings_desc"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff000000" />
 
             <LinearLayout
                 android:id="@+id/security_settings_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
 
-    <!-- OK confirm and cancel buttons.  -->
+    <!-- OK confirm and cancel buttons. -->
+
     <LinearLayout
+        style="@android:style/ButtonBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="@android:style/ButtonBar"
-    >
-        <Button android:id="@+id/ok_button"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/ok_button"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:filterTouchesWhenObscured="true"
-            android:text="@string/install"
-        />
+            android:text="@string/install" />
 
-        <Button android:id="@+id/cancel_button"
+        <Button
+            android:id="@+id/cancel_button"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel"
-        />
+            android:text="@string/cancel" />
     </LinearLayout>
+
 </LinearLayout>

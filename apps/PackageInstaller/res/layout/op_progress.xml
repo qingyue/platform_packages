@@ -19,6 +19,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffffff"
     android:fillViewport="true" >
 
     <RelativeLayout
@@ -34,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:gravity="center"
-            android:layout_below="@id/app_snippet" >
+            android:gravity="center" >
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -51,7 +51,7 @@
                 android:paddingLeft="16dip"
                 android:text="@string/installing"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-				android:textColor="#ff000000" />
+                android:textColor="#ff000000" />
         </LinearLayout>
 
         <!-- Launch and close buttons. -->
