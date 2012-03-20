@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="recent_read_list_array">
+        <item>BestOfTOC.epub</item>
+        <item>c.pdf</item>
+        <item>Rinehart - The After House.epub</item>
+    </string-array>
+    <string-array name="font_styles">
+        <item>SNAS</item>
+        <item>SERIF</item>
+        <item>MONOSPACE</item>
+        <item>HT</item>
+    </string-array>
+    <string-array name="languages">
+        <item>language 1</item>
+        <item>language 2</item>
+        <item>language 3</item>
+        <item>language 4</item>
+        <item>language 5</item>
+        <item>language 6</item>
+        <item>language 7</item>
+        <item>language 8</item>
+        <item>language 9</item>
+    </string-array>
+    <string-array name="startup_settings">
+        <item>startupSetting 1</item>
+        <item>startupSetting 2</item>
+    </string-array>
+    <string-array name="time_zones">
+        <item>GMT +01:00</item>
+        <item>GMT +02:00</item>
+        <item>GMT +03:00</item>
+        <item>GMT +04:00</item>
+        <item>GMT +05:00</item>
+        <item>GMT +06:00</item>
+        <item>GMT +07:00</item>
+        <item>GMT +08:00</item>
+        <item>GMT +09:00</item>
+        <item>GMT +10:00</item>
+    </string-array>
+    <string-array name="screen_update">
+        <item>every 3 pages</item>
+        <item>every 5 pages</item>
+        <item>every 7 pages</item>
+        <item>every 9 pages</item>
+        <item>always</item>
+    </string-array>
+    <string-array name="power_management">
+        <item>3 minute</item>
+        <item>5 minute</item>
+        <item>7 minute</item>
+        <item>9 minute</item>
+    </string-array>
+    <string-array name="applications_epub">
+        <item>Pdf Reader</item>
+        <item>FBReader</item>
+        <item>Cool Reader</item>
+    </string-array>
+    <string-array name="applications_chm">
+        <item>Htme Reader</item>
+        <item>FBReader</item>
+        <item>Cool Reader</item>
+    </string-array>
+    <string-array name="applications_fb2">
+        <item>FBReader</item>
+        <item>Cool Reader</item>
+    </string-array>
+    <string-array name="menu_other_file_top_textview">
+        <item>Search</item>
+        <item>Rename</item>
+        <item>New File</item>
+        <item>New Folder</item>
+    </string-array>
+    <string-array name="menu_other_file_middle_textview">
+        <item>Copy</item>
+        <item>Cut</item>
+        <item>Delete</item>
+        <item>Multi</item>
+    </string-array>
+    <string-array name="menu_other_file_bottom_textview">
+        <item>Preferred Applications</item>
+    </string-array>
+    <string-array name="menu_other_view_top_textview">
+        <item>Details view</item>
+        <item>Thumbnail view</item>
+    </string-array>
+    <string-array name="menu_other_view_middle_textview">
+        <item>By Name</item>
+        <item>By Type</item>
+        <item>By Size</item>
+        <item>By Access Time</item>
+    </string-array>
+    <string-array name="menu_other_view_bottom_textview">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+    <string-array name="menu_other">
+        <item>View</item>
+        <item>File</item>
+    </string-array>
+    <string-array name="screen_timeout_entries">
+        <item>15 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>10 minutes</item>
+        <item>30 minutes</item>
+    </string-array>
+    <string-array name="screen_timeout_values" translatable="false">
+        <item>15000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>120000</item>
+        <item>600000</item>
+        <item>1800000</item>
+    </string-array>
+    <string-array name="file_format">
+        <item>3g2</item>
+        <item>3gp</item>
+        <item>7z</item>
+        <item>a</item>
+        <item>abc</item>
+        <item>acgi</item>
+        <item>acv</item>
+        <item>afl</item>
+        <item>ai</item>
+        <item>aif</item>
+        <item>aifc</item>
+        <item>aiff</item>
+        <item>amr</item>
+        <item>apk</item>
+        <item>aps</item>
+        <item>arc</item>
+        <item>arj</item>
+        <item>asf</item>
+        <item>asm</item>
+        <item>asp</item>
+        <item>asx</item>
+        <item>au</item>
+        <item>avi</item>
+        <item>avs</item>
+        <item>bin</item>
+        <item>bmp</item>
+        <item>boo</item>
+        <item>book</item>
+        <item>boz</item>
+        <item>bsh</item>
+        <item>bz</item>
+        <item>bz2</item>
+        <item>c</item>
+        <item>c++</item>
+        <item>cbr</item>
+        <item>cbz</item>
+        <item>cc</item>
+        <item>cdf</item>
+        <item>cer</item>
+        <item>cha</item>
+        <item>chat</item>
+        <item>class</item>
+        <item>com</item>
+        <item>conf</item>
+        <item>cpp</item>
+        <item>crl</item>
+        <item>crt</item>
+        <item>csh</item>
+        <item>css</item>
+        <item>csv</item>
+        <item>cxx</item>
+        <item>def</item>
+        <item>der</item>
+        <item>dif</item>
+        <item>dl</item>
+        <item>doc</item>
+        <item>docx</item>
+        <item>dotx</item>
+        <item>dump</item>
+        <item>dv</item>
+        <item>dvi</item>
+        <item>el</item>
+        <item>env</item>
+        <item>eps</item>
+        <item>epub</item>
+        <item>exe</item>
+        <item>f</item>
+        <item>fif</item>
+        <item>fli</item>
+        <item>g</item>
+        <item>g3</item>
+        <item>gif</item>
+        <item>gl</item>
+        <item>gsd</item>
+        <item>gsm</item>
+        <item>gtar</item>
+        <item>gz</item>
+        <item>gzip</item>
+        <item>h</item>
+        <item>hh</item>
+        <item>hlb</item>
+        <item>hlp</item>
+        <item>hqx</item>
+        <item>htm</item>
+        <item>html</item>
+        <item>htmls</item>
+        <item>htt</item>
+        <item>htx</item>
+        <item>ico</item>
+        <item>idc</item>
+        <item>imap</item>
+        <item>inf</item>
+        <item>isu</item>
+        <item>it</item>
+        <item>jam</item>
+        <item>jar</item>
+        <item>jav</item>
+        <item>java</item>
+        <item>jcm</item>
+        <item>jfif</item>
+        <item>jfif-tbml</item>
+        <item>jpe</item>
+        <item>jpeg</item>
+        <item>jpg</item>
+        <item>jps</item>
+        <item>js</item>
+        <item>kar</item>
+        <item>kml</item>
+        <item>kmz</item>
+        <item>ksh</item>
+        <item>la</item>
+        <item>lam</item>
+        <item>lha</item>
+        <item>lhx</item>
+        <item>list</item>
+        <item>log</item>
+        <item>lsp</item>
+        <item>lst</item>
+        <item>ltx</item>
+        <item>lzh</item>
+        <item>lzma</item>
+        <item>lzx</item>
+        <item>m</item>
+        <item>m1v</item>
+        <item>m2a</item>
+        <item>m2v</item>
+        <item>m3u</item>
+        <item>m4a</item>
+        <item>m4v</item>
+        <item>man</item>
+        <item>map</item>
+        <item>mar</item>
+        <item>mht</item>
+        <item>mhtml</item>
+        <item>mid</item>
+        <item>midi</item>
+        <item>mime</item>
+        <item>mjpg</item>
+        <item>mm</item>
+        <item>mod</item>
+        <item>moov</item>
+        <item>mov</item>
+        <item>movie</item>
+        <item>mp2</item>
+        <item>mp3</item>
+        <item>mp4</item>
+        <item>mpa</item>
+        <item>mpe</item>
+        <item>mpeg</item>
+        <item>mpg</item>
+        <item>mpga</item>
+        <item>mv</item>
+        <item>my</item>
+        <item>o</item>
+        <item>odb</item>
+        <item>odc</item>
+        <item>odf</item>
+        <item>odg</item>
+        <item>odi</item>
+        <item>odm</item>
+        <item>odp</item>
+        <item>ods</item>
+        <item>odt</item>
+        <item>ogg</item>
+        <item>otg</item>
+        <item>oth</item>
+        <item>otp</item>
+         <item>ots</item>
+        <item>ott</item>
+        <item>oxt</item>
+        <item>p</item>
+        <item>pas</item>
+        <item>pbm</item>
+        <item>pcl</item>
+        <item>pct</item>
+        <item>pcx</item>
+        <item>pdf</item>
+        <item>pfunk</item>
+        <item>pgm</item>
+        <item>pic</item>
+        <item>pict</item>
+        <item>pl</item>
+        <item>plx</item>
+        <item>pm</item>
+        <item>png</item>
+        <item>pnm</item>
+        <item>pov</item>
+        <item>ppm</item>
+        <item>pps</item>
+        <item>ppsx</item>
+        <item>ppt</item>
+        <item>pptx</item>
+        <item>ps</item>
+        <item>psd</item>
+        <item>pwz</item>
+        <item>py</item>
+        <item>pyc</item>
+        <item>qif</item>
+        <item>qt</item>
+        <item>qtc</item>
+        <item>qti</item>
+        <item>qtif</item>
+        <item>ra</item>
+        <item>ram</item>
+        <item>rar</item>
+        <item>ras</item>
+        <item>rast</item>
+        <item>rexx</item>
+        <item>rf</item>
+        <item>rgb</item>
+        <item>rm</item>
+        <item>rmi</item>
+        <item>rmm</item>
+        <item>rmp</item>
+        <item>rng</item>
+        <item>roff</item>
+        <item>rt</item>
+        <item>rtf</item>
+        <item>rtx</item>
+        <item>rv</item>
+        <item>s</item>
+        <item>s3m</item>
+        <item>saveme</item>
+        <item>sbk</item>
+        <item>scm</item>
+        <item>sdml</item>
+        <item>sdp</item>
+        <item>sdr</item>
+        <item>sea</item>
+        <item>set</item>
+        <item>sgm</item>
+        <item>sgml</item>
+        <item>sh</item>
+        <item>shar</item>
+        <item>shtml</item>
+        <item>sid</item>
+        <item>sit</item>
+        <item>smi</item>
+        <item>smil</item>
+        <item>snd</item>
+        <item>sol</item>
+        <item>spc</item>
+        <item>spr</item>
+        <item>sprite</item>
+        <item>src</item>
+        <item>ssm</item>
+        <item>svf</item>
+        <item>svg</item>
+        <item>svr</item>
+        <item>swf</item>
+        <item>t</item>
+        <item>talk</item>
+        <item>tar</item>
+        <item>tar.lzma</item>
+        <item>tbk</item>
+        <item>tcl</item>
+        <item>tcsh</item>
+        <item>tex</item>
+        <item>texi</item>
+        <item>texinfo</item>
+        <item>text</item>
+        <item>tgz</item>
+        <item>tif</item>
+        <item>tiff</item>
+        <item>tr</item>
+        <item>tsi</item>
+        <item>tsp</item>
+        <item>tsv</item>
+        <item>txt</item>
+        <item>tzp</item>
+        <item>uri</item>
+        <item>uu</item>
+        <item>vcd</item>
+        <item>vcs</item>
+        <item>vdo</item>
+        <item>voc</item>
+        <item>vox</item>
+        <item>vrml</item>
+        <item>vsd</item>
+        <item>vst</item>
+        <item>war</item>
+        <item>wav</item>
+        <item>wma</item>
+        <item>wmf</item>
+        <item>wml</item>
+        <item>wmv</item>
+        <item>wri</item>
+        <item>x-png</item>
+        <item>xbm</item>
+        <item>xif</item>
+        <item>xl</item>
+        <item>xls</item>
+        <item>xlsx</item>
+        <item>xlt</item>
+        <item>xm</item>
+        <item>xml</item>
+        <item>xpix</item>
+        <item>xpm</item>
+        <item>z</item>
+        <item>zip</item>
+        <item>zoo</item>
+        <item>zsh</item>
+    </string-array>
+
+</resources>
