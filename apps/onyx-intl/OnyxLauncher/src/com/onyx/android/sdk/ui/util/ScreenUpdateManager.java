@@ -91,7 +91,7 @@ public final class ScreenUpdateManager
     
     public static void setWindowRotation(int rotation)
     {
-        Log.d(TAG, "setWindowRotation);
+        Log.d(TAG, "setWindowRotation");
         if (!sInitialized) {
             init();
         }
