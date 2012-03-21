@@ -65,10 +65,12 @@ public final class ScreenUpdateManager
     
     public static int getWindowRotation()
     {
+        Log.d(TAG, "getWindowRotation");
         if (!sInitialized) {
             init();
         }
         
+        Log.d(TAG, "sMethodGetWindowRotation not null: " + (sMethodGetWindowRotation != null));
         if (sMethodGetWindowRotation != null) {
             try {
                 return (Integer)sMethodGetWindowRotation.invoke(null);
@@ -79,6 +81,9 @@ public final class ScreenUpdateManager
             } catch (InvocationTargetException e) {
                 Log.w(TAG, e);
             }
+	    finally {
+		Log.d(TAG, "sMethodGetWindowRotation finished");
+	    }
         }
         
         return Surface.ROTATION_0;
@@ -86,10 +91,12 @@ public final class ScreenUpdateManager
     
     public static void setWindowRotation(int rotation)
     {
+        Log.d(TAG, "setWindowRotation);
         if (!sInitialized) {
             init();
         }
         
+        Log.d(TAG, "sMethodSetWindowRotation not null: " + (sMethodSetWindowRotation != null));
         if (sMethodSetWindowRotation != null) {
             try {
                 final int Surface_FLAGS_ORIENTATION_ANIMATION_DISABLE = 0x000000001;
@@ -101,6 +108,9 @@ public final class ScreenUpdateManager
             } catch (InvocationTargetException e) {
                 Log.w(TAG, e);
             }
+	    finally {
+		Log.d(TAG, "sMethodSetWindowRotation");
+	    }
         }
     }
     
@@ -201,6 +211,7 @@ public final class ScreenUpdateManager
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
+	Log.d(TAG, "reflecting window ratation api success.");
         
         try {
             Field fld_policy_automic = cls.getField("EINK_ONYX_AUTO_MASK");
