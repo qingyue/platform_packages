@@ -126,8 +126,6 @@ public class OnyxPagedGridViewHost extends LinearLayout
                 if (mGridView.getPagedAdapter().getPaginator().canPrevPage()) {
                     mGridView.getPagedAdapter().getPaginator().prevPage();
                 }
-                mButtonPreviousPage.setFocusable(true);
-                mButtonPreviousPage.setFocusableInTouchMode(true);
                 mButtonPreviousPage.requestFocus();
             }
         });
@@ -141,8 +139,6 @@ public class OnyxPagedGridViewHost extends LinearLayout
                 if (mGridView.getPagedAdapter().getPaginator().canNextPage()) {
                     mGridView.getPagedAdapter().getPaginator().nextPage();
                 }
-                mButtonNextPage.setFocusable(true);
-                mButtonNextPage.setFocusableInTouchMode(true);
                 mButtonNextPage.requestFocus();
             }
         });

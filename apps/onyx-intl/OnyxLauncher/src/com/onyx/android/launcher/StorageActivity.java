@@ -326,11 +326,14 @@ public class StorageActivity extends OnyxBaseActivity
             mFileGridView.onPreparePaste();
         }
 
+        if (savedInstanceState != null && savedInstanceState.containsKey("URI")) {
+			mStartingURI = GridItemManager.getURIFromFilePath((new File(savedInstanceState.getString("URI")).getPath()));
+		}
+
         this.handleNewIntent();
-        
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
-        
+
         ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GU);
     }
 
@@ -383,6 +386,14 @@ public class StorageActivity extends OnyxBaseActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
+    	if (((OnyxFileGridView)findViewById(R.id.gridview_storage)).getButtonCancel().isFocused() == true
+    			|| ((OnyxFileGridView)findViewById(R.id.gridview_storage)).getButtonCopy().isFocused() == true
+    			|| ((OnyxFileGridView)findViewById(R.id.gridview_storage)).getButtonCut().isFocused() == true
+    			|| ((OnyxFileGridView)findViewById(R.id.gridview_storage)).getButtonDelete().isFocused() == true
+    			|| ((OnyxFileGridView)findViewById(R.id.gridview_storage)).getButtonPaste().isFocused() == true) {
+    		ScreenUpdateManager.invalidate(((OnyxFileGridView)findViewById(R.id.gridview_storage)), UpdateMode.GU);
+    	}
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (mAdapter.getMultipleSelectionMode()) {
                 mFileGridView.onCancelMultipleSelection();
@@ -413,7 +424,9 @@ public class StorageActivity extends OnyxBaseActivity
             throw new RuntimeException();
         }
 
-        mStartingURI = uri;
+        if (mStartingURI == null) {
+        	mStartingURI = uri;
+		}
         return GridItemManager.processURI(this.getGridView(), mStartingURI, this);
     }
 
@@ -495,5 +508,13 @@ public class StorageActivity extends OnyxBaseActivity
         }
 
         return false;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    	OnyxItemURI item_uri = mAdapter.getHostURI();
+    	String uri = GridItemManager.getFileFromURI(item_uri).getPath();
+    	outState.putString("URI", uri);
+    	super.onSaveInstanceState(outState);
     }
 }

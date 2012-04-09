@@ -40,8 +40,7 @@ public class ApplicationsActivity extends OnyxBaseActivity
     @Override
     public OnyxGridView getGridView()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return mGridView;
     }
     
     @Override
@@ -91,7 +90,6 @@ public class ApplicationsActivity extends OnyxBaseActivity
                 ScreenUpdateManager.invalidate(ApplicationsActivity.this.getGridView(), UpdateMode.GU);
             }
         });
-        
         mGridView.setAdapter(mAdapter);
         
         this.registerLongPressListener();

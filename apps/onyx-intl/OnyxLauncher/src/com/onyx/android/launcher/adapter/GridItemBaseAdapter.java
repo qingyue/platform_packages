@@ -187,12 +187,7 @@ public abstract class GridItemBaseAdapter extends OnyxPagedAdapter
             return false;
         }
         
-        if (this.getPaginator().getPageSize() > 0) {
-            this.getPaginator().setPageIndex(i / this.getPaginator().getPageSize());
-            this.getGridView().setSelection(i % this.getPaginator().getPageSize());
-        }
-        
-        return false;
+        return this.locatePageByItemIndex(i);
     }
 
     public boolean getMultipleSelectionMode()

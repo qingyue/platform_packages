@@ -108,11 +108,16 @@ public class GridViewPaginator
         this.notifyPageIndexChanged();
     }
     
+    /**
+     * page count never return 0, at least return 1
+     * 
+     * @return
+     */
     public int getPageCount()
     {
        // dynamic calculating total page number by item count and page size
         if (this.getPageSize() <= 0) {
-            return 0;
+            return 1;
         }
         
         int page_count = this.getItemCount() / this.getPageSize();
@@ -120,7 +125,8 @@ public class GridViewPaginator
         if (mod != 0) {
             page_count++;
         }
-        return page_count;
+        
+        return page_count != 0 ? page_count : 1;
     }
     
     public int getPageIndex()

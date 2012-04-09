@@ -45,7 +45,7 @@ public class DialogPageSeekBar extends Dialog
 
     public DialogPageSeekBar(Context context, OnyxPagedAdapter adapter)
     {
-        super(context, R.style.dialog_no_title);
+        super(context, R.style.dialog_seekbar);
         
         mAdapter = adapter;
         mContext = context;

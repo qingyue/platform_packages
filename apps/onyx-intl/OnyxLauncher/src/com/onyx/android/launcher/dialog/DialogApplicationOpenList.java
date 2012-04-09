@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.pm.ResolveInfo;
 import android.database.DataSetObserver;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import com.onyx.android.launcher.dialog.adapter.GridViewApplicationOpenListAdapt
 import com.onyx.android.launcher.view.OnyxDialogBase;
 import com.onyx.android.sdk.data.sys.OnyxAppPreferenceCenter;
 import com.onyx.android.sdk.ui.OnyxGridView;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * 
@@ -59,7 +62,7 @@ public class DialogApplicationOpenList extends OnyxDialogBase
     private TextView mTextViewPage = null;
     private CheckBox mCheckBoxDefaultOpen = null;
     private Context mContext = null;
-    
+    private View mView = null;
     private GridViewApplicationOpenListAdapter mAdapter = null;
     
     private String mExt = null;
@@ -67,8 +70,9 @@ public class DialogApplicationOpenList extends OnyxDialogBase
     public DialogApplicationOpenList(Context context, List<ResolveInfo> resolveInfoList, String ext)
     {
         super(context);
-        
-        this.setContentView(R.layout.dialog_application_openlist);
+
+        mView = getLayoutInflater().inflate(R.layout.dialog_application_openlist, null);
+        this.setContentView(mView);
         
         mContext = context;
         mExt =ext;
@@ -164,5 +168,11 @@ public class DialogApplicationOpenList extends OnyxDialogBase
                 mAdapter.getPaginator().getPageCount() : 1;
 
         mTextViewPage.setText(String.valueOf(current_page) + "/" + String.valueOf(page_count));
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	ScreenUpdateManager.invalidate(mView, UpdateMode.GU);
+    	return super.onKeyDown(keyCode, event);
     }
 }

@@ -167,6 +167,7 @@ public class LibraryActivity extends OnyxBaseActivity
             mActivity.mAdapter.appendItems(items);
             
             if (mActivity.mProgressDialog.isShowing()) {
+                ScreenUpdateManager.postInvalidate(mActivity.getWindow().getDecorView(), UpdateMode.GU);
                 mActivity.mProgressDialog.cancel();
             }
             
@@ -202,6 +203,10 @@ public class LibraryActivity extends OnyxBaseActivity
                 Log.d(TAG, "load book metadata in onPostExecute()");
                 ScreenUpdateManager.invalidate(mActivity.getGridView(), UpdateMode.GU);
                 mActivity.loadBookMetadataAsync();
+            }
+
+            if(mActivity.getBundle() != null && mActivity.getBundle().containsKey("index")) {
+            	mActivity.mAdapter.locatePageByItemIndex(mActivity.getBundle().getInt("index"));
             }
 
             mActivity.mFileGridView.getGridView().setSelection(0);
@@ -482,7 +487,7 @@ public class LibraryActivity extends OnyxBaseActivity
         if (CopyService.getSourceItems() != null) {
             mFileGridView.onPreparePaste();
         }
-        
+
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
     }
@@ -523,6 +528,14 @@ public class LibraryActivity extends OnyxBaseActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
+    	if (((OnyxFileGridView)findViewById(R.id.gridview_library)).getButtonCancel().isFocused() == true
+			|| ((OnyxFileGridView)findViewById(R.id.gridview_library)).getButtonCopy().isFocused() == true
+			|| ((OnyxFileGridView)findViewById(R.id.gridview_library)).getButtonCut().isFocused() == true
+			|| ((OnyxFileGridView)findViewById(R.id.gridview_library)).getButtonDelete().isFocused() == true
+			|| ((OnyxFileGridView)findViewById(R.id.gridview_library)).getButtonPaste().isFocused() == true) {
+    		ScreenUpdateManager.invalidate(((OnyxFileGridView)findViewById(R.id.gridview_library)), UpdateMode.GU);
+		}
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (mAdapter.getMultipleSelectionMode()) {
                 mFileGridView.onCancelMultipleSelection();

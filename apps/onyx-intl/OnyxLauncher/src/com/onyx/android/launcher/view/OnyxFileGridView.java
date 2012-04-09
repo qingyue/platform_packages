@@ -27,6 +27,8 @@ import com.onyx.android.launcher.task.CutFileTask;
 import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.OnyxPagedAdapter;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * custom gridview control supporting file operation 
@@ -78,6 +80,7 @@ public class OnyxFileGridView extends LinearLayout
         mButtonDelete.setVisibility(View.VISIBLE);
         mButtonCopy.setVisibility(View.VISIBLE);
         mButtonCut.setVisibility(View.VISIBLE);
+        ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
     }
     
     public void onPreparePaste()
@@ -110,6 +113,8 @@ public class OnyxFileGridView extends LinearLayout
         if (mButtonPaste.getVisibility() == View.VISIBLE) {
             mButtonPaste.setVisibility(View.GONE);
         }
+
+        ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
     }
 
     public void setCanPaste(boolean canPaste)
@@ -194,8 +199,6 @@ public class OnyxFileGridView extends LinearLayout
                 if (mGridView.getPagedAdapter().getPaginator().canPrevPage()) {
                     mGridView.getPagedAdapter().getPaginator().prevPage();
                 }
-                mButtonPreviousPage.setFocusable(true);
-                mButtonPreviousPage.setFocusableInTouchMode(true);
                 mButtonPreviousPage.requestFocus();
             }
         });
@@ -209,8 +212,6 @@ public class OnyxFileGridView extends LinearLayout
                 if (mGridView.getPagedAdapter().getPaginator().canNextPage()) {
                     mGridView.getPagedAdapter().getPaginator().nextPage();
                 }
-                mButtonNextPage.setFocusable(true);
-                mButtonNextPage.setFocusableInTouchMode(true);
                 mButtonNextPage.requestFocus();
             }
         });
@@ -247,6 +248,8 @@ public class OnyxFileGridView extends LinearLayout
                 if (mButtonDelete.getVisibility() == View.VISIBLE) {
                     mButtonDelete.setVisibility(View.GONE);
                 }
+
+                ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
             }
         });
 
@@ -363,5 +366,30 @@ public class OnyxFileGridView extends LinearLayout
                 mButtonPaste.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public Button getButtonCopy()
+    {
+    	return mButtonCopy;
+    }
+
+    public Button getButtonCut()
+    {
+    	return mButtonCut;
+    }
+
+    public Button getButtonCancel()
+    {
+    	return mButtonCancel;
+    }
+
+    public Button getButtonDelete()
+    {
+    	return mButtonDelete;
+    }
+
+    public Button getButtonPaste()
+    {
+    	return mButtonPaste;
     }
 }

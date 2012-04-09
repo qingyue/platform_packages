@@ -6,7 +6,6 @@ package com.onyx.android.launcher.dialog;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,7 +13,6 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.onyx.android.launcher.OnyxBaseActivity;
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.dialog.adapter.MenuRowAdapter;
 import com.onyx.android.launcher.dialog.adapter.MenuSuiteAdapter;
@@ -78,27 +76,16 @@ public class DialogContextMenu extends OnyxDialogBase
             mGridViewSuiteContent.setAdapter(content_adapter);
         }
 
-        OnyxBaseActivity activity = (OnyxBaseActivity) context;
-
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager windowManager = getWindow().getWindowManager();
         windowManager.getDefaultDisplay().getMetrics(metrics);
         LayoutParams params = getWindow().getAttributes();
 
-        if (activity.getRequestedOrientation() == -1) {
-            if (metrics.widthPixels > metrics.heightPixels) {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            }
-            else {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }
+        if (metrics.widthPixels > metrics.heightPixels) {
+        	params.width = (int) (metrics.widthPixels * 0.6); 
         }
-
-        if (activity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            params.width = (int) (metrics.widthPixels * 0.9);
-        }
-        else if (activity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-            params.width = (int) (metrics.widthPixels * 0.6);
+        else {
+        	params.width = (int) (metrics.widthPixels * 0.9);
         }
     }
 

@@ -109,7 +109,7 @@ public class BookrackGridViewAdapter extends GridItemBaseAdapter
             }
         }
         else {
-            ret_view = mInflater.inflate(R.layout.bookrack_gridview_item_detailview, null);
+            ret_view = mInflater.inflate(R.layout.gridview_bookrack_item_detailview, null);
 
             @SuppressWarnings("unused")
             TextView textview_author = (TextView)ret_view.findViewById(R.id.textview_library_detail_gridview_item_author);

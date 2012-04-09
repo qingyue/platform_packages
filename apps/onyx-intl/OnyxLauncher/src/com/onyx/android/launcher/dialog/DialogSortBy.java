@@ -5,17 +5,20 @@ package com.onyx.android.launcher.dialog;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.dialog.adapter.GridViewSortByAdapter;
 import com.onyx.android.launcher.view.OnyxDialogBase;
 import com.onyx.android.sdk.data.SortOrder;
 import com.onyx.android.sdk.ui.OnyxGridView;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * @author joy
@@ -30,6 +33,7 @@ public class DialogSortBy extends OnyxDialogBase
     private ImageView mImageViewNext = null;
     private GridViewSortByAdapter mAdapter = null;
     private OnyxGridView mGridView = null;
+    private View mView = null;
 
     public interface OnSortByListener
     {
@@ -54,7 +58,8 @@ public class DialogSortBy extends OnyxDialogBase
     {
         super(context);
 
-        this.setContentView(R.layout.dialog_sort_by);
+        mView = getLayoutInflater().inflate(R.layout.dialog_sort_by, null);
+        this.setContentView(mView);
 
         mGridView = (OnyxGridView)this.findViewById(R.id.gridview);
         mImageViewPrevious = (ImageView) this.findViewById(R.id.imageview_previous);
@@ -145,4 +150,9 @@ public class DialogSortBy extends OnyxDialogBase
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	ScreenUpdateManager.invalidate(mView, UpdateMode.GU);
+    	return super.onKeyDown(keyCode, event);
+    }
 }

@@ -74,11 +74,10 @@ public class SettingsActivity extends OnyxBaseActivity
         
         SettingsAdapter adapter = new SettingsAdapter(this, mGridView);
         ArrayList<GridItemData> settings = GridItemManager.getSettings();
-        adapter.fillItems(null, settings); 
+        adapter.fillItems(null, settings);
         mGridView.setAdapter(adapter);
-        
+
         this.registerLongPressListener();
-        
         ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GU);
     }
 

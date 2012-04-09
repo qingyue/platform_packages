@@ -6,6 +6,8 @@ package com.onyx.android.sdk.ui.data;
 import android.widget.BaseAdapter;
 
 import com.onyx.android.sdk.ui.OnyxGridView;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * @author joy
@@ -33,7 +35,17 @@ public abstract class OnyxPagedAdapter extends BaseAdapter
             {
                 int size = mPageLayout.getLayoutRowCount() * mPageLayout.getLayoutColumnCount();
                 if (mPaginator.getPageSize() != size) {
-                    mPaginator.setPageSize(size);
+                	int idx = mPaginator.getPageSize() * mPaginator.getPageIndex();
+                	mPaginator.setPageSize(size);
+
+                	if (size != 0) {
+                    	if (idx < mPaginator.getItemCount()) {
+                    		OnyxPagedAdapter.this.locatePageByItemIndex(idx);
+                    	}
+                    	else {
+                    		OnyxPagedAdapter.this.locatePageByItemIndex(mPaginator.getItemCount() - 1);
+                    	}
+                	}
                 }
             }
         });
@@ -57,8 +69,22 @@ public abstract class OnyxPagedAdapter extends BaseAdapter
                 if (OnyxPagedAdapter.this.getGridView().getChildCount() > 0) {
                     OnyxPagedAdapter.this.getGridView().setSelection(0);
                 }
+
+                ScreenUpdateManager.invalidate(OnyxPagedAdapter.this.getGridView(), UpdateMode.GU);
             }
         });
+    }
+
+    public Boolean locatePageByItemIndex(int index)
+    {
+
+        if (this.getPaginator().getPageSize() > 0) {
+            this.getPaginator().setPageIndex(index / this.getPaginator().getPageSize());
+            this.getGridView().setSelection(index % this.getPaginator().getPageSize());
+            return true;
+        }
+
+    	return false;
     }
     
     @Override

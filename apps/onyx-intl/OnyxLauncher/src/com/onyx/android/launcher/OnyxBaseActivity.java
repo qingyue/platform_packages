@@ -15,7 +15,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Surface;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -24,6 +23,7 @@ import android.widget.GridView;
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
 import com.onyx.android.launcher.data.StandardMenuFactory;
 import com.onyx.android.launcher.dialog.DialogContextMenu;
+import com.onyx.android.launcher.dialog.DialogScreenRotation;
 import com.onyx.android.sdk.data.util.ActivityUtil;
 import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.GridItemData;
@@ -42,6 +42,7 @@ import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 public abstract class OnyxBaseActivity extends Activity
 {
     private static final String TAG = "OnyxBaseActivity";
+    private Bundle mBundle = null;
 
     /**
      * get Activity's main GridView
@@ -119,6 +120,12 @@ public abstract class OnyxBaseActivity extends Activity
         ArrayList<OnyxMenuSuite> suites = new ArrayList<OnyxMenuSuite>();
         suites.add(StandardMenuFactory.getSystemMenuSuite(this));
         return suites;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    	mBundle = savedInstanceState;
+    	super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -222,12 +229,8 @@ public abstract class OnyxBaseActivity extends Activity
     {
         switch (item.getItemId()) {
         case R.id.home_option_menu_screen_rotation:
-            if (ScreenUpdateManager.getWindowRotation() == Surface.ROTATION_0) {
-                ScreenUpdateManager.setWindowRotation(Surface.ROTATION_90);
-            }
-            else {
-                ScreenUpdateManager.setWindowRotation(Surface.ROTATION_0);
-            }
+        	DialogScreenRotation rotation = new DialogScreenRotation(this);
+        	rotation.show();
             return true;
         case R.id.home_option_menu_storage_settings:
             this.mountSdCard();
@@ -242,6 +245,7 @@ public abstract class OnyxBaseActivity extends Activity
             return true;
         case R.id.home_option_menu_exit:
             this.finish();
+            return true;
         case R.id.home_option_menu_select_mutiple:
             GridItemBaseAdapter adapter = (GridItemBaseAdapter)this.getGridView().getPagedAdapter();
             if (!adapter.getMultipleSelectionMode()) {
@@ -296,4 +300,23 @@ public abstract class OnyxBaseActivity extends Activity
         ActivityUtil.startActivitySafely(this, i);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    	outState.putInt("index", getGridView().getPagedAdapter().getPaginator().getPageIndex() * getGridView().getPagedAdapter().getPaginator().getPageSize());
+    	super.onSaveInstanceState(outState);
+    }
+
+    public Bundle getBundle()
+    {
+    	return this.mBundle;
+    }
+
+    public void locatePageIndex()
+    {
+    	if (getGridView() != null && getGridView().getPagedAdapter() != null) {
+    		if(this.getBundle() != null && this.getBundle().containsKey("index")) {
+    			getGridView().getPagedAdapter().locatePageByItemIndex(this.getBundle().getInt("index"));
+    		}
+		}
+    }
 }

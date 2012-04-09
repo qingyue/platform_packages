@@ -5,6 +5,7 @@ package com.onyx.android.launcher.view;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.adapter.SelectionAdapter;
 import com.onyx.android.sdk.ui.OnyxGridView;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * @author joy
@@ -29,14 +32,16 @@ public class DialogBaseSettings extends OnyxDialogBase
     private TextView mTextViewTitle = null;
     private OnyxGridView mGridView = null;
     private SelectionAdapter mAdapter = null;
+    private View mView = null;
     
     private static final int sUnselection = -1;
 
     public DialogBaseSettings(Context context)
     {
         super(context);
-        
-        this.setContentView(R.layout.dialog_settings_selection_template);
+
+        mView = getLayoutInflater().inflate(R.layout.dialog_settings_selection_template, null);
+        this.setContentView(mView);
         
         mButtonPreviousPage = (Button) this.findViewById(R.id.button_previous_dialogpaged);
         mButtonNextPage = (Button) this.findViewById(R.id.button_next_dialogpaged);
@@ -91,12 +96,14 @@ public class DialogBaseSettings extends OnyxDialogBase
                     public void onChanged()
                     {
                         DialogBaseSettings.this.updateTextViewProgress();
+                        ScreenUpdateManager.invalidate(mView, UpdateMode.GU);
                     }
 
                     @Override
                     public void onInvalidated()
                     {
                         DialogBaseSettings.this.updateTextViewProgress();
+                        ScreenUpdateManager.invalidate(mView, UpdateMode.GU);
                     }
                 });
             }
@@ -157,4 +164,9 @@ public class DialogBaseSettings extends OnyxDialogBase
         mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	ScreenUpdateManager.invalidate(mView, UpdateMode.GU);
+    	return super.onKeyDown(keyCode, event);
+    }
 }

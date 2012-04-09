@@ -173,7 +173,7 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
         mAdapter = new RecentDocumentsAdapter(this, mFileGridView.getGridView());
         mAdapter.getPageLayout().setViewMode(RecentDocumentsActivity.ViewMode);
         Collection<BookItemData> books = CmsCenterHelper.getRecentReadings(this); 
-        mAdapter.fillItems(null, books); 
+        mAdapter.fillItems(null, books);
         mAdapter.getPaginator().registerOnPageIndexChangedListener(new OnPageIndexChangedListener()
         {
             
@@ -183,7 +183,7 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
                 ScreenUpdateManager.invalidate(RecentDocumentsActivity.this.getGridView(), UpdateMode.GU);
             }
         });
-        
+
         mFileGridView.getGridView().setAdapter(mAdapter);
 
         mFileOperationHandler = new FileOperationHandler(this, mAdapter) {
@@ -208,7 +208,7 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
         
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
-        
+
         ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GU);
     }
 
@@ -254,6 +254,13 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
+    	if (((OnyxFileGridView)findViewById(R.id.gridview_recent_documents)).getButtonCancel().isFocused() == true
+			|| ((OnyxFileGridView)findViewById(R.id.gridview_recent_documents)).getButtonCopy().isFocused() == true
+			|| ((OnyxFileGridView)findViewById(R.id.gridview_recent_documents)).getButtonCut().isFocused() == true
+			|| ((OnyxFileGridView)findViewById(R.id.gridview_recent_documents)).getButtonDelete().isFocused() == true
+			|| ((OnyxFileGridView)findViewById(R.id.gridview_recent_documents)).getButtonPaste().isFocused() == true) {
+    		ScreenUpdateManager.invalidate(((OnyxFileGridView)findViewById(R.id.gridview_recent_documents)), UpdateMode.GU);
+		}
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (mAdapter.getMultipleSelectionMode()) {
                 mFileGridView.onCancelMultipleSelection();

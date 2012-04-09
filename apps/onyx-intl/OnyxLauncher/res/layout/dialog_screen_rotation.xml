@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/button_180"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/screen_direction_180" />
+
+    <Button
+        android:id="@+id/button_90"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/screen_direction_90" />
+
+    <Button
+        android:id="@+id/button_270"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/screen_direction_270" />
+
+    <Button
+        android:id="@+id/button_0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/screen_direction_0" />
+
+    <ImageView
+        android:id="@+id/imageview_screen_direction"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/button_0"
+        android:layout_below="@id/button_180"
+        android:layout_toLeftOf="@id/button_270"
+        android:layout_toRightOf="@id/button_90"
+        android:contentDescription="@string/title"
+        android:src="@drawable/screen_direction" />
+
+</RelativeLayout>

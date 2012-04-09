@@ -56,6 +56,8 @@
         android:background="#FFFFFF"
         android:gravity="center"
         android:numColumns="auto_fit"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:stretchMode="columnWidth" />
 
     <LinearLayout
@@ -74,6 +76,8 @@
             android:paddingBottom="3dp"
             android:paddingTop="3dp"
             android:text="@string/paste"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:visibility="gone" />
 
         <Button
@@ -85,6 +89,8 @@
             android:paddingBottom="3dp"
             android:paddingTop="3dp"
             android:text="@string/copy"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:visibility="gone" />
 
         <Button
@@ -96,6 +102,8 @@
             android:paddingBottom="3dp"
             android:paddingTop="3dp"
             android:text="@string/cut"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:visibility="gone" />
 
         <Button
@@ -107,6 +115,8 @@
             android:paddingBottom="3dp"
             android:paddingTop="3dp"
             android:text="@string/delete"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:visibility="gone" />
 
         <Button
@@ -118,6 +128,8 @@
             android:paddingBottom="3dp"
             android:paddingTop="3dp"
             android:text="@string/cancel"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:visibility="gone" />
     </LinearLayout>
 

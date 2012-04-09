@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:visibility="gone"
-        style="@style/checkbox_style"
+        style="@style/checkbox_multiple_style"
         android:clickable="false"
         android:focusable="false" />
 

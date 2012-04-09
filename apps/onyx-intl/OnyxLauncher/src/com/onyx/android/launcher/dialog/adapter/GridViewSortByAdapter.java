@@ -81,6 +81,7 @@ public class GridViewSortByAdapter extends OnyxPagedAdapter
       }
       
       TextView textView = (TextView) ret_view.findViewById(R.id.textview_sort_by_name);
+      TextView textViewDividing = (TextView) ret_view.findViewById(R.id.textview_dividing);
 
       // TODO: getItemCurrentHeight() maybe 0, need further watch
       final int height = Math.max(this.getPageLayout().getItemCurrentHeight(),
@@ -109,6 +110,9 @@ public class GridViewSortByAdapter extends OnyxPagedAdapter
 
         textView.setText(text);
         ret_view.setTag(order);
+        if (position == (mOrders.length - 1)) {
+			textViewDividing.setVisibility(View.INVISIBLE);
+		}
 
         return ret_view;
     }
