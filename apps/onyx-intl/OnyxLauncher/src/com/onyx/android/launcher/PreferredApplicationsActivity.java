@@ -25,6 +25,8 @@ import com.onyx.android.sdk.data.sys.OnyxAppPreference;
 import com.onyx.android.sdk.data.sys.OnyxAppPreferenceCenter;
 import com.onyx.android.sdk.data.util.IntentFilterFactory;
 import com.onyx.android.sdk.ui.OnyxGridView;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 /**
  * 
  * @author qingyue
@@ -104,6 +106,8 @@ public class PreferredApplicationsActivity extends OnyxBaseActivity
                 }
             }
         });
+
+        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC); 
 
         this.registerLongPressListener();
     }

@@ -24,6 +24,8 @@ import com.onyx.android.sdk.ui.data.BookItemData;
 import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.FileItemData.FileType;
 import com.onyx.android.sdk.ui.data.GridItemData;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 public class CopyFileTask extends AsyncTask<Void, Map<String, Object>, Void>
 {
@@ -90,6 +92,7 @@ public class CopyFileTask extends AsyncTask<Void, Map<String, Object>, Void>
             mAdapter.getItems().add((GridItemData)values[0].get("gridItemData"));
             mAdapter.getPaginator().setItemCount(mAdapter.getPaginator().getItemCount() + 1);
         }
+        ScreenUpdateManager.invalidate(mActivity.getGridView(), UpdateMode.GU);
     }
 
     @Override

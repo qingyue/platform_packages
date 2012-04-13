@@ -3,6 +3,7 @@
 
     <string name="app_name">Homework</string>
     <string name="cancel">Cancel</string>
+    <string name="change">Change</string>
     <string name="copy">Copy</string>
     <string name="cover">cover</string>
     <string name="cut">Cut</string>
@@ -17,6 +18,7 @@
     <string name="new_extension">New Extension</string>
     <string name="next">next</string>
     <string name="no">no</string>
+    <string name="unable_open_file">unable to open this type of file</string>
     <string name="page">page</string>
     <string name="paste">Paste</string>
     <string name="path">Path</string>
@@ -49,6 +51,7 @@
     <string name="newfolder_text">Folder Name: </string>
     <string name="newfolder_title">New Folder</string>
     <string name="openlist_title">Complete action using</string>
+    <string name="open_with">Open With</string>
     <string name="paged_init_text">1/1</string>
     
     <string name="symbol_sort_by">sort by</string>
@@ -76,4 +79,6 @@
     
     <string name="menu_suite_system">System</string>
     <string name="menu_system_notification">Notifications</string>
+    <string name="slash">/</string>
+
 </resources>

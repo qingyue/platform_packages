@@ -24,6 +24,7 @@ import com.onyx.android.launcher.data.FileOperationHandler;
 import com.onyx.android.launcher.data.GridItemManager;
 import com.onyx.android.launcher.data.StandardMenuFactory;
 import com.onyx.android.launcher.data.StandardMenuFactory.FileOperationMenuItem;
+import com.onyx.android.launcher.dialog.DialogContextMenu;
 import com.onyx.android.launcher.dialog.DialogRecentReadingRemove;
 import com.onyx.android.launcher.view.OnyxPagedGridViewHost;
 import com.onyx.android.sdk.data.OnyxItemURI;
@@ -110,7 +111,7 @@ public class LauncherActivity extends OnyxBaseActivity
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long id)
             {
-                LauncherActivity.this.openOptionsMenu();
+//                LauncherActivity.this.openOptionsMenu();
                 return true;
             }
         });
@@ -120,7 +121,9 @@ public class LauncherActivity extends OnyxBaseActivity
             @Override
             public void onLongPress()
             {
-                LauncherActivity.this.openOptionsMenu();
+            	ArrayList<OnyxMenuSuite> suites = new ArrayList<OnyxMenuSuite>();
+                suites.add(StandardMenuFactory.getSystemMenuSuite(LauncherActivity.this));
+                new DialogContextMenu(LauncherActivity.this, suites).show();
             }
         });
     }
@@ -221,7 +224,7 @@ public class LauncherActivity extends OnyxBaseActivity
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
 
-        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GU); 
+        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC); 
 
         Log.d(TAG, "onCreate finished");
     }

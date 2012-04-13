@@ -167,12 +167,14 @@ public class OnyxFileGridView extends LinearLayout
                     public void onChanged()
                     {
                         OnyxFileGridView.this.updatemTextViewProgress();
+                        ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
                     }
 
                     @Override
                     public void onInvalidated()
                     {
                         OnyxFileGridView.this.updatemTextViewProgress();
+                        ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
                     }
                 });
             }
@@ -264,6 +266,7 @@ public class OnyxFileGridView extends LinearLayout
                     mFileOperationHandler.onCopy();
                     OnyxFileGridView.this.finishMultipleSelection();
                     OnyxFileGridView.this.showPasteButton();
+                    ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
                 }
             }
         });
@@ -279,6 +282,7 @@ public class OnyxFileGridView extends LinearLayout
                     mFileOperationHandler.onCut();
                     OnyxFileGridView.this.finishMultipleSelection();
                     OnyxFileGridView.this.showPasteButton();
+                    ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
                 }
             }
         });
@@ -301,6 +305,7 @@ public class OnyxFileGridView extends LinearLayout
                     ((GridItemBaseAdapter) mGridView.getPagedAdapter()).cleanSelectedItems();
                     OnyxFileGridView.this.finishMultipleSelection();
                     mButtonCancel.setVisibility(View.GONE);
+                    ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
                 }
             }
         });
@@ -323,6 +328,8 @@ public class OnyxFileGridView extends LinearLayout
                     cutFileTask.execute();
                 }
                 CopyService.clean();
+                ScreenUpdateManager.invalidate(mButtonCancel, UpdateMode.GU);
+                ScreenUpdateManager.invalidate(mButtonPaste, UpdateMode.GU);
             }
         });
 
@@ -340,6 +347,8 @@ public class OnyxFileGridView extends LinearLayout
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
         mButtonProgress.setText(String.valueOf(current_page) + "/" + String.valueOf(page_count));
+
+        ScreenUpdateManager.invalidate(mButtonProgress, UpdateMode.GU);
     }
 
     private void setFileOperationsHandlerSourceItems()

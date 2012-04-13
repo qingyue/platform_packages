@@ -6,7 +6,7 @@
     android:minWidth="290dp"
     android:orientation="horizontal" >
 
-    <com.onyx.android.sdk.ui.OnyxGridView
+    <com.onyx.android.launcher.view.ContextMenuGridView
         android:id="@+id/gridview_suite_title"
         style="@style/background"
         android:layout_width="100dp"
@@ -19,7 +19,12 @@
         android:stretchMode="spacingWidth"
         android:verticalSpacing="2dp" />
 
-    <com.onyx.android.sdk.ui.OnyxGridView
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#000000" />
+
+    <com.onyx.android.launcher.view.ContextMenuGridView
         android:id="@+id/gridview_suite_content"
         style="@style/background"
         android:layout_width="wrap_content"

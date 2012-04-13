@@ -24,6 +24,8 @@ import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
  */
 public class DialogScreenRotation extends DialogBaseSettings
 {
+	Activity mHostActivity = null;
+	
 	private Button mButton_0 = null;
 	private Button mButton_90 = null;
 	private Button mButton_180 = null;
@@ -32,6 +34,8 @@ public class DialogScreenRotation extends DialogBaseSettings
 	public DialogScreenRotation(Activity hostActivity)
 	{
 		super(hostActivity);
+		
+		mHostActivity = hostActivity;
 
 		this.setContentView(R.layout.dialog_screen_rotation);
 		mButton_0 = (Button)findViewById(R.id.button_0);
@@ -115,9 +119,7 @@ public class DialogScreenRotation extends DialogBaseSettings
 
 	private void rotation_90()
 	{
-		DialogScreenRotation.this.dismiss();
-
-		ScreenUpdateManager.invalidate(DialogScreenRotation.this.getWindow().getDecorView(), UpdateMode.GC);
+		ScreenUpdateManager.invalidate(mHostActivity.getWindow().getDecorView(), UpdateMode.GC);
 		if (ScreenUpdateManager.getWindowRotation() != Surface.ROTATION_90) {
 			if (ScreenUpdateManager.getWindowRotation() == Surface.ROTATION_0) {
 				ScreenUpdateManager.setWindowRotation(Surface.ROTATION_90);
@@ -132,13 +134,13 @@ public class DialogScreenRotation extends DialogBaseSettings
 		else {
 			ScreenUpdateManager.setWindowRotation(Surface.ROTATION_180);
 		}
+
+		DialogScreenRotation.this.dismiss();
 	}
 
 	private void rotation_180()
 	{
-		DialogScreenRotation.this.dismiss();
-
-		ScreenUpdateManager.invalidate(DialogScreenRotation.this.getWindow().getDecorView(), UpdateMode.GC);
+		ScreenUpdateManager.invalidate(mHostActivity.getWindow().getDecorView(), UpdateMode.GC);
 		if (ScreenUpdateManager.getWindowRotation() != Surface.ROTATION_180) {
 			if (ScreenUpdateManager.getWindowRotation() == Surface.ROTATION_0) {
 				ScreenUpdateManager.setWindowRotation(Surface.ROTATION_180);
@@ -153,13 +155,13 @@ public class DialogScreenRotation extends DialogBaseSettings
 		else {
 			ScreenUpdateManager.setWindowRotation(Surface.ROTATION_0);
 		}
+
+		DialogScreenRotation.this.dismiss();
 	}
 
 	private void rotation_270()
 	{
-		DialogScreenRotation.this.dismiss();
-
-		ScreenUpdateManager.invalidate(DialogScreenRotation.this.getWindow().getDecorView(), UpdateMode.GC);
+		ScreenUpdateManager.invalidate(mHostActivity.getWindow().getDecorView(), UpdateMode.GC);
 		if (ScreenUpdateManager.getWindowRotation() != Surface.ROTATION_270) {
 			if (ScreenUpdateManager.getWindowRotation() == Surface.ROTATION_0) {
 				ScreenUpdateManager.setWindowRotation(Surface.ROTATION_270);
@@ -174,5 +176,7 @@ public class DialogScreenRotation extends DialogBaseSettings
 		else {
 			ScreenUpdateManager.setWindowRotation(Surface.ROTATION_180);
 		}
+
+		DialogScreenRotation.this.dismiss();
 	}
 }

@@ -19,6 +19,8 @@ import com.onyx.android.sdk.ui.data.BookItemData;
 import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.FileItemData.FileType;
 import com.onyx.android.sdk.ui.data.GridItemData;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 public class CutFileTask extends AsyncTask<Void, GridItemData, Void>
 {
@@ -97,6 +99,7 @@ public class CutFileTask extends AsyncTask<Void, GridItemData, Void>
     {
         GridItemBaseAdapter adapter = (GridItemBaseAdapter)mActivity.getGridView().getPagedAdapter();
         adapter.appendItems(new GridItemData[] { values[0] });
+        ScreenUpdateManager.invalidate(mActivity.getGridView(), UpdateMode.GU);
     }
 
     @Override

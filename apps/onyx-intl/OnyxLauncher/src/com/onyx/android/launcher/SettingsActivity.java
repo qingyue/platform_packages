@@ -78,7 +78,7 @@ public class SettingsActivity extends OnyxBaseActivity
         mGridView.setAdapter(adapter);
 
         this.registerLongPressListener();
-        ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GU);
+        ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GC);
     }
 
     @Override

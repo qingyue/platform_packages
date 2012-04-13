@@ -42,7 +42,6 @@ import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 public abstract class OnyxBaseActivity extends Activity
 {
     private static final String TAG = "OnyxBaseActivity";
-    private Bundle mBundle = null;
 
     /**
      * get Activity's main GridView
@@ -93,7 +92,8 @@ public abstract class OnyxBaseActivity extends Activity
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long id)
             {
-                OnyxBaseActivity.this.openOptionsMenu();
+            	ArrayList<OnyxMenuSuite> suites = OnyxBaseActivity.this.getContextMenuSuites();
+                new DialogContextMenu(OnyxBaseActivity.this, suites).show();
                 return true;
             }
         });
@@ -103,7 +103,7 @@ public abstract class OnyxBaseActivity extends Activity
             @Override
             public void onLongPress()
             {
-                OnyxBaseActivity.this.openOptionsMenu();
+//                OnyxBaseActivity.this.openOptionsMenu();
             }
         });
     }
@@ -120,12 +120,6 @@ public abstract class OnyxBaseActivity extends Activity
         ArrayList<OnyxMenuSuite> suites = new ArrayList<OnyxMenuSuite>();
         suites.add(StandardMenuFactory.getSystemMenuSuite(this));
         return suites;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-    	mBundle = savedInstanceState;
-    	super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -298,25 +292,5 @@ public abstract class OnyxBaseActivity extends Activity
     {
         Intent i = new Intent(android.provider.Settings.ACTION_MEMORY_CARD_SETTINGS);
         ActivityUtil.startActivitySafely(this, i);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    	outState.putInt("index", getGridView().getPagedAdapter().getPaginator().getPageIndex() * getGridView().getPagedAdapter().getPaginator().getPageSize());
-    	super.onSaveInstanceState(outState);
-    }
-
-    public Bundle getBundle()
-    {
-    	return this.mBundle;
-    }
-
-    public void locatePageIndex()
-    {
-    	if (getGridView() != null && getGridView().getPagedAdapter() != null) {
-    		if(this.getBundle() != null && this.getBundle().containsKey("index")) {
-    			getGridView().getPagedAdapter().locatePageByItemIndex(this.getBundle().getInt("index"));
-    		}
-		}
     }
 }

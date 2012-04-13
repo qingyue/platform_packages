@@ -22,6 +22,8 @@ import com.onyx.android.launcher.adapter.PowerManagementAdapter;
 import com.onyx.android.launcher.view.OnyxPagedGridViewHost;
 import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.GridItemData;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * @author joy
@@ -101,6 +103,8 @@ public class PowerManagementActivity extends OnyxBaseActivity
         mAdapter.fillItems(null, times);
         mGridView.setAdapter(mAdapter);
         
+        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC); 
+
         this.registerLongPressListener();
     }
 

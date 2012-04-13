@@ -18,6 +18,8 @@ import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.dialog.DialogPageSeekBar;
 import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.OnyxPagedAdapter;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
+import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * custom control of a OnyxGridView with page navigation buttons
@@ -155,6 +157,8 @@ public class OnyxPagedGridViewHost extends LinearLayout
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
         mButtonProgress.setText(String.valueOf(current_page) + "/" + String.valueOf(page_count));
+
+        ScreenUpdateManager.invalidate(OnyxPagedGridViewHost.this, UpdateMode.GU);
     }
     
 

@@ -201,12 +201,8 @@ public class LibraryActivity extends OnyxBaseActivity
             
             if (mWaitLoadMetadata) {
                 Log.d(TAG, "load book metadata in onPostExecute()");
-                ScreenUpdateManager.invalidate(mActivity.getGridView(), UpdateMode.GU);
+                ScreenUpdateManager.invalidate(mActivity.getGridView(), UpdateMode.GC);
                 mActivity.loadBookMetadataAsync();
-            }
-
-            if(mActivity.getBundle() != null && mActivity.getBundle().containsKey("index")) {
-            	mActivity.mAdapter.locatePageByItemIndex(mActivity.getBundle().getInt("index"));
             }
 
             mActivity.mFileGridView.getGridView().setSelection(0);
@@ -487,6 +483,8 @@ public class LibraryActivity extends OnyxBaseActivity
         if (CopyService.getSourceItems() != null) {
             mFileGridView.onPreparePaste();
         }
+
+        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC);
 
         this.initGridViewItemNavigation();
         this.registerLongPressListener();

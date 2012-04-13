@@ -255,4 +255,36 @@ public class SDFileFactory {
         
         return true;
     }
+
+    static long directory_size = 0;
+    static public long getDirectorySize(File file)
+    {
+    	directory_size = 0;
+
+        return SDFileFactory.getFileSize(file);
+    }
+
+    static private long getFileSize(File file)
+    {
+    	if (file.exists()) {
+            File currentFile = new File(file.toString());
+            File[] files = currentFile.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isFile()) {
+                    try {
+                    	FileInputStream fileInputStream = new FileInputStream(files[i]);
+						directory_size += fileInputStream.available();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
+                else if (files[i].isDirectory()) {
+                	getFileSize(files[i]);
+                }
+            }
+        }
+
+        return directory_size;
+    }
 }

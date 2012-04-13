@@ -3,135 +3,221 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-        <TextView android:id="@+id/textview_label_name"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            android:gravity="right"
-            android:text="@string/file_property_name" />
+    <TextView
+        android:id="@+id/textview_label_name"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:ellipsize="middle"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="@string/file_property_name"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView
-            android:id="@+id/textview_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/textview_label_name"
-            android:layout_alignParentTop="true"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            />
+    <TextView
+        android:id="@+id/textview_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/textview_label_name"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView android:id="@+id/textview_label_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@id/textview_label_name"
-            android:layout_below="@id/textview_label_name"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            android:gravity="right"
-            android:text="@string/file_property_title" 
-            />
+    <TextView
+        android:id="@+id/textview_label_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/textview_label_name"
+        android:layout_below="@id/textview_label_name"
+        android:ellipsize="middle"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="@string/file_property_title"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView
-            android:id="@+id/textview_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/textview_name"
-            android:layout_alignBottom="@id/textview_label_title"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            />
+    <TextView
+        android:id="@+id/textview_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/textview_label_title"
+        android:layout_alignLeft="@id/textview_name"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView android:id="@+id/textview_label_authors"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@id/textview_label_title"
-            android:layout_below="@id/textview_label_title"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            android:gravity="right"
-            android:text="@string/file_property_authors" 
-            />
+    <TextView
+        android:id="@+id/textview_label_authors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/textview_label_title"
+        android:layout_below="@id/textview_label_title"
+        android:ellipsize="middle"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="@string/file_property_authors"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView
-            android:id="@+id/textview_authors"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_alignLeft="@id/textview_title"
-            android:layout_alignBottom="@id/textview_label_authors"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            />
+    <TextView
+        android:id="@+id/textview_authors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/textview_label_authors"
+        android:layout_alignLeft="@id/textview_title"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView android:id="@+id/textview_label_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@id/textview_label_authors"
-            android:layout_below="@id/textview_label_authors"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            android:gravity="right"
-            android:text="@string/file_property_size" />
+    <TextView
+        android:id="@+id/textview_label_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/textview_label_authors"
+        android:layout_below="@id/textview_label_authors"
+        android:ellipsize="middle"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="@string/file_property_size"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView
-            android:id="@+id/textview_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_alignLeft="@id/textview_authors"
-            android:layout_alignBottom="@id/textview_label_size"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            />
+    <TextView
+        android:id="@+id/textview_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/textview_label_size"
+        android:layout_alignLeft="@id/textview_authors"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView android:id="@+id/textview_label_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@id/textview_label_size"
-            android:layout_below="@id/textview_label_size"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            android:gravity="right"
-            android:text="@string/file_property_description" />
+    <TextView
+        android:id="@+id/textview_label_path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/textview_label_size"
+        android:layout_below="@id/textview_label_size"
+        android:ellipsize="middle"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="@string/path"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
 
-        <TextView
-            android:id="@+id/textview_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_alignLeft="@id/textview_size"
-            android:layout_alignBottom="@id/textview_label_description"
-            android:singleLine="true"
-            android:ellipsize="middle"
-            android:textColor="@android:color/primary_text_light"
-            />
+    <TextView
+        android:id="@+id/textview_path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/textview_label_path"
+        android:layout_alignLeft="@id/textview_size"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textview_label_open_with"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/textview_label_path"
+        android:layout_below="@id/textview_label_path"
+        android:ellipsize="middle"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="@string/open_with"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textview_open_with"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/textview_label_open_with"
+        android:layout_alignLeft="@id/textview_path"
+        android:ellipsize="middle"
+        android:minWidth="70dp"
+        android:singleLine="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/button_change_open_with"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/textview_open_with"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/textview_open_with"
+        android:background="@drawable/button_background"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/change"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textview_label_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/textview_label_open_with"
+        android:layout_below="@id/textview_label_open_with"
+        android:ellipsize="middle"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="@string/file_property_description"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textview_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/textview_label_description"
+        android:layout_alignLeft="@id/textview_open_with"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_label_description"
+        android:layout_marginBottom="4dp"
+        android:gravity="center" >
 
         <Button
             android:id="@+id/button_set"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/textview_label_description"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1.0"
             android:background="@drawable/button_background"
-            android:text="@string/set" />
+            android:minWidth="120dp"
+            android:padding="2dp"
+            android:text="@string/set"
+            android:textSize="25dp" />
 
         <Button
             android:id="@+id/button_cancel"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/button_set"
-            android:layout_alignTop="@id/button_set"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1.0"
             android:background="@drawable/button_background"
-            android:text="@string/cancel" />
+            android:minWidth="120dp"
+            android:padding="2dp"
+            android:text="@string/cancel"
+            android:textSize="25dp" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -78,7 +78,6 @@
         android:columnWidth="90dp"
         android:fadingEdge="none"
         android:gravity="center"
-        android:listSelector="@drawable/gridview_selector_style"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth" />
 

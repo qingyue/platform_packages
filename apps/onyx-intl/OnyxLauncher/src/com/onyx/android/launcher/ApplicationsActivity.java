@@ -94,7 +94,7 @@ public class ApplicationsActivity extends OnyxBaseActivity
         
         this.registerLongPressListener();
         
-        ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GU);
+        ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GC);
     }
     
     /**
