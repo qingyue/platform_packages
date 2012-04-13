@@ -167,14 +167,12 @@ public class OnyxFileGridView extends LinearLayout
                     public void onChanged()
                     {
                         OnyxFileGridView.this.updatemTextViewProgress();
-                        ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
                     }
 
                     @Override
                     public void onInvalidated()
                     {
                         OnyxFileGridView.this.updatemTextViewProgress();
-                        ScreenUpdateManager.invalidate(OnyxFileGridView.this, UpdateMode.GU);
                     }
                 });
             }
@@ -329,7 +327,6 @@ public class OnyxFileGridView extends LinearLayout
                 }
                 CopyService.clean();
                 ScreenUpdateManager.invalidate(mButtonCancel, UpdateMode.GU);
-                ScreenUpdateManager.invalidate(mButtonPaste, UpdateMode.GU);
             }
         });
 
@@ -347,7 +344,6 @@ public class OnyxFileGridView extends LinearLayout
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
         mButtonProgress.setText(String.valueOf(current_page) + "/" + String.valueOf(page_count));
-
         ScreenUpdateManager.invalidate(mButtonProgress, UpdateMode.GU);
     }
 

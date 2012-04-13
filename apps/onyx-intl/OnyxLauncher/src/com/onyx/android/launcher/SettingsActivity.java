@@ -18,6 +18,7 @@ import com.onyx.android.launcher.data.GridItemManager;
 import com.onyx.android.launcher.view.OnyxPagedGridViewHost;
 import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.GridItemData;
+import com.onyx.android.sdk.ui.data.GridViewPaginator.OnPageIndexChangedListener;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
@@ -73,12 +74,21 @@ public class SettingsActivity extends OnyxBaseActivity
         });
         
         SettingsAdapter adapter = new SettingsAdapter(this, mGridView);
+        adapter.getPaginator().registerOnPageIndexChangedListener(new OnPageIndexChangedListener()
+        {
+            
+            @Override
+            public void onPageIndexChanged()
+            {
+                ScreenUpdateManager.invalidate(SettingsActivity.this.getWindow().getDecorView(), UpdateMode.GC);
+            }
+        });
+        
         ArrayList<GridItemData> settings = GridItemManager.getSettings();
         adapter.fillItems(null, settings);
         mGridView.setAdapter(adapter);
 
         this.registerLongPressListener();
-        ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GC);
     }
 
     @Override

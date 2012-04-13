@@ -87,7 +87,7 @@ public class ApplicationsActivity extends OnyxBaseActivity
             @Override
             public void onPageIndexChanged()
             {
-                ScreenUpdateManager.invalidate(ApplicationsActivity.this.getGridView(), UpdateMode.GU);
+                ScreenUpdateManager.invalidate(ApplicationsActivity.this.getGridView(), UpdateMode.GC);
             }
         });
         mGridView.setAdapter(mAdapter);

@@ -338,7 +338,7 @@ public class SearchResultActivity extends OnyxBaseActivity
                     public void onPageIndexChanged()
                     {
                         SearchResultActivity.this.loadBookMetadataAsync();
-                        ScreenUpdateManager.invalidate(SearchResultActivity.this.getGridView(), UpdateMode.GU);
+                        ScreenUpdateManager.invalidate(SearchResultActivity.this.getGridView(), UpdateMode.GC);
                     }
                 });
             }

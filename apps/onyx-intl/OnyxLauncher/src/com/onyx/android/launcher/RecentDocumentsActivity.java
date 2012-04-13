@@ -180,7 +180,7 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
             @Override
             public void onPageIndexChanged()
             {
-                ScreenUpdateManager.invalidate(RecentDocumentsActivity.this.getGridView(), UpdateMode.GU);
+                ScreenUpdateManager.invalidate(RecentDocumentsActivity.this.getGridView(), UpdateMode.GC);
             }
         });
 

@@ -121,6 +121,13 @@ public abstract class OnyxBaseActivity extends Activity
         suites.add(StandardMenuFactory.getSystemMenuSuite(this));
         return suites;
     }
+    
+    @Override
+    protected void onResume()
+    {
+    	Log.d(TAG, "onResume");
+    	super.onResume();
+    }
 
     @Override
     protected void onDestroy()

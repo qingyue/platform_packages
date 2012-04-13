@@ -338,7 +338,7 @@ public class LibraryActivity extends OnyxBaseActivity
                     public void onPageIndexChanged()
                     {
                         LibraryActivity.this.loadBookMetadataAsync();
-                        ScreenUpdateManager.invalidate(LibraryActivity.this.getGridView(), UpdateMode.GU);
+                        ScreenUpdateManager.invalidate(LibraryActivity.this.getGridView(), UpdateMode.GC);
                     }
                 });
             }

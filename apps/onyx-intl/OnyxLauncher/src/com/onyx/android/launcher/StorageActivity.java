@@ -181,7 +181,7 @@ public class StorageActivity extends OnyxBaseActivity
                     public void onPageIndexChanged()
                     {
                         StorageActivity.this.loadBookMetadataAsync();
-                        ScreenUpdateManager.invalidate(StorageActivity.this.getGridView(), UpdateMode.GU);
+                        ScreenUpdateManager.invalidate(StorageActivity.this.getGridView(), UpdateMode.GC);
                     }
                 });
             }
@@ -334,7 +334,7 @@ public class StorageActivity extends OnyxBaseActivity
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
 
-        ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GC);
+        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC);
     }
 
     @Override
@@ -343,13 +343,6 @@ public class StorageActivity extends OnyxBaseActivity
         Log.d(TAG, "onNewIntent");
         this.setIntent(intent);
         this.handleNewIntent();
-    }
-    
-    @Override
-    protected void onResume()
-    {
-        Log.d(TAG, "onResume");
-        super.onResume();
     }
     
     public boolean onOptionsItemSelected(MenuItem item)

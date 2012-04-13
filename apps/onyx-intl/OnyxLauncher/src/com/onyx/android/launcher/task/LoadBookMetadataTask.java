@@ -33,6 +33,8 @@ public class LoadBookMetadataTask extends AsyncTask<Void, GridItemData, Void>
 {
     private static final String TAG = "LoadBookMetadataTask";
     
+    private static final boolean VERBOSE = false;
+    
     Activity mActivity = null;
     OnyxGridView mGridView = null;
     ArrayList<GridItemData> mItems = new ArrayList<GridItemData>();
@@ -93,9 +95,9 @@ public class LoadBookMetadataTask extends AsyncTask<Void, GridItemData, Void>
                     continue;
                 }
                 
-                Log.d(TAG, "current item: " + book.getText());
+                if (VERBOSE) Log.d(TAG, "current item: " + book.getText());
                 if ((book.getMetadata() == null) || this.isDataObsolete(book.getMetadata(), file)) {
-                    Log.d(TAG, "metadata obsolete");
+                	if (VERBOSE) Log.d(TAG, "metadata obsolete");
                     if (this.isCancelled()) {
                         return null;
                     } 
@@ -105,7 +107,7 @@ public class LoadBookMetadataTask extends AsyncTask<Void, GridItemData, Void>
                     
                     if (book.getMetadata() == null) {
                         book.setMetadata(new OnyxMetadata());
-                        Log.d(TAG, "set metadata on " + book.getURI().getName());
+                        if (VERBOSE) Log.d(TAG, "set metadata on " + book.getURI().getName());
                     }
                     
                     book.getMetadata().setMD5(md5);
@@ -119,20 +121,20 @@ public class LoadBookMetadataTask extends AsyncTask<Void, GridItemData, Void>
                         return null;
                     }
                     time_point = System.currentTimeMillis();
-                    Log.d(TAG, "get metadata from db");
+                    if (VERBOSE) Log.d(TAG, "get metadata from db");
                     if (OnyxCmsCenter.getMetadata(mActivity, book.getMetadata())) {
-                        Log.d(TAG, "get metadata from db: success");
+                    	if (VERBOSE) Log.d(TAG, "get metadata from db: success");
                         if (!TextUtils.isEmpty(book.getMetadata().getLastAccess())) {
-                            Log.d(TAG, "last access: " + book.getMetadata().getLastAccess());
+                        	if (VERBOSE) Log.d(TAG, "last access: " + book.getMetadata().getLastAccess());
                         }
                         this.publishProgress(book);
                     }
                     time_db += System.currentTimeMillis() - time_point;
                     time_point = System.currentTimeMillis();
-                    Log.d(TAG, "thumbnail not null: " + (book.getThumbnail() != null));
+                    if (VERBOSE) Log.d(TAG, "thumbnail not null: " + (book.getThumbnail() != null));
                     if (book.getThumbnail() == null) {
                         Bitmap b = this.getThumbnail(book.getMetadata());
-                        Log.d(TAG, "get thumbnail from db: " + (b != null));
+                        if (VERBOSE) Log.d(TAG, "get thumbnail from db: " + (b != null));
                         if (b != null) {
                             book.setThumbnail(b);
                             this.publishProgress(book);
@@ -146,17 +148,17 @@ public class LoadBookMetadataTask extends AsyncTask<Void, GridItemData, Void>
                     }
                     // metadata can be altered at else place, so always try sync with cms db  
                     long time_point = System.currentTimeMillis();
-                    Log.d(TAG, "get metadata from db");
+                    if (VERBOSE) Log.d(TAG, "get metadata from db");
                     if (OnyxCmsCenter.getMetadata(mActivity, book.getMetadata())) {
-                        Log.d(TAG, "get metadata from db: success");
+                    	if (VERBOSE) Log.d(TAG, "get metadata from db: success");
                         this.publishProgress(book);
                     }
                     time_db += System.currentTimeMillis() - time_point;
                     time_point = System.currentTimeMillis();
-                    Log.d(TAG, "thumbnail not null: " + (book.getThumbnail() != null));
+                    if (VERBOSE) Log.d(TAG, "thumbnail not null: " + (book.getThumbnail() != null));
                     if (book.getThumbnail() == null) {
                         Bitmap b = this.getThumbnail(book.getMetadata());
-                        Log.d(TAG, "get thumbnail from db: " + (b != null));
+                        if (VERBOSE) Log.d(TAG, "get thumbnail from db: " + (b != null));
                         if (b != null) {
                             book.setThumbnail(b);
                             this.publishProgress(book);

@@ -6,8 +6,6 @@ package com.onyx.android.sdk.ui.data;
 import android.widget.BaseAdapter;
 
 import com.onyx.android.sdk.ui.OnyxGridView;
-import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
-import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * @author joy
@@ -69,8 +67,6 @@ public abstract class OnyxPagedAdapter extends BaseAdapter
                 if (OnyxPagedAdapter.this.getGridView().getChildCount() > 0) {
                     OnyxPagedAdapter.this.getGridView().setSelection(0);
                 }
-
-                ScreenUpdateManager.invalidate(OnyxPagedAdapter.this.getGridView(), UpdateMode.GU);
             }
         });
     }

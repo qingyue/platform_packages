@@ -39,7 +39,6 @@ import com.onyx.android.sdk.ui.data.GridItemData;
 import com.onyx.android.sdk.ui.data.GridViewPageLayout.GridViewMode;
 import com.onyx.android.sdk.ui.menu.OnyxMenuSuite;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
-import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdatePolicy;
 
 public class LauncherActivity extends OnyxBaseActivity
@@ -224,17 +223,14 @@ public class LauncherActivity extends OnyxBaseActivity
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
 
-        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC); 
-
         Log.d(TAG, "onCreate finished");
     }
 
     @Override
     protected void onResume()
     {
-        Log.d(TAG, "onResume");
         super.onResume();
-        
+
         GridItemBaseAdapter adapter = (GridItemBaseAdapter)mGridViewBookrack.getPagedAdapter();
         adapter.fillItems(null, CmsCenterHelper.getRecentReadings(this));
     }
