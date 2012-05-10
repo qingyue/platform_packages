@@ -392,6 +392,10 @@ public class LatinIME extends InputMethodService
               });
         }
         prefs.registerOnSharedPreferenceChangeListener(this);
+
+        WindowManager.LayoutParams params = getWindow().getWindow().getAttributes();
+        params.type = WindowManager.LayoutParams.TYPE_SEARCH_BAR;
+        getWindow().getWindow().setAttributes(params);
     }
 
     /**
