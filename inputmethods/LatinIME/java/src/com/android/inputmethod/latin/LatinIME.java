@@ -65,7 +65,7 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -400,20 +400,11 @@ public class LatinIME extends InputMethodService
         params.type = WindowManager.LayoutParams.TYPE_SEARCH_BAR;
         getWindow().getWindow().setAttributes(params);
 
-        public void setContentView(View view) {
-            mContentFrame.removeAllViews();
-            mContentFrame.addView(view, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
-
-        TextView textView = new TextView(this);
-        textView.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        textView.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        textView.setTextColor(Color.BLACK);
-        textView.setBackgroundColor(Color.WHITE);
-        textView.setTextSize(25);
-        this.setContentView(textView);
+        EditText editText = new EditText(this);
+        editText.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        editText.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        editText.setTextColor(Color.BLACK);
+        this.setContentFrameView(editText);
     }
 
     /**
