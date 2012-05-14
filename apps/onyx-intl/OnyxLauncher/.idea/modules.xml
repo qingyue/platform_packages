@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Homework.iml" filepath="$PROJECT_DIR$/Homework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sdk/data/onyx-data.iml" filepath="$PROJECT_DIR$/../sdk/data/onyx-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sdk/ui/onyx-ui.iml" filepath="$PROJECT_DIR$/../sdk/ui/onyx-ui.iml" />
+    </modules>
+  </component>
+</project>
+

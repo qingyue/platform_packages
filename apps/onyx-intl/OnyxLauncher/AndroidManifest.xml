@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.onyx.android.launcher"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <uses-permission android:name="android.permission.SET_ORIENTATION" />
+
+    <application
+        android:name="com.onyx.android.launcher.OnyxApplication"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.NoBackground" >
+        
+        <!-- give .SearchResultActivity a separate taskAffinity, 
+        so when navigating to new Activity from search, 
+        we can return to original stack bypassing ephemeral .SearchResultActivity  -->
+        <activity android:name=".SearchResultActivity"
+            android:configChanges="keyboardHidden"
+            android:label="SearchResult" android:launchMode="singleTask" 
+            android:taskAffinity="com.onyx.android.Launcher.search">
+
+            <!-- Receives the search request. -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <!-- No category needed, because the Intent will specify this class component -->
+            </intent-filter>
+
+            <!-- Points to searchable meta data. -->
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".LauncherActivity"
+            android:configChanges="keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+		<category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.MONKEY"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".StorageActivity"
+            android:configChanges="keyboardHidden"
+            android:label="Storage" android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden"
+            android:label="Settings" >
+        </activity>
+        <activity
+            android:name=".ApplicationsActivity"
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden"
+            android:label="Applications" >
+        </activity>
+        <activity
+            android:name=".PowerManagementActivity"
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden"
+            android:label="PowerManagement" >
+        </activity>
+        <activity
+            android:name=".LibraryActivity"
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden"
+            android:label="Library"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".RecentDocumentsActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PreferredApplicationsActivity"
+            android:configChanges="keyboardHidden"
+            android:label="PreferredApplications"
+            android:windowSoftInputMode="adjustPan" />
+
+        <provider
+            android:name="com.onyx.android.launcher.OnyxCmsProvider"
+            android:authorities="com.onyx.android.launcher.OnyxCmsProvider" >
+        </provider>
+        <provider
+            android:name="com.onyx.android.launcher.OnyxSysProvider"
+            android:authorities="com.onyx.android.launcher.OnyxSysProvider" />
+
+        <service android:name="com.onyx.android.launcher.OnyxFileScannerService" >
+        </service>
+
+        <receiver android:name="com.onyx.android.launcher.OnyxFileScannerReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_BAD_REMOVAL" />
+                <action android:name="android.intent.action.MEDIA_REMOVED" />
+                <action android:name="android.intent.action.MEDIA_SHARED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTABLE" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+
+                <data android:scheme="file" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value=".SearchResultActivity" />
+    </application>
+
+</manifest>

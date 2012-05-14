@@ -567,9 +567,7 @@ public class LatinKeyboard extends Keyboard {
                     allowVariableTextSize);
 
             // Draw language text with shadow
-            final int shadowColor = mRes.getColor(isBlack
-                    ? R.color.latinkeyboard_bar_language_shadow_black
-                    : R.color.latinkeyboard_bar_language_shadow_white);
+            final int shadowColor = mRes.getColor(R.color.latinkeyboard_bar_language_shadow_black);
             final float baseline = height * SPACEBAR_LANGUAGE_BASELINE;
             final float descent = paint.descent();
             paint.setColor(shadowColor);

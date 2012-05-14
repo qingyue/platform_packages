@@ -22,7 +22,7 @@
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content"
     android:textSize="18sp"
-    android:textColor="?android:attr/textColorPrimaryInverse"
+    android:textColor="#FF000000"
     android:minWidth="32dip"
     android:gravity="center"
     android:background="@drawable/candidate_feedback_background"

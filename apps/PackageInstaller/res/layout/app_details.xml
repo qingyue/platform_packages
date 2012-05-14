@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!--
+     Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,42 +13,44 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
+
 -->
 
 <!--
 Defines the layout of the application snippet that appears on top of the
 installation screens
+
 -->
-<!-- The snippet about the application - title, icon, description.  -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- The snippet about the application - title, icon, description. -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/app_snippet"
     android:layout_width="match_parent"
     android:layout_height="65dip"
-    android:background="@drawable/title_bar_medium"
->
-    <ImageView android:id="@+id/app_icon"
-        android:paddingLeft="6dip"
+    android:background="@drawable/title_bar_medium" >
+
+    <ImageView
+        android:id="@+id/app_icon"
         android:layout_width="54dip"
         android:layout_height="48dip"
-        android:background="@color/transparent"
         android:layout_alignParentLeft="true"
-        android:gravity="center"
         android:layout_centerInParent="true"
+        android:background="@color/transparent"
+        android:gravity="center"
+        android:paddingLeft="6dip"
         android:scaleType="centerCrop" />
-    <TextView android:id="@+id/app_name"
+
+    <TextView
+        android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="?android:attr/textColorPrimary"
-        android:shadowColor="@color/shadow"
-        android:shadowRadius="2"
-        android:layout_toRightOf="@id/app_icon"
-        android:singleLine="true"
-        android:gravity="center"
         android:layout_centerInParent="true"
-        android:paddingRight="6dip"
+        android:layout_toRightOf="@id/app_icon"
+        android:ellipsize="end"
+        android:gravity="center"
         android:paddingLeft="6dip"
-        android:ellipsize="end"/>
-</RelativeLayout>
+        android:paddingRight="6dip"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ff000000" />
 
+</RelativeLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:minWidth="290dp"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="2dp" >
+
+        <ImageView
+            android:id="@+id/imageview_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/title"
+            android:src="@android:drawable/ic_dialog_alert" />
+
+        <TextView
+            android:id="@+id/textview_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/imageview_title"
+            android:layout_alignTop="@id/imageview_title"
+            android:layout_toRightOf="@id/imageview_title"
+            android:gravity="center_vertical"
+            android:text="@string/recent_reading_remove_title"
+            android:textColor="@android:color/primary_text_light" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/textview_filename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@android:color/primary_text_light"
+            android:ellipsize="middle"
+            android:textSize="20dp" />
+        <CheckBox
+            android:id="@+id/checkbox_remove_file_on_disk" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/primary_text_light"
+            android:text="@string/recent_reading_remove_file_on_disk" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/button_set"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_background"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="@string/set" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_background"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="@string/cancel" />
+    </LinearLayout>
+
+</LinearLayout>

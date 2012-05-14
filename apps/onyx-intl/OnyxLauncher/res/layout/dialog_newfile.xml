@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:minWidth="290dp"
+  android:orientation="vertical">
+    <RelativeLayout 
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+    >
+       <ImageView 
+        android:id="@+id/imageview_newfile_title"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_more"
+        android:contentDescription="@string/title" />
+    <TextView 
+        android:id="@+id/textview_newfile_title"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:text="@string/newfile_title" 
+        android:textColor="@android:color/primary_text_light" 
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@id/imageview_newfile_title"
+        android:layout_alignTop="@id/imageview_newfile_title"
+        android:layout_alignBottom="@id/imageview_newfile_title" />
+    </RelativeLayout>
+    <TextView 
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="20dp"
+       android:text="@string/newfile_text"
+       android:singleLine="true"
+       android:padding="5dp"
+    />
+    <EditText 
+        android:id="@+id/edittext_newfile"
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:background="@drawable/edittext_background"
+        android:hint="@string/newfile_title"
+        android:textSize="20dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp" 
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp" 
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp" />
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+    >
+        <Button 
+            android:id="@+id/button_set_newfile" 
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" 
+            android:text="@string/set"
+            android:background="@drawable/button_background"
+            android:layout_margin="5dp" 
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp" />
+        <Button 
+            android:id="@+id/button_cancel_newfile"
+            android:layout_width="120dp" 
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" 
+            android:background="@drawable/button_background"
+            android:layout_margin="5dp" 
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp" />
+    </LinearLayout>
+</LinearLayout>

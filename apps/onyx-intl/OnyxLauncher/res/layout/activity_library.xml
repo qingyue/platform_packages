@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#999999" >
+
+    <ViewSwitcher
+        android:id="@+id/viewswitcher_library_title_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp" >
+
+        <ProgressBar
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/title"
+            android:src="@drawable/title_left" />
+    </ViewSwitcher>
+
+    <Button
+        android:id="@+id/button_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/viewswitcher_library_title_left"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/viewswitcher_library_title_left"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/button_background_onyxpathindicator"
+        android:minHeight="25dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/home"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_sort_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/viewswitcher_library_title_left"
+        android:layout_alignTop="@id/viewswitcher_library_title_left"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/button_home"
+        android:background="@drawable/button_background_onyxpathindicator"
+        android:minHeight="25dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/symbol_sort_by"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_change_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/viewswitcher_library_title_left"
+        android:layout_alignTop="@id/viewswitcher_library_title_left"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/button_sort_by"
+        android:background="@drawable/button_background_onyxpathindicator"
+        android:minEms="5"
+        android:minHeight="25dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/detail"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textview_library_title_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/viewswitcher_library_title_left"
+        android:layout_alignTop="@id/viewswitcher_library_title_left"
+        android:layout_toLeftOf="@id/button_change_view"
+        android:layout_toRightOf="@id/viewswitcher_library_title_left"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="@string/library"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp" />
+
+    <com.onyx.android.launcher.view.OnyxFileGridView
+        android:id="@+id/gridview_library"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:layout_below="@id/viewswitcher_library_title_left" />
+
+</RelativeLayout>
