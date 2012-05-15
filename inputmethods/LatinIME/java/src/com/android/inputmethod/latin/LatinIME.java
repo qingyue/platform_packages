@@ -155,6 +155,7 @@ public class LatinIME extends InputMethodService
     //private LatinKeyboardView mInputView;
     private LinearLayout mCandidateViewContainer;
     private CandidateView mCandidateView;
+    private OnyxContentView mContentView;
     private Suggest mSuggest;
     private CompletionInfo[] mCompletions;
 
@@ -400,11 +401,15 @@ public class LatinIME extends InputMethodService
         params.type = WindowManager.LayoutParams.TYPE_SEARCH_BAR;
         getWindow().getWindow().setAttributes(params);
 
-        EditText editText = new EditText(this);
-        editText.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        editText.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        editText.setTextColor(Color.BLACK);
-        this.setContentFrameView(editText);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate( R.layout.onyx_input_method_content_view, null);
+        mContentView = (OnyxContentView) view.findViewById(R.id.edittext_onyx_content);
+        mContentView.setService(this);
+        //EditText editText = new EditText(this);
+        mContentView.setTextColor(Color.BLACK);
+        mContentView.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mContentView.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        this.setContentFrameView(mContentView);
     }
 
     /**
@@ -1781,6 +1786,10 @@ public class LatinIME extends InputMethodService
             mCandidateView.setSuggestions(
                     suggestions, completions, typedWordValid, haveMinimalSuggestion);
         }
+
+        if (mContentView != null) {
+			mContentView.setSuggestions(suggestions, completions, typedWordValid, haveMinimalSuggestion);
+		}
     }
 
     private void updateSuggestions() {
@@ -1903,6 +1912,9 @@ public class LatinIME extends InputMethodService
             if (mCandidateView != null) {
                 mCandidateView.clear();
             }
+            if (mContentView != null) {
+				mContentView.clear();
+			}
             updateShiftKeyState(getCurrentInputEditorInfo());
             if (ic != null) {
                 ic.endBatchEdit();
@@ -1960,6 +1972,7 @@ public class LatinIME extends InputMethodService
         }
         if (showingAddToDictionaryHint) {
             mCandidateView.showAddToDictionaryHint(suggestion);
+            mContentView.showAddToDictionaryHint(suggestion);
         }
         if (ic != null) {
             ic.endBatchEdit();
