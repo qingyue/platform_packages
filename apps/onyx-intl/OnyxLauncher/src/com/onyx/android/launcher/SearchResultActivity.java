@@ -458,8 +458,7 @@ public class SearchResultActivity extends OnyxBaseActivity
         
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
-        
-        ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GC);
+
         Log.d(TAG, "onCreate finished");
     }
     

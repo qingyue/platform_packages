@@ -15,7 +15,6 @@ import android.widget.Button;
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.view.DialogBaseSettings;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
-import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
 /**
  * 
@@ -119,7 +118,6 @@ public class DialogScreenRotation extends DialogBaseSettings
 
 	private void rotation_90()
 	{
-		ScreenUpdateManager.invalidate(mHostActivity.getWindow().getDecorView(), UpdateMode.GC);
 		if (ScreenUpdateManager.getWindowRotation() != Surface.ROTATION_90) {
 			if (ScreenUpdateManager.getWindowRotation() == Surface.ROTATION_0) {
 				ScreenUpdateManager.setWindowRotation(Surface.ROTATION_90);
@@ -140,7 +138,6 @@ public class DialogScreenRotation extends DialogBaseSettings
 
 	private void rotation_180()
 	{
-		ScreenUpdateManager.invalidate(mHostActivity.getWindow().getDecorView(), UpdateMode.GC);
 		if (ScreenUpdateManager.getWindowRotation() != Surface.ROTATION_180) {
 			if (ScreenUpdateManager.getWindowRotation() == Surface.ROTATION_0) {
 				ScreenUpdateManager.setWindowRotation(Surface.ROTATION_180);
@@ -161,7 +158,6 @@ public class DialogScreenRotation extends DialogBaseSettings
 
 	private void rotation_270()
 	{
-		ScreenUpdateManager.invalidate(mHostActivity.getWindow().getDecorView(), UpdateMode.GC);
 		if (ScreenUpdateManager.getWindowRotation() != Surface.ROTATION_270) {
 			if (ScreenUpdateManager.getWindowRotation() == Surface.ROTATION_0) {
 				ScreenUpdateManager.setWindowRotation(Surface.ROTATION_270);

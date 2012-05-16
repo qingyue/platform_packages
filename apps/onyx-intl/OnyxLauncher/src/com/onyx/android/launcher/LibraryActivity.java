@@ -484,8 +484,6 @@ public class LibraryActivity extends OnyxBaseActivity
             mFileGridView.onPreparePaste();
         }
 
-        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC);
-
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
     }

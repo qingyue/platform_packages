@@ -33,7 +33,6 @@
     <string name="title">title</string>
     <string name="unknown">unknown</string>
     <string name="yes">Yes</string>
-    
     <string name="checkbox_text">Use by default for this action.</string>
     <string name="copying">Copying: </string>
     <string name="deletefile_text">delete: </string>
@@ -53,20 +52,28 @@
     <string name="openlist_title">Complete action using</string>
     <string name="open_with">Open With</string>
     <string name="paged_init_text">1/1</string>
-    
+    <string name="property">property</string>
+    <string name="bytes"> bytes</string>
+    <string name="hint"></string>
     <string name="symbol_sort_by">sort by</string>
     <string name="order_asc">ASC</string>
     <string name="order_desc">DESC</string>
-    
     <string name="recent_reading_remove_title">remove reading record</string>
     <string name="recent_reading_remove_file_on_disk">remove file on disk?</string>
-    
-    <string name="file_property_name">Name</string>
-    <string name="file_property_title">Title</string>
-    <string name="file_property_authors">Authors</string>
-    <string name="file_property_size">Size</string>
-    <string name="file_property_description">Description</string>
-
+    <string name="file_property_name">Name:</string>
+    <string name="file_property_title">Title:</string>
+    <string name="file_property_authors">Author(s):</string>
+    <string name="file_property_author_sort">Author Sort:</string>
+    <string name="file_property_rating">Rating:</string>
+    <string name="file_property_publisher">Publisher:</string>
+    <string name="file_property_tags">Tags:</string>
+    <string name="file_property_series">Series:</string>
+    <string name="file_property_isbn">ISBN:</string>
+    <string name="file_property_date">Date:</string>
+    <string name="file_property_published">Published:</string>
+    <string name="file_property_available_formats">Available Formats:</string>
+    <string name="file_property_size">Size:</string>
+    <string name="file_property_description">Description:</string>
     <string name="menu_suite_file">File</string>
     <string name="menu_file_new">New File</string>
     <string name="menu_file_new_folder">New Folder</string>
@@ -76,7 +83,6 @@
     <string name="menu_file_remove">Delete</string>
     <string name="menu_file_property">Property</string>
     <string name="menu_file_goto_folder">Goto Folder</string>
-    
     <string name="menu_suite_system">System</string>
     <string name="menu_system_notification">Notifications</string>
     <string name="slash">/</string>

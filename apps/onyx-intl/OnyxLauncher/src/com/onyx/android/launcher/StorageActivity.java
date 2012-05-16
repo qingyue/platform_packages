@@ -333,8 +333,6 @@ public class StorageActivity extends OnyxBaseActivity
         this.handleNewIntent();
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
-
-        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC);
     }
 
     @Override
@@ -343,6 +341,13 @@ public class StorageActivity extends OnyxBaseActivity
         Log.d(TAG, "onNewIntent");
         this.setIntent(intent);
         this.handleNewIntent();
+    }
+    
+    @Override
+    protected void onResume()
+    {
+        Log.d(TAG, "onResume");
+        super.onResume();
     }
     
     public boolean onOptionsItemSelected(MenuItem item)

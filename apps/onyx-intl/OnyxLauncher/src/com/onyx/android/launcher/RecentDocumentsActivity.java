@@ -208,8 +208,6 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
         
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
-
-        ScreenUpdateManager.invalidate(this.getGridView(), UpdateMode.GU);
     }
 
     @Override

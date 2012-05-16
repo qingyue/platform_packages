@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.onyx.android.launcher.adapter.BookrackGridViewAdapter;
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
@@ -103,25 +102,13 @@ public class LauncherActivity extends OnyxBaseActivity
             assert(false);
             return;
         }
-        mGridViewBookrack.setOnItemLongClickListener(new OnItemLongClickListener()
-        {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,
-                    int position, long id)
-            {
-//                LauncherActivity.this.openOptionsMenu();
-                return true;
-            }
-        });
         mGridViewBookrack.registerOnLongPressListener(new OnyxGridView.OnLongPressListener()
         {
             
             @Override
             public void onLongPress()
             {
-            	ArrayList<OnyxMenuSuite> suites = new ArrayList<OnyxMenuSuite>();
-                suites.add(StandardMenuFactory.getSystemMenuSuite(LauncherActivity.this));
+            	ArrayList<OnyxMenuSuite> suites = LauncherActivity.this.getContextMenuSuites();
                 new DialogContextMenu(LauncherActivity.this, suites).show();
             }
         });
@@ -229,8 +216,9 @@ public class LauncherActivity extends OnyxBaseActivity
     @Override
     protected void onResume()
     {
+        Log.d(TAG, "onResume");
         super.onResume();
-
+        
         GridItemBaseAdapter adapter = (GridItemBaseAdapter)mGridViewBookrack.getPagedAdapter();
         adapter.fillItems(null, CmsCenterHelper.getRecentReadings(this));
     }
@@ -327,7 +315,6 @@ public class LauncherActivity extends OnyxBaseActivity
     {
         GridItemBaseAdapter adapter = (GridItemBaseAdapter)mGridViewMain.getPagedAdapter();
 
-//        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC);
         if (uri.equals(GridItemManager.getStorageURI())) {
             // start new Storage Activity can not be elegantly done in StorageActor.process(), 
             // so explicitly start activity here

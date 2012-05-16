@@ -92,8 +92,6 @@ public abstract class OnyxBaseActivity extends Activity
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long id)
             {
-            	ArrayList<OnyxMenuSuite> suites = OnyxBaseActivity.this.getContextMenuSuites();
-                new DialogContextMenu(OnyxBaseActivity.this, suites).show();
                 return true;
             }
         });
@@ -103,7 +101,8 @@ public abstract class OnyxBaseActivity extends Activity
             @Override
             public void onLongPress()
             {
-//                OnyxBaseActivity.this.openOptionsMenu();
+            	ArrayList<OnyxMenuSuite> suites = OnyxBaseActivity.this.getContextMenuSuites();
+                new DialogContextMenu(OnyxBaseActivity.this, suites).show();
             }
         });
     }
@@ -121,11 +120,11 @@ public abstract class OnyxBaseActivity extends Activity
         suites.add(StandardMenuFactory.getSystemMenuSuite(this));
         return suites;
     }
-    
+
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
     	Log.d(TAG, "onResume");
+
     	super.onResume();
     }
 
