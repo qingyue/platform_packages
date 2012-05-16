@@ -211,8 +211,8 @@ public abstract class OnyxBaseActivity extends Activity
                 }
             }
         }
-        
-//        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.DW);
+
+        OnyxBaseActivity.this.getWindow().getDecorView().requestFocusFromTouch();
 
         return super.onPrepareOptionsMenu(menu);
     }
