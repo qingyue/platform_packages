@@ -2131,17 +2131,4 @@ public class PinyinIME extends InputMethodService {
             return mFixedLen;
         }
     }
-
-    @Override
-	public void showWindow(boolean showInput) {
-		// TODO Auto-generated method stub
-		super.showWindow(showInput);
-
-        if (this.getOnyxExtractedText() != null) {
-            Log.i(TAG, "ExtractedText: "+this.getOnyxExtractedText().text);
-        } else {
-            Log.i(TAG, "ExtractedText: "+this.getOnyxExtractedText());
-        }
-
-	}
 }

@@ -400,13 +400,6 @@ public class LatinIME extends InputMethodService
         WindowManager.LayoutParams params = getWindow().getWindow().getAttributes();
         params.type = WindowManager.LayoutParams.TYPE_SEARCH_BAR;
         getWindow().getWindow().setAttributes(params);
-
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate( R.layout.onyx_input_method_content_view, null);
-        mOnyxExtractView = (OnyxExtractEditText) view.findViewById(R.id.edittext_onyx_content);
-        mOnyxExtractView.setIME(this);
-        mOnyxExtractView.setTextColor(Color.BLACK);
-        this.setContentFrameView(mOnyxExtractView);
     }
 
     /**
@@ -2655,10 +2648,16 @@ public class LatinIME extends InputMethodService
 
         Log.i(TAG, "ExtractedText: "+this.getOnyxExtractedText());
         if (this.getOnyxExtractedText() != null) {
+            LayoutInflater inflater = getLayoutInflater();
+            View view = inflater.inflate( R.layout.onyx_input_method_content_view, null);
+            mOnyxExtractView = (OnyxExtractEditText) view.findViewById(R.id.edittext_onyx_content);
+            mOnyxExtractView.setIME(this);
+            mOnyxExtractView.setTextColor(Color.BLACK);
+            this.setContentFrameView(mOnyxExtractView);
+ 
             Log.i(TAG, "ExtractedText.text: "+this.getOnyxExtractedText().text);
-            Log.i(TAG, "OnyxExtractView: "+mOnyxExtractView);
-            Log.i(TAG, "mOnyxExtractView.getText(): "+mOnyxExtractView.getText());
             mOnyxExtractView.setExtractedText(this.getOnyxExtractedText());
+            Log.i(TAG, "mOnyxExtractView.getText(): "+mOnyxExtractView.getText());
         }
 	}
 }

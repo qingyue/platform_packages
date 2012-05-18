@@ -24,6 +24,6 @@
     android:layout_height="wrap_content"
     android:gravity="top"
     android:inputType="text"
-    android:minLines="1" >
+    android:minLines="3" >
 
 </com.android.inputmethod.latin.OnyxExtractEditText>
