@@ -2137,6 +2137,11 @@ public class PinyinIME extends InputMethodService {
 		// TODO Auto-generated method stub
 		super.showWindow(showInput);
 
-        Log.i(TAG, "ExtractedText: "+this.getOnyxExtractedText().text);
+        if (this.getOnyxExtractedText() != null) {
+            Log.i(TAG, "ExtractedText: "+this.getOnyxExtractedText().text);
+        } else {
+            Log.i(TAG, "ExtractedText: "+this.getOnyxExtractedText());
+        }
+
 	}
 }
