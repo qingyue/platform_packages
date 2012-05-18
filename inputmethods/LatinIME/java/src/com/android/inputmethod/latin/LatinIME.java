@@ -2653,6 +2653,6 @@ public class LatinIME extends InputMethodService
 		// TODO Auto-generated method stub
 		super.showWindow(showInput);
 
-		mOnyxExtractView.setExtractedText(this.getExtractedText());
+		mOnyxExtractView.setExtractedText(this.getOnyxExtractedText());
 	}
 }
