@@ -877,6 +877,7 @@ public class LatinIME extends InputMethodService
 
     @Override
     public void hideWindow() {
+        this.hideOnyxContentFrame();
         LatinImeLogger.commit();
         onAutoCompletionStateChanged(false);
 
@@ -2646,17 +2647,18 @@ public class LatinIME extends InputMethodService
 		// TODO Auto-generated method stub
 		super.showWindow(showInput);
 
-        Log.i(TAG, "ExtractedText: "+this.getOnyxExtractedText());
-        if (this.getOnyxExtractedText() != null) {
+        ExtractedText et = this.getOnyxExtractedText();
+        Log.i(TAG, "ExtractedText: "+et);
+        if (et != null) {
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate( R.layout.onyx_input_method_content_view, null);
             mOnyxExtractView = (OnyxExtractEditText) view.findViewById(R.id.edittext_onyx_content);
             mOnyxExtractView.setIME(this);
             mOnyxExtractView.setTextColor(Color.BLACK);
-            this.setContentFrameView(mOnyxExtractView);
+            this.setOnyxContentFrameView(mOnyxExtractView);
  
-            Log.i(TAG, "ExtractedText.text: "+this.getOnyxExtractedText().text);
-            mOnyxExtractView.setExtractedText(this.getOnyxExtractedText());
+            Log.i(TAG, "ExtractedText.text: "+et.text);
+            mOnyxExtractView.setExtractedText(et);
             Log.i(TAG, "mOnyxExtractView.getText(): "+mOnyxExtractView.getText());
         }
 	}
