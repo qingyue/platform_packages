@@ -27,6 +27,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.util.Log;
 
 import java.util.List;
 
@@ -69,8 +70,10 @@ public class LatinKeyboardView extends LatinKeyboardBaseView {
     public void setPreviewEnabled(boolean previewEnabled) {
         if (getKeyboard() == mPhoneKeyboard) {
             // Phone keyboard never shows popup preview (except language switch).
+            Log.i("LatinKeyboardView", "====false====");
             super.setPreviewEnabled(false);
         } else {
+            Log.i("LatinKeyboardView", "previewEnabled: "+previewEnabled);
             super.setPreviewEnabled(previewEnabled);
         }
     }

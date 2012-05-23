@@ -2655,11 +2655,21 @@ public class LatinIME extends InputMethodService
             mOnyxExtractView = (OnyxExtractEditText) view.findViewById(R.id.edittext_onyx_content);
             mOnyxExtractView.setIME(this);
             mOnyxExtractView.setTextColor(Color.BLACK);
-            this.setOnyxContentFrameView(mOnyxExtractView);
- 
+
+            EditorInfo ei = this.getOnyxEditorInfo();
+            if (ei != null) {
+                mOnyxExtractView.setInputType(ei.inputType);
+                mOnyxExtractView.setHint(ei.hintText);
+            }
+
+            mOnyxExtractView.setEnabled(true);
+
             Log.i(TAG, "ExtractedText.text: "+et.text);
             mOnyxExtractView.setExtractedText(et);
             Log.i(TAG, "mOnyxExtractView.getText(): "+mOnyxExtractView.getText());
+
+            this.setOnyxContentFrameView(mOnyxExtractView);
+            mOnyxExtractView.finishInternalChanges();
         }
 	}
 }
