@@ -23,7 +23,6 @@ import android.view.inputmethod.ExtractedText;
 import android.widget.EditText;
 
 public class OnyxExtractEditText extends EditText {
-
 	private InputMethodService mIME;
     private int mSettingExtractedText;
     

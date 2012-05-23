@@ -65,7 +65,6 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import android.widget.EditText;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -2658,6 +2657,7 @@ public class LatinIME extends InputMethodService
 
             EditorInfo ei = this.getOnyxEditorInfo();
             if (ei != null) {
+                Log.i(TAG, "ei.hintText: "+ei.hintText);
                 mOnyxExtractView.setInputType(ei.inputType);
                 mOnyxExtractView.setHint(ei.hintText);
             }
@@ -2669,7 +2669,6 @@ public class LatinIME extends InputMethodService
             Log.i(TAG, "mOnyxExtractView.getText(): "+mOnyxExtractView.getText());
 
             this.setOnyxContentFrameView(mOnyxExtractView);
-            mOnyxExtractView.finishInternalChanges();
         }
 	}
 }
