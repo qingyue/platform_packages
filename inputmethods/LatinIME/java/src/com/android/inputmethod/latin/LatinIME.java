@@ -841,6 +841,23 @@ public class LatinIME extends InputMethodService
                 }
             }
         }
+
+        final OnyxExtractEditText eet = mOnyxExtractView;
+        ExtractedText onyxExtractedText = getOnyxExtractedText();
+        if (eet != null && onyxExtractedText != null) {
+            Log.i(TAG, "updateSelection");
+            final int off = onyxExtractedText.startOffset;
+            eet.startInternalChanges();
+            newSelStart -= off;
+            newSelEnd -= off;
+            final int len = eet.getText().length();
+            if (newSelStart < 0) newSelStart = 0;
+            else if (newSelStart > len) newSelStart = len;
+            if (newSelEnd < 0) newSelEnd = 0;
+            else if (newSelEnd > len) newSelEnd = len;
+            eet.setSelection(newSelStart, newSelEnd);
+            eet.finishInternalChanges();
+        }
     }
 
     /**
@@ -932,6 +949,7 @@ public class LatinIME extends InputMethodService
     private void setCandidatesViewShownInternal(boolean shown, boolean needsInputViewShown) {
         // TODO: Remove this if we support candidates with hard keyboard
         if (onEvaluateInputViewShown()) {
+            shown = true;
             super.setCandidatesViewShown(shown && mKeyboardSwitcher.getInputView() != null
                     && (needsInputViewShown ? mKeyboardSwitcher.getInputView().isShown() : true));
         }
@@ -2647,28 +2665,25 @@ public class LatinIME extends InputMethodService
 		super.showWindow(showInput);
 
         ExtractedText et = this.getOnyxExtractedText();
-        Log.i(TAG, "ExtractedText: "+et);
         if (et != null) {
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate( R.layout.onyx_input_method_content_view, null);
             mOnyxExtractView = (OnyxExtractEditText) view.findViewById(R.id.edittext_onyx_content);
             mOnyxExtractView.setIME(this);
             mOnyxExtractView.setTextColor(Color.BLACK);
+            mOnyxExtractView.startInternalChanges();
 
             EditorInfo ei = this.getOnyxEditorInfo();
             if (ei != null) {
-                Log.i(TAG, "ei.hintText: "+ei.hintText);
                 mOnyxExtractView.setInputType(ei.inputType);
                 mOnyxExtractView.setHint(ei.hintText);
             }
 
             mOnyxExtractView.setEnabled(true);
-
-            Log.i(TAG, "ExtractedText.text: "+et.text);
             mOnyxExtractView.setExtractedText(et);
-            Log.i(TAG, "mOnyxExtractView.getText(): "+mOnyxExtractView.getText());
 
             this.setOnyxContentFrameView(mOnyxExtractView);
+            mOnyxExtractView.finishInternalChanges();
         }
 	}
 }
