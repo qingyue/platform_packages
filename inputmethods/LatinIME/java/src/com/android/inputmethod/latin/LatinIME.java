@@ -76,6 +76,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MotionEvent;
+
 /**
  * Input method implementation for Qwerty'ish keyboard.
  */
@@ -842,21 +846,21 @@ public class LatinIME extends InputMethodService
             }
         }
 
-        final OnyxExtractEditText eet = mOnyxExtractView;
-        ExtractedText onyxExtractedText = getOnyxExtractedText();
-        if (eet != null && onyxExtractedText != null) {
+        ExtractedText onyxExtractedText = mOnyxExtractView.getExtractedText();
+        if (mOnyxExtractView != null && onyxExtractedText != null) {
             Log.i(TAG, "updateSelection");
             final int off = onyxExtractedText.startOffset;
-            eet.startInternalChanges();
+            mOnyxExtractView.startInternalChanges();
             newSelStart -= off;
             newSelEnd -= off;
-            final int len = eet.getText().length();
+            final int len = mOnyxExtractView.getText().length();
             if (newSelStart < 0) newSelStart = 0;
             else if (newSelStart > len) newSelStart = len;
             if (newSelEnd < 0) newSelEnd = 0;
             else if (newSelEnd > len) newSelEnd = len;
-            eet.setSelection(newSelStart, newSelEnd);
-            eet.finishInternalChanges();
+            mOnyxExtractView.setSelection(newSelStart, newSelEnd);
+            Log.i(TAG, "newSelStart: "+newSelStart+", newSelEnd: "+newSelEnd);
+            mOnyxExtractView.finishInternalChanges();
         }
     }
 
@@ -2661,6 +2665,7 @@ public class LatinIME extends InputMethodService
 
     @Override
 	public void showWindow(boolean showInput) {
+        this.setOnyxContentFrameView(mOnyxExtractView);
 		// TODO Auto-generated method stub
 		super.showWindow(showInput);
 
@@ -2682,7 +2687,7 @@ public class LatinIME extends InputMethodService
             mOnyxExtractView.setEnabled(true);
             mOnyxExtractView.setExtractedText(et);
 
-            this.setOnyxContentFrameView(mOnyxExtractView);
+            //this.setOnyxContentFrameView(mOnyxExtractView);
             mOnyxExtractView.finishInternalChanges();
         }
 	}

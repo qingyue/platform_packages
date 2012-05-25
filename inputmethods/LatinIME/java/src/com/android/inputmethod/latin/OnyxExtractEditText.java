@@ -21,10 +21,12 @@ import android.inputmethodservice.InputMethodService;
 import android.util.AttributeSet;
 import android.view.inputmethod.ExtractedText;
 import android.widget.EditText;
+import android.util.Log;
 
 public class OnyxExtractEditText extends EditText {
 	private InputMethodService mIME;
     private int mSettingExtractedText;
+    private ExtractedText mOnyxExtractedText = null;
     
     public OnyxExtractEditText(Context context) {
         super(context, null);
@@ -67,16 +69,22 @@ public class OnyxExtractEditText extends EditText {
     @Override public void setExtractedText(ExtractedText text) {
         try {
             mSettingExtractedText++;
+            mOnyxExtractedText = text;
             super.setExtractedText(text);
         } finally {
             mSettingExtractedText--;
         }
+    }
+
+    public ExtractedText getExtractedText() {
+    	return mOnyxExtractedText;
     }
     
     /**
      * Report to the underlying text editor about selection changes.
      */
     @Override protected void onSelectionChanged(int selStart, int selEnd) {
+        Log.i("OnyxExtractEditText", "onSelectionChanged selStart: "+selStart+", selEnd: "+selEnd);
         if (mSettingExtractedText == 0 && mIME != null && selStart >= 0 && selEnd >= 0) {
             mIME.onExtractedSelectionChanged(selStart, selEnd);
         }
@@ -87,6 +95,7 @@ public class OnyxExtractEditText extends EditText {
      * on click handler to run, though.
      */
     @Override public boolean performClick() {
+        Log.i("OnyxExtractEditText", "===performClick===");
         if (!super.performClick() && mIME != null) {
             mIME.onExtractedTextClicked();
             return true;
@@ -96,6 +105,7 @@ public class OnyxExtractEditText extends EditText {
     
     @Override public boolean onTextContextMenuItem(int id) {
         // Horrible hack: select word option has to be handled by original view to work.
+        Log.i("OnyxExtractEditText", "===onTextContextMenuItem===");
         if (mIME != null && id != android.R.id.startSelectingText) {
             if (mIME.onExtractTextContextMenuItem(id)) {
                 return true;
