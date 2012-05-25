@@ -2687,7 +2687,7 @@ public class LatinIME extends InputMethodService
         //    mOnyxExtractView.setEnabled(true);
         //    mOnyxExtractView.setExtractedText(et);
 
-            //this.setOnyxContentFrameView(mOnyxExtractView);
+        //    this.setOnyxContentFrameView(mOnyxExtractView);
         //    mOnyxExtractView.finishInternalChanges();
         //}
 	}
