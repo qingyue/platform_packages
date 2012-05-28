@@ -750,6 +750,7 @@ public class LatinIME extends InputMethodService
 
     @Override
     public void onUpdateExtractedText(int token, ExtractedText text) {
+        Log.i(TAG, "===onUpdateExtractedText===");
         super.onUpdateExtractedText(token, text);
         InputConnection ic = getCurrentInputConnection();
         if (!mImmediatelyAfterVoiceInput && mAfterVoiceInput && ic != null) {
@@ -759,11 +760,12 @@ public class LatinIME extends InputMethodService
         }
         mImmediatelyAfterVoiceInput = false;
 
-        //if (text != null) {
-        //    if (mOnyxExtractView != null) {
-        //        mOnyxExtractView.setExtractedText(text);
-        //    }
-        //}
+        if (text != null) {
+            if (mOnyxExtractView != null) {
+                Log.i(TAG, "mOnyxExtractView.getText: "+mOnyxExtractView.getText()+", text: "+text.text);
+                mOnyxExtractView.setExtractedText(text);
+            }
+        }
     }
 
     @Override
@@ -773,6 +775,7 @@ public class LatinIME extends InputMethodService
         super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
                 candidatesStart, candidatesEnd);
 
+        Log.i(TAG, "===updateSelection===");
         if (DEBUG) {
             Log.i(TAG, "onUpdateSelection: oss=" + oldSelStart
                     + ", ose=" + oldSelEnd
@@ -846,22 +849,21 @@ public class LatinIME extends InputMethodService
             }
         }
 
-        //ExtractedText onyxExtractedText = mOnyxExtractView.getExtractedText();
-        //if (mOnyxExtractView != null && onyxExtractedText != null) {
-        //    Log.i(TAG, "updateSelection");
-        //    final int off = onyxExtractedText.startOffset;
-        //    mOnyxExtractView.startInternalChanges();
-        //    newSelStart -= off;
-        //    newSelEnd -= off;
-        //    final int len = mOnyxExtractView.getText().length();
-        //    if (newSelStart < 0) newSelStart = 0;
-        //    else if (newSelStart > len) newSelStart = len;
-        //    if (newSelEnd < 0) newSelEnd = 0;
-        //    else if (newSelEnd > len) newSelEnd = len;
-        //    mOnyxExtractView.setSelection(newSelStart, newSelEnd);
-        //    Log.i(TAG, "newSelStart: "+newSelStart+", newSelEnd: "+newSelEnd);
-        //    mOnyxExtractView.finishInternalChanges();
-        //}
+        ExtractedText onyxExtractedText = mOnyxExtractView.getExtractedText();
+        if (mOnyxExtractView != null && onyxExtractedText != null) {  
+            final int off = onyxExtractedText.startOffset;
+            mOnyxExtractView.startInternalChanges();
+            newSelStart -= off;
+            newSelEnd -= off;
+            final int len = mOnyxExtractView.getText().length();
+            if (newSelStart < 0) newSelStart = 0;
+            else if (newSelStart > len) newSelStart = len;
+            if (newSelEnd < 0) newSelEnd = 0;
+            else if (newSelEnd > len) newSelEnd = len;
+            mOnyxExtractView.setSelection(newSelStart, newSelEnd);
+            Log.i(TAG, "newSelStart: "+newSelStart+", newSelEnd: "+newSelEnd);
+            mOnyxExtractView.finishInternalChanges();
+        }
     }
 
     /**
@@ -2666,31 +2668,31 @@ public class LatinIME extends InputMethodService
 
     @Override
 	public void showWindow(boolean showInput) {
-        Log.i(TAG, "===LatinIME showWindow===");
-        this.setOnyxContentFrameView(mOnyxExtractView);
+        Log.i(TAG, "===LatinIME showWindow===showInput: "+showInput);
+        //this.setOnyxContentFrameView(mOnyxExtractView);
 		// TODO Auto-generated method stub
 		super.showWindow(showInput);
 
-        //ExtractedText et = this.getOnyxExtractedText();
-        //if (et != null) {
-        //    LayoutInflater inflater = getLayoutInflater();
-        //    View view = inflater.inflate( R.layout.onyx_input_method_content_view, null);
-        //    mOnyxExtractView = (OnyxExtractEditText) view.findViewById(R.id.edittext_onyx_content);
-        //    mOnyxExtractView.setIME(this);
-        //    mOnyxExtractView.setTextColor(Color.BLACK);
-        //    mOnyxExtractView.startInternalChanges();
+        ExtractedText et = this.getOnyxExtractedText();
+        if (et != null) {
+            LayoutInflater inflater = getLayoutInflater();
+            View view = inflater.inflate( R.layout.onyx_input_method_content_view, null);
+            mOnyxExtractView = (OnyxExtractEditText) view.findViewById(R.id.edittext_onyx_content);
+            mOnyxExtractView.setIME(this);
+            mOnyxExtractView.setTextColor(Color.BLACK);
+            mOnyxExtractView.startInternalChanges();
 
-        //    EditorInfo ei = this.getOnyxEditorInfo();
-        //    if (ei != null) {
-        //        mOnyxExtractView.setInputType(ei.inputType);
-        //        mOnyxExtractView.setHint(ei.hintText);
-        //    }
+            EditorInfo ei = this.getOnyxEditorInfo();
+            if (ei != null) {
+                mOnyxExtractView.setInputType(ei.inputType);
+                mOnyxExtractView.setHint(ei.hintText);
+            }
 
-        //    mOnyxExtractView.setEnabled(true);
-        //    mOnyxExtractView.setExtractedText(et);
+            mOnyxExtractView.setEnabled(true);
+            mOnyxExtractView.setExtractedText(et);
 
-        //    this.setOnyxContentFrameView(mOnyxExtractView);
-        //    mOnyxExtractView.finishInternalChanges();
-        //}
+            this.setOnyxContentFrameView(mOnyxExtractView);
+            mOnyxExtractView.finishInternalChanges();
+        }
 	}
 }
