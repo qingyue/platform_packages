@@ -2669,9 +2669,6 @@ public class LatinIME extends InputMethodService
     @Override
 	public void showWindow(boolean showInput) {
         Log.i(TAG, "===LatinIME showWindow===showInput: "+showInput);
-        //this.setOnyxContentFrameView(mOnyxExtractView);
-		// TODO Auto-generated method stub
-		super.showWindow(showInput);
 
         ExtractedText et = this.getOnyxExtractedText();
         if (et != null) {
@@ -2694,5 +2691,9 @@ public class LatinIME extends InputMethodService
             this.setOnyxContentFrameView(mOnyxExtractView);
             mOnyxExtractView.finishInternalChanges();
         }
+
+        //this.setOnyxContentFrameView(mOnyxExtractView);
+		// TODO Auto-generated method stub
+		super.showWindow(showInput);
 	}
 }
