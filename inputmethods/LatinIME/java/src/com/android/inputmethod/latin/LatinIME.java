@@ -897,6 +897,7 @@ public class LatinIME extends InputMethodService
 
     @Override
     public void hideWindow() {
+        Log.i(TAG, "===LatinIME hideWindow===");
         this.hideOnyxContentFrame();
         LatinImeLogger.commit();
         onAutoCompletionStateChanged(false);
@@ -2665,6 +2666,7 @@ public class LatinIME extends InputMethodService
 
     @Override
 	public void showWindow(boolean showInput) {
+        Log.i(TAG, "===LatinIME showWindow===");
         this.setOnyxContentFrameView(mOnyxExtractView);
 		// TODO Auto-generated method stub
 		super.showWindow(showInput);
