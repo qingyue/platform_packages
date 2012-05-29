@@ -158,6 +158,7 @@ public class LatinIME extends InputMethodService
     //private LatinKeyboardView mInputView;
     private LinearLayout mCandidateViewContainer;
     private CandidateView mCandidateView;
+    private OnyxExtractEditText mOnyxExtractView;
     private Suggest mSuggest;
     private CompletionInfo[] mCompletions;
 
@@ -757,6 +758,12 @@ public class LatinIME extends InputMethodService
             }
         }
         mImmediatelyAfterVoiceInput = false;
+
+        //if (text != null) {
+        //    if (mOnyxExtractView != null) {
+        //        mOnyxExtractView.setExtractedText(text);
+        //    }
+        //}
     }
 
     @Override
@@ -838,6 +845,23 @@ public class LatinIME extends InputMethodService
                 }
             }
         }
+
+        //ExtractedText onyxExtractedText = mOnyxExtractView.getExtractedText();
+        //if (mOnyxExtractView != null && onyxExtractedText != null) {
+        //    Log.i(TAG, "updateSelection");
+        //    final int off = onyxExtractedText.startOffset;
+        //    mOnyxExtractView.startInternalChanges();
+        //    newSelStart -= off;
+        //    newSelEnd -= off;
+        //    final int len = mOnyxExtractView.getText().length();
+        //    if (newSelStart < 0) newSelStart = 0;
+        //    else if (newSelStart > len) newSelStart = len;
+        //    if (newSelEnd < 0) newSelEnd = 0;
+        //    else if (newSelEnd > len) newSelEnd = len;
+        //    mOnyxExtractView.setSelection(newSelStart, newSelEnd);
+        //    Log.i(TAG, "newSelStart: "+newSelStart+", newSelEnd: "+newSelEnd);
+        //    mOnyxExtractView.finishInternalChanges();
+        //}
     }
 
     /**
@@ -873,6 +897,7 @@ public class LatinIME extends InputMethodService
 
     @Override
     public void hideWindow() {
+        Log.i(TAG, "===hideWindow===");
         this.hideOnyxContentFrame();
         LatinImeLogger.commit();
         onAutoCompletionStateChanged(false);
@@ -2642,8 +2667,8 @@ public class LatinIME extends InputMethodService
     @Override
 	public void showWindow(boolean showInput) {
         Log.i(TAG, "===showWindow===");
+        this.setOnyxContentFrameView(mOnyxExtractView);
+		// TODO Auto-generated method stub
 		super.showWindow(showInput);
-
-        //this.setOnyxContentFrameView();
 	}
 }
