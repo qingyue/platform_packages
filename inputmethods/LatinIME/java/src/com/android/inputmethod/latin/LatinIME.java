@@ -2667,7 +2667,7 @@ public class LatinIME extends InputMethodService
     @Override
 	public void showWindow(boolean showInput) {
         Log.i(TAG, "===showWindow===");
-        this.setOnyxContentFrameView(mOnyxExtractView);
+        this.setOnyxContentFrameView();
 		// TODO Auto-generated method stub
 		super.showWindow(showInput);
 	}
