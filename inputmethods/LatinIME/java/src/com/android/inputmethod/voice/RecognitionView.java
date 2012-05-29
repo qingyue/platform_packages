@@ -129,12 +129,17 @@ public class RecognitionView {
 
         mImage = (ImageView) mView.findViewById(R.id.image);
         mButton = mView.findViewById(R.id.button);
-        Log.i(TAG, "mButton: "+mButton);
-        Log.i(TAG, "clickListener: "+clickListener);
-        mButton.setOnClickListener(clickListener);
         mText = (TextView) mView.findViewById(R.id.text);
         mButtonText = (TextView) mView.findViewById(R.id.button_text);
         mProgress = mView.findViewById(R.id.progress);
+        Log.i(TAG, "mImage: "+mImage);
+        Log.i(TAG, "mButton: "+mButton);
+        Log.i(TAG, "clickListener: "+clickListener);
+        Log.i(TAG, "mText: "+mText);
+        Log.i(TAG, "mButtonText: "+mButtonText);
+        Log.i(TAG, "mProgress: "+mProgress);
+
+        mButton.setOnClickListener(clickListener);
 
         mContext = context;
     }
