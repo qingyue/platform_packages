@@ -127,16 +127,16 @@ public class RecognitionView {
         mInitializing = r.getDrawable(R.drawable.mic_slash);
         mError = r.getDrawable(R.drawable.caution);
 
-        mImage = (ImageView) mView.findViewById(R.id.image);
-        mButton = mView.findViewById(R.id.button);
-        mText = (TextView) mView.findViewById(R.id.text);
-        mButtonText = (TextView) mView.findViewById(R.id.button_text);
-        mProgress = mView.findViewById(R.id.progress);
-        Log.i(TAG, "mImage: "+mImage);
-        Log.i(TAG, "mButton: "+mButton);
         Log.i(TAG, "clickListener: "+clickListener);
+        mImage = (ImageView) mView.findViewById(R.id.image);
+        Log.i(TAG, "mImage: "+mImage);
+        mButton = mView.findViewById(R.id.button);
+        Log.i(TAG, "mButton: "+mButton);
+        mText = (TextView) mView.findViewById(R.id.text);
         Log.i(TAG, "mText: "+mText);
+        mButtonText = (TextView) mView.findViewById(R.id.button_text);
         Log.i(TAG, "mButtonText: "+mButtonText);
+        mProgress = mView.findViewById(R.id.progress);
         Log.i(TAG, "mProgress: "+mProgress);
 
         mButton.setOnClickListener(clickListener);
