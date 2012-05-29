@@ -391,6 +391,7 @@ public class VoiceInput implements OnClickListener {
      * user.
      */
     public void newView() {
+        Log.i(TAG, "mContext: "+mContext);
         mRecognitionView = new RecognitionView(mContext, this);
     }
 

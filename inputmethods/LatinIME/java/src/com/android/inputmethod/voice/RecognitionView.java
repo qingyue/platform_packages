@@ -42,6 +42,7 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.android.inputmethod.latin.R;
 
@@ -104,6 +105,7 @@ public class RecognitionView {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(
             Context.LAYOUT_INFLATER_SERVICE);
         mView = inflater.inflate(R.layout.recognition_status, null);
+        Log.i(TAG, "mView: "+mView);
         ContentResolver cr = context.getContentResolver();
         mMinMicrophoneLevel = SettingsUtil.getSettingsFloat(
                 cr, SettingsUtil.LATIN_IME_MIN_MICROPHONE_LEVEL, 15.f);
@@ -127,6 +129,8 @@ public class RecognitionView {
 
         mImage = (ImageView) mView.findViewById(R.id.image);
         mButton = mView.findViewById(R.id.button);
+        Log.i(TAG, "mButton: "+mButton);
+        Log.i(TAG, "clickListener: "+clickListener);
         mButton.setOnClickListener(clickListener);
         mText = (TextView) mView.findViewById(R.id.text);
         mButtonText = (TextView) mView.findViewById(R.id.button_text);
