@@ -158,6 +158,7 @@ public class LatinIME extends InputMethodService
     //private LatinKeyboardView mInputView;
     private LinearLayout mCandidateViewContainer;
     private CandidateView mCandidateView;
+    private OnyxExtractEditText mOnyxExtractView;
     private Suggest mSuggest;
     private CompletionInfo[] mCompletions;
 
@@ -2642,6 +2643,7 @@ public class LatinIME extends InputMethodService
     @Override
 	public void showWindow(boolean showInput) {
         Log.i(TAG, "===showWindow===");
+		// TODO Auto-generated method stub
 		super.showWindow(showInput);
 
         this.setOnyxContentFrameView();
