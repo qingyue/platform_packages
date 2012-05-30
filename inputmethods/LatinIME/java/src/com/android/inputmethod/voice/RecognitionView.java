@@ -105,7 +105,6 @@ public class RecognitionView {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(
             Context.LAYOUT_INFLATER_SERVICE);
         mView = inflater.inflate(R.layout.recognition_status, null);
-        Log.i(TAG, "mView: "+mView);
         ContentResolver cr = context.getContentResolver();
         mMinMicrophoneLevel = SettingsUtil.getSettingsFloat(
                 cr, SettingsUtil.LATIN_IME_MIN_MICROPHONE_LEVEL, 15.f);
@@ -127,19 +126,12 @@ public class RecognitionView {
         mInitializing = r.getDrawable(R.drawable.mic_slash);
         mError = r.getDrawable(R.drawable.caution);
 
-        Log.i(TAG, "clickListener: "+clickListener);
         mImage = (ImageView) mView.findViewById(R.id.image);
-        Log.i(TAG, "mImage: "+mImage);
         mButton = mView.findViewById(R.id.button);
-        Log.i(TAG, "mButton: "+mButton);
-        mText = (TextView) mView.findViewById(R.id.text);
-        Log.i(TAG, "mText: "+mText);
-        mButtonText = (TextView) mView.findViewById(R.id.button_text);
-        Log.i(TAG, "mButtonText: "+mButtonText);
-        mProgress = mView.findViewById(R.id.progress);
-        Log.i(TAG, "mProgress: "+mProgress);
-
         mButton.setOnClickListener(clickListener);
+        mText = (TextView) mView.findViewById(R.id.text);
+        mButtonText = (TextView) mView.findViewById(R.id.button_text);
+        mProgress = mView.findViewById(R.id.progress);
 
         mContext = context;
     }
