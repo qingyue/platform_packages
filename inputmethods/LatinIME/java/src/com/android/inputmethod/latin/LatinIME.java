@@ -158,7 +158,6 @@ public class LatinIME extends InputMethodService
     //private LatinKeyboardView mInputView;
     private LinearLayout mCandidateViewContainer;
     private CandidateView mCandidateView;
-    private OnyxExtractEditText mOnyxExtractView;
     private Suggest mSuggest;
     private CompletionInfo[] mCompletions;
 
