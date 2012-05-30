@@ -2644,6 +2644,6 @@ public class LatinIME extends InputMethodService
         Log.i(TAG, "===showWindow===");
 		super.showWindow(showInput);
 
-        //this.setOnyxContentFrameView();
+        this.setOnyxContentFrameView();
 	}
 }
