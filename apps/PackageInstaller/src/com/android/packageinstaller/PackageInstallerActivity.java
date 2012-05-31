@@ -290,4 +290,10 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
             finish();
         }
     }
+
+    @Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+        mOk.requestFocusFromTouch();
+		super.onWindowFocusChanged(hasFocus);
+	}
 }

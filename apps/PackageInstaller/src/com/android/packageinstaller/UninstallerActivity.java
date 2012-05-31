@@ -153,4 +153,10 @@ public class UninstallerActivity extends Activity implements OnClickListener,
     public void onCancel(DialogInterface dialog) {
         finish();
     }
+
+    @Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+        mOk.requestFocusFromTouch();
+		super.onWindowFocusChanged(hasFocus);
+	}
 }

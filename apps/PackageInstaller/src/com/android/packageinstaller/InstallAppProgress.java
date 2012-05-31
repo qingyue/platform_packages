@@ -73,12 +73,14 @@ public class InstallAppProgress extends Activity implements View.OnClickListener
             switch (msg.what) {
                 case INSTALL_COMPLETE:
                     // Update the status text
+                    mProgressBar.invalidate(View.UI_GU_MODE);
                     mProgressBar.setVisibility(View.INVISIBLE);
                     // Show the ok button
                     int centerTextLabel;
                     Drawable centerTextDrawable = null;
                     if(msg.arg1 == PackageManager.INSTALL_SUCCEEDED) {
                         mLaunchButton.setVisibility(View.VISIBLE);
+                        mLaunchButton.requestFocusFromTouch();
                         centerTextDrawable = getResources().getDrawable(R.drawable.button_indicator_finish);
                         centerTextLabel = R.string.install_done;
                         // Enable or disable launch button
@@ -107,6 +109,8 @@ public class InstallAppProgress extends Activity implements View.OnClickListener
                         centerTextLabel = R.string.install_failed;
                         mLaunchButton.setVisibility(View.INVISIBLE);
                     }
+
+                    mStatusTextView.invalidate(View.UI_GU_MODE);
                     if (centerTextDrawable != null) {
                     centerTextDrawable.setBounds(0, 0,
                             centerTextDrawable.getIntrinsicWidth(),
