@@ -19,7 +19,6 @@ package com.android.packageinstaller;
 import com.android.packageinstaller.R;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -141,7 +140,7 @@ public class InstallAppProgress extends Activity implements View.OnClickListener
         switch (id) {
         case DLG_OUT_OF_SPACE:
             String dlgText = getString(R.string.out_of_space_dlg_text, mLabel);
-            return new AlertDialog.Builder(this)
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.out_of_space_dlg_title)
                     .setMessage(dlgText)
                     .setPositiveButton(R.string.manage_applications, new DialogInterface.OnClickListener() {

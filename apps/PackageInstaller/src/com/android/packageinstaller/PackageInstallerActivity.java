@@ -19,7 +19,6 @@ package com.android.packageinstaller;
 import com.android.packageinstaller.R;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -103,6 +102,7 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
 
     @Override
     public Dialog onCreateDialog(int id, Bundle bundle) {
+        OnyxAlertDialog dialog = null;
         switch (id) {
         case DLG_REPLACE_APP:
             int msgId = R.string.dlg_app_replacement_statement;
@@ -110,7 +110,8 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
             if ((mAppInfo != null) && (mAppInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                 msgId = R.string.dlg_sys_app_replacement_statement;
             }
-            return new AlertDialog.Builder(this)
+
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.dlg_app_replacement_title)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -125,7 +126,8 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
                     .setOnCancelListener(this)
                     .create();
         case DLG_UNKNOWN_APPS:
-            return new AlertDialog.Builder(this)
+
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.unknown_apps_dlg_title)
                     .setMessage(R.string.unknown_apps_dlg_text)
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -140,9 +142,9 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
                         }
                     })
                     .setOnCancelListener(this)
-                    .create(); 
+                    .create();
         case DLG_PACKAGE_ERROR :
-            return new AlertDialog.Builder(this)
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.Parse_error_dlg_title)
                     .setMessage(R.string.Parse_error_dlg_text)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -157,7 +159,8 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
             CharSequence appTitle = mPm.getApplicationLabel(mPkgInfo.applicationInfo);
             String dlgText = getString(R.string.out_of_space_dlg_text, 
                     appTitle.toString());
-            return new AlertDialog.Builder(this)
+
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.out_of_space_dlg_title)
                     .setMessage(dlgText)
                     .setPositiveButton(R.string.manage_applications, new DialogInterface.OnClickListener() {
@@ -181,7 +184,8 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
             CharSequence appTitle1 = mPm.getApplicationLabel(mPkgInfo.applicationInfo);
             String dlgText1 = getString(R.string.install_failed_msg,
                     appTitle1.toString());
-            return new AlertDialog.Builder(this)
+
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.install_failed)
                     .setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -229,6 +233,8 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
             if(localLOGV) Log.i(TAG, "Replacing existing package:"+
                     mPkgInfo.applicationInfo.packageName);
             showDialogInner(DLG_REPLACE_APP);
+            this.getWindow().getDecorView().requestFocusFromTouch();
+            Log.i(TAG, "DLG_REPLACE_APP getDecorView: "+this.getWindow().getDecorView());
         }
     }
     
@@ -245,6 +251,8 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
         if(mPkgInfo == null) {
             Log.w(TAG, "Parse error when parsing manifest. Discontinuing installation");
             showDialogInner(DLG_PACKAGE_ERROR);
+            this.getWindow().getDecorView().requestFocusFromTouch();
+            Log.i(TAG, "DLG_PACKAGE_ERROR getDecorView: "+this.getWindow().getDecorView());
             return;
         }
         
@@ -293,7 +301,10 @@ public class PackageInstallerActivity extends Activity implements OnCancelListen
 
     @Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-        mOk.requestFocusFromTouch();
+        if (mOk != null) {
+            mOk.requestFocusFromTouch();
+        }
+
 		super.onWindowFocusChanged(hasFocus);
 	}
 }
