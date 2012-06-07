@@ -400,6 +400,7 @@ public class LatinIME extends InputMethodService
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         WindowManager.LayoutParams params = getWindow().getWindow().getAttributes();
+        //Settings LatinIME display type is TYPE_SEARCH_BAR. The default type will be adjusted Activity
         params.type = WindowManager.LayoutParams.TYPE_SEARCH_BAR;
         getWindow().getWindow().setAttributes(params);
     }
@@ -873,7 +874,9 @@ public class LatinIME extends InputMethodService
 
     @Override
     public void hideWindow() {
+        //Used hidden mOnyxContentFrame and mExtractEditText
         this.hideOnyxContentFrame();
+
         LatinImeLogger.commit();
         onAutoCompletionStateChanged(false);
 
@@ -2643,6 +2646,7 @@ public class LatinIME extends InputMethodService
 	public void showWindow(boolean showInput) {
 		super.showWindow(showInput);
 
+        //Must be in after "super.showWindow(showInput)" call
         this.setOnyxContentFrameView();
 	}
 }
