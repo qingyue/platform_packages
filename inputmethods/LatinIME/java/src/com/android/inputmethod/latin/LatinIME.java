@@ -400,7 +400,8 @@ public class LatinIME extends InputMethodService
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         WindowManager.LayoutParams params = getWindow().getWindow().getAttributes();
-        //Settings LatinIME display type is TYPE_SEARCH_BAR. The default type will be adjusted Activity
+        //Settings LatinIME display type is TYPE_SEARCH_BAR(Require system privileges).
+        //The default type will be adjusted Activity Window
         params.type = WindowManager.LayoutParams.TYPE_SEARCH_BAR;
         getWindow().getWindow().setAttributes(params);
     }
@@ -932,6 +933,8 @@ public class LatinIME extends InputMethodService
     private void setCandidatesViewShownInternal(boolean shown, boolean needsInputViewShown) {
         // TODO: Remove this if we support candidates with hard keyboard
         if (onEvaluateInputViewShown()) {
+            //Set to true will always show CandidatesView.
+            //Because only shows CandidatesView, OnyxContentFrameView can display
             shown = true;
             super.setCandidatesViewShown(shown && mKeyboardSwitcher.getInputView() != null
                     && (needsInputViewShown ? mKeyboardSwitcher.getInputView().isShown() : true));
