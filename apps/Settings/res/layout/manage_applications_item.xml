@@ -26,6 +26,7 @@
     android:paddingLeft="6dip"
     android:paddingTop="5dip"
     android:paddingBottom="5dip"
+    android:background="#ffffff"
     android:gravity="center_vertical" >
 
     <ImageView android:id="@+id/app_icon"
@@ -59,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
             <TextView android:id="@+id/app_disabled"
                 android:layout_marginTop="-4dip"
                 android:layout_gravity="center_vertical|right"
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:visibility="gone"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:text="@string/disabled" />
         </LinearLayout>
     </LinearLayout>
