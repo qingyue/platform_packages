@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.onyx.android.launcher.OnyxApplication;
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.dialog.DialogPageSeekBar;
 import com.onyx.android.sdk.ui.OnyxGridView;
@@ -156,7 +157,7 @@ public class OnyxPagedGridViewHost extends LinearLayout
         final int page_count = (mGridView.getPagedAdapter().getPaginator().getPageCount() != 0) ? 
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
-        mButtonProgress.setText(String.valueOf(current_page) + "/" + String.valueOf(page_count));
+        mButtonProgress.setText(String.valueOf(current_page) + OnyxApplication.getInstance().getResources().getString(R.string.slahs) + String.valueOf(page_count));
 
         ScreenUpdateManager.invalidate(OnyxPagedGridViewHost.this, UpdateMode.GU);
     }

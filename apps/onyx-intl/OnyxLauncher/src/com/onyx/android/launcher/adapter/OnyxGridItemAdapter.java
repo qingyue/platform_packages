@@ -76,7 +76,7 @@ public class OnyxGridItemAdapter extends GridItemBaseAdapter
 	        }
 
 	        assert(thumbnailHolder.textview_thumbnail_launcher_name != null);
-	        thumbnailHolder.textview_thumbnail_launcher_name.setText(item_data.getText());
+	        thumbnailHolder.textview_thumbnail_launcher_name.setText(item_data.getTextId());
         }
         else {
             assert(this.getPageLayout().getViewMode() == GridViewMode.Detail);

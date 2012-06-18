@@ -66,6 +66,9 @@ public class OnyxCmsProvider extends ContentProvider
         sItemProjectionMap.put(OnyxLibraryItem.Columns._ID, OnyxLibraryItem.Columns._ID);
         sItemProjectionMap.put(OnyxLibraryItem.Columns.PATH, OnyxLibraryItem.Columns.PATH);
         sItemProjectionMap.put(OnyxLibraryItem.Columns.NAME, OnyxLibraryItem.Columns.NAME);
+        sItemProjectionMap.put(OnyxLibraryItem.Columns.SIZE, OnyxLibraryItem.Columns.SIZE);
+        sItemProjectionMap.put(OnyxLibraryItem.Columns.TYPE, OnyxLibraryItem.Columns.TYPE);
+        sItemProjectionMap.put(OnyxLibraryItem.Columns.ACCESS_TIME, OnyxLibraryItem.Columns.ACCESS_TIME);
         
         sMetadataProjectionMap = new HashMap<String, String>();
         sMetadataProjectionMap.put(OnyxMetadata.Columns._ID, OnyxMetadata.Columns._ID);
@@ -100,7 +103,10 @@ public class OnyxCmsProvider extends ContentProvider
             db.execSQL("CREATE TABLE " + OnyxLibraryItem.DB_TABLE_NAME + " ("
                     + OnyxLibraryItem.Columns._ID + " INTEGER PRIMARY KEY,"
                     + OnyxLibraryItem.Columns.PATH + " TEXT,"
-                    + OnyxLibraryItem.Columns.NAME + " TEXT COLLATE NOCASE"
+                    + OnyxLibraryItem.Columns.NAME + " TEXT COLLATE NOCASE,"
+                    + OnyxLibraryItem.Columns.SIZE + " LONG,"
+                    + OnyxLibraryItem.Columns.TYPE + " TEXT,"
+                    + OnyxLibraryItem.Columns.ACCESS_TIME + " LONG"
                     + ");");
             
             db.execSQL("CREATE TABLE " + OnyxMetadata.DB_TABLE_NAME + " ("

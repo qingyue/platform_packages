@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.StorageActivity;
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
 import com.onyx.android.launcher.data.StandardMenuFactory.IFileOperationHandler;
@@ -72,7 +73,7 @@ public class FileOperationHandler implements IFileOperationHandler
     public void onRename()
     {
         if (mSourceItems.size() > 1) {
-            Toast.makeText(mContext, "can rename only one item at one time", Toast.LENGTH_SHORT);
+            Toast.makeText(mContext, R.string.can_rename_only_one_item_at_one_time, Toast.LENGTH_SHORT);
             return;
         }
         
@@ -102,7 +103,7 @@ public class FileOperationHandler implements IFileOperationHandler
     public void onProperty()
     {
         if (mSourceItems.size() > 1) {
-            Toast.makeText(mContext, "more than 1 item", Toast.LENGTH_SHORT);
+            Toast.makeText(mContext, R.string.more_than_1_item, Toast.LENGTH_SHORT);
             return;
         }
         DialogFileProperty dlg = new DialogFileProperty(this.getContext(), mSourceItems.get(0));
@@ -113,7 +114,7 @@ public class FileOperationHandler implements IFileOperationHandler
     public void onGotoFolder()
     {
         if (mSourceItems.size() > 1) {
-            Toast.makeText(mContext, "more than 1 item", Toast.LENGTH_SHORT);
+            Toast.makeText(mContext, R.string.more_than_1_item, Toast.LENGTH_SHORT);
             return;
         }
         if (mContext instanceof Activity) {

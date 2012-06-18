@@ -22,7 +22,7 @@ public class SettingsPrivacyActor extends AbstractItemActor
     public SettingsPrivacyActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Privacy"), 
-                "Privacy", 
+                R.string.Privacy, 
                 R.drawable.privacy));
     }
 

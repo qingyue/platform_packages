@@ -21,7 +21,7 @@ public class SettingsAppSettingsActor extends AbstractItemActor
     public SettingsAppSettingsActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Application Settings"), 
-                "Application Settings", 
+                R.string.Application_Settings, 
                 R.drawable.applications));
     }
     

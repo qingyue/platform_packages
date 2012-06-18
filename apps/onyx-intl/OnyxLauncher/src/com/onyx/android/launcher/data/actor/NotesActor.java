@@ -20,7 +20,7 @@ public class NotesActor extends AbstractItemActor
     public NotesActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Notes"), 
-                "Notes", 
+                R.string.Notes, 
                 R.drawable.notes));
     }
 

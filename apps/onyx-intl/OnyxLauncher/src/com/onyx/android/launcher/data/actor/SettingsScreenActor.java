@@ -21,7 +21,7 @@ public class SettingsScreenActor extends AbstractItemActor
     public SettingsScreenActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Screen Update"), 
-                "Screen Update", 
+                R.string.Screen_Update, 
                 R.drawable.screen_update_setting));
     }
 

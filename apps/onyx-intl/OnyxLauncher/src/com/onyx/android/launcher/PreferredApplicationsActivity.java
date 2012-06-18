@@ -93,7 +93,7 @@ public class PreferredApplicationsActivity extends OnyxBaseActivity
                         PackageManager.MATCH_DEFAULT_ONLY);
 
                 if (info_list.size() <= 0) {
-                    Toast.makeText(PreferredApplicationsActivity.this, "unable to open this type of file", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PreferredApplicationsActivity.this, R.string.unable_to_open_this_type_of_file, Toast.LENGTH_SHORT).show();
                 }
                 else {
 

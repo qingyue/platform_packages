@@ -38,7 +38,7 @@ public class SettingsActor extends ItemContainerActor
     public SettingsActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Settings"), 
-                "Settings", 
+                R.string.Settings, 
                 R.drawable.settings));
         
         mLanguage = new SettingsLanguageActor(this.getData().getURI());

@@ -21,7 +21,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
-import com.onyx.android.launcher.data.StandardMenuFactory;
 import com.onyx.android.launcher.dialog.DialogContextMenu;
 import com.onyx.android.launcher.dialog.DialogScreenRotation;
 import com.onyx.android.sdk.data.util.ActivityUtil;
@@ -117,7 +116,6 @@ public abstract class OnyxBaseActivity extends Activity
     public ArrayList<OnyxMenuSuite> getContextMenuSuites()
     {
         ArrayList<OnyxMenuSuite> suites = new ArrayList<OnyxMenuSuite>();
-        suites.add(StandardMenuFactory.getSystemMenuSuite(this));
         return suites;
     }
 
@@ -260,13 +258,17 @@ public abstract class OnyxBaseActivity extends Activity
     @Override
     public boolean onSearchRequested()
     {
-        GridItemBaseAdapter adapter = (GridItemBaseAdapter)this.getGridView().getPagedAdapter();
-
-        Bundle app_data = new Bundle();
-        app_data.putString(SearchResultActivity.HOST_URI, adapter.getHostURI().toString());
-        this.startSearch(null, false, app_data, false);
-
-        return true;
+        if (this.getGridView().getPagedAdapter() instanceof GridItemBaseAdapter) {
+            GridItemBaseAdapter adapter = (GridItemBaseAdapter)this.getGridView().getPagedAdapter();
+            Bundle app_data = new Bundle();
+            app_data.putString(SearchResultActivity.HOST_URI, adapter.getHostURI().toString());
+            this.startSearch(null, false, app_data, false);
+            return true;
+        }
+        else {
+            assert(false);
+            return false;
+        }
     }
 
     @Override

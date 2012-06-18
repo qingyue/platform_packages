@@ -35,7 +35,7 @@ public class DesktopActor extends ItemContainerActor
     public DesktopActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Desktop"), 
-                "Desktop", 
+               R.string.Desktop, 
                 R.drawable.icon));
         
         mLibrary = new LibraryActor(this.getData().getURI());
@@ -82,6 +82,18 @@ public class DesktopActor extends ItemContainerActor
     {
         assert(mSettings != null);
         return mSettings;
+    }
+    
+    public ApplicationsActor getApplicationsActor()
+    {
+        assert(mApplications != null);
+        return mApplications;
+    }
+    
+    public RecentDocumentsActor getRecentDocumentsActor()
+    {
+        assert(mRecentDocuments != null);
+        return mRecentDocuments;
     }
     
     @Override

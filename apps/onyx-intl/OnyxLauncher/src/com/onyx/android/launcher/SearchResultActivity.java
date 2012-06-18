@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -47,6 +46,7 @@ import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.GridItemData;
 import com.onyx.android.sdk.ui.data.GridViewPageLayout.GridViewMode;
 import com.onyx.android.sdk.ui.data.GridViewPaginator.OnPageIndexChangedListener;
+import com.onyx.android.sdk.ui.data.GridViewPaginator.OnStateChangedListener;
 import com.onyx.android.sdk.ui.menu.OnyxMenuSuite;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
@@ -211,6 +211,9 @@ public class SearchResultActivity extends OnyxBaseActivity
     private SearchTask mSearchTask = null;
     private LoadBookMetadataTask mLoadBookMetadataTask = null;
     
+    public static AscDescOrder AscOrder = AscDescOrder.Asc;
+    public static SortOrder SortPolicy = SortOrder.Name;
+
     @Override
     public OnyxGridView getGridView()
     {
@@ -226,26 +229,64 @@ public class SearchResultActivity extends OnyxBaseActivity
     @Override
     public ArrayList<OnyxMenuSuite> getContextMenuSuites()
     {
-        ArrayList<OnyxMenuSuite> suites = super.getContextMenuSuites();
-        if (mAdapter.getMultipleSelectionMode() && (mAdapter.getSelectedItems().size() > 0)) {
-            ArrayList<FileItemData> items = new ArrayList<FileItemData>(mAdapter.getSelectedItems().size());
-            for (GridItemData i : mAdapter.getSelectedItems()) {
-                items.add((FileItemData)i);
-            }
-            mFileOperationHandler.setSourceItems(items);
-            suites.add(StandardMenuFactory.getFileOperationMenuSuite(mFileOperationHandler));
-        }
-        else if (this.getSelectedGridItem() != null && (this.getSelectedGridItem() instanceof FileItemData)) {
-            ArrayList<FileItemData> items = new ArrayList<FileItemData>();
-            items.add((FileItemData)this.getSelectedGridItem());
-            mFileOperationHandler.setSourceItems(items);
-            suites.add(StandardMenuFactory.getFileOperationMenuSuite(mFileOperationHandler, 
-                    new FileOperationMenuItem[] { FileOperationMenuItem.Rename, 
-                  FileOperationMenuItem.Copy, FileOperationMenuItem.Cut, 
-                  FileOperationMenuItem.Remove }));
-        }
-        
-        return suites;
+		ArrayList<OnyxMenuSuite> suites = super.getContextMenuSuites();
+		if (mAdapter.getMultipleSelectionMode() && (mAdapter.getSelectedItems().size() > 0) 
+				&& this.getSelectedGridItem() != null) {
+			ArrayList<FileItemData> items = new ArrayList<FileItemData>( mAdapter.getSelectedItems().size());
+			for (GridItemData i : mAdapter.getSelectedItems()) {
+				items.add((FileItemData) i);
+			}
+			mFileOperationHandler.setSourceItems(items);
+
+			suites.add(StandardMenuFactory.getFileOperationMenuSuite(
+					mFileOperationHandler, new FileOperationMenuItem[] {
+							FileOperationMenuItem.Rename,
+							FileOperationMenuItem.Copy,
+							FileOperationMenuItem.Cut,
+							FileOperationMenuItem.Remove,
+							FileOperationMenuItem.Property }));
+
+			return suites;
+		}
+		if (this.getSelectedGridItem() != null && (this.getSelectedGridItem() instanceof FileItemData)) {
+			ArrayList<FileItemData> items = new ArrayList<FileItemData>();
+			items.add((FileItemData) this.getSelectedGridItem());
+			mFileOperationHandler.setSourceItems(items);
+
+			if (mAdapter.getMultipleSelectionMode()) {
+				suites.add(StandardMenuFactory.getFileOperationMenuSuite(
+						mFileOperationHandler, new FileOperationMenuItem[] {
+								FileOperationMenuItem.Rename,
+								FileOperationMenuItem.Copy,
+								FileOperationMenuItem.Cut,
+								FileOperationMenuItem.Remove,
+								FileOperationMenuItem.Property,
+								FileOperationMenuItem.GotoFolder }));
+			}
+			else {
+				suites.add(StandardMenuFactory.getFileOperationMenuSuite(
+						mFileOperationHandler, new FileOperationMenuItem[] {
+								FileOperationMenuItem.Rename,
+								FileOperationMenuItem.Copy,
+								FileOperationMenuItem.Cut,
+								FileOperationMenuItem.Remove,
+								FileOperationMenuItem.Property,
+								FileOperationMenuItem.GotoFolder,
+								FileOperationMenuItem.Multiple }));
+			}
+
+			return suites;
+		} else if(!mAdapter.getMultipleSelectionMode()) {
+			mFileOperationHandler.getSourceItems().clear();
+
+			suites.add(StandardMenuFactory.getFileOperationMenuSuite(
+					mFileOperationHandler, new FileOperationMenuItem[] { 
+							FileOperationMenuItem.Multiple }));
+
+			return suites;
+		}
+
+		return suites;
     }
     
     @Override
@@ -341,6 +382,13 @@ public class SearchResultActivity extends OnyxBaseActivity
                         ScreenUpdateManager.invalidate(SearchResultActivity.this.getGridView(), UpdateMode.GC);
                     }
                 });
+                adapter.getPaginator().registerOnStateChangedListener(new OnStateChangedListener() {
+
+					@Override
+					public void onStateChanged() {
+						ScreenUpdateManager.invalidate(mFileGridView.getGridView(), UpdateMode.GU);
+					}
+				});
             }
         });
 
@@ -364,16 +412,16 @@ public class SearchResultActivity extends OnyxBaseActivity
                 DialogSortBy dlg = new DialogSortBy(SearchResultActivity.this, 
                         new SortOrder[] { SortOrder.Name,
                         SortOrder.FileType, SortOrder.Size, 
-                        SortOrder.AccessTime, }
-                );
+                        SortOrder.AccessTime, },
+                SearchResultActivity.SortPolicy, AscOrder);
                 dlg.setOnSortByListener(new DialogSortBy.OnSortByListener()
                 {
                     
                     @Override
-                    public void onSortBy(SortOrder order)
+                    public void onSortBy(SortOrder order, AscDescOrder ascOrder)
                     {
                         GridItemBaseAdapter adapter = (GridItemBaseAdapter)mFileGridView.getGridView().getPagedAdapter();
-                        adapter.sortItems(order, AscDescOrder.Asc);
+                        adapter.sortItems(order, ascOrder);
                     }
                 });
                 
@@ -497,19 +545,6 @@ public class SearchResultActivity extends OnyxBaseActivity
         }
 
         return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId()) {
-        case R.id.home_option_menu_select_mutiple:
-            mAdapter.setMultipleSelectionMode(true); 
-            mFileGridView.onPrepareMultipleSelection();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
     }
     
     @Override

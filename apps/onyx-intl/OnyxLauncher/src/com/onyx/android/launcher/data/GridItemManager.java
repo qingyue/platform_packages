@@ -70,73 +70,103 @@ public class GridItemManager
     private static OrderedHashMap<String, AbstractItemActor> OurURIActors = 
             new GridItemManager().new OrderedHashMap<String, AbstractItemActor>();
     private static DesktopActor OurDesktopActor = null;
-    
+
     public static void initializeDesktop(OnyxGridView gridView, Activity hostActivity)
     {
         if (OurDesktopActor == null) {
             OurDesktopActor = new DesktopActor(OnyxItemURI.ROOT);
             RegisterURIActor(OurDesktopActor);
         }
-        
+
         OurDesktopActor.process(gridView, OurDesktopActor.getData().getURI(), hostActivity);
     }
-    
+
     public static boolean isDesktop(OnyxItemURI uri)
     {
         if (OurDesktopActor == null) {
             assert(false);
             return false;
         }
-        
+
         return OurDesktopActor.getData().getURI().toString().compareTo(uri.toString()) == 0;
     }
-    
+
     public static OnyxItemURI getDesktopURI()
     {
         if (OurDesktopActor == null) {
             assert(false);
             throw new IllegalArgumentException();
         }
-        
+
         return OurDesktopActor.getData().getURI();
     }
-    
+
     public static OnyxItemURI getLibraryURI()
     {
         if (OurDesktopActor == null) {
             assert(false);
             throw new IllegalArgumentException();
         }
-        
+
         return OurDesktopActor.getLibraryActor().getData().getURI();
     }
-    
+
     public static OnyxItemURI getStorageURI()
     {
         if (OurDesktopActor == null) {
             assert(false);
             throw new IllegalArgumentException();
         }
-        
+
         return OurDesktopActor.getStorageActor().getData().getURI();
     }
-    
+
+    public static OnyxItemURI getSettingsURI()
+    {
+        if (OurDesktopActor == null) {
+            assert(false);
+            throw new IllegalArgumentException();
+        }
+
+        return OurDesktopActor.getSettingsActor().getData().getURI();
+    }
+
+    public static OnyxItemURI getApplicationsURI()
+    {
+        if (OurDesktopActor == null) {
+            assert(false);
+            throw new IllegalArgumentException();
+        }
+
+        return OurDesktopActor.getApplicationsActor().getData().getURI();
+    }
+
+    public static OnyxItemURI getRecentDocumentsURI()
+    {
+        if (OurDesktopActor == null) {
+            assert(false);
+            throw new IllegalArgumentException();
+        }
+
+        return OurDesktopActor.getRecentDocumentsActor().getData().getURI();
+    }
+
     public static ArrayList<GridItemData> getSettings()
     {
         if (OurDesktopActor == null) {
             assert(false);
             throw new IllegalArgumentException();
         }
-        
+
         SettingsActor settings = OurDesktopActor.getSettingsActor();
-        
+
         ArrayList<GridItemData> result = new ArrayList<GridItemData>();
-        
+
         ArrayList<AbstractItemActor> actors = GridItemManager.getChildren(settings.getData().getURI());
         for (AbstractItemActor a : actors) {
             result.add(a.getData());
         } 
-        
+
         return result;
     }
     

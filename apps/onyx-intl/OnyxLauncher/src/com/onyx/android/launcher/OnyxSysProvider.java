@@ -131,7 +131,7 @@ public class OnyxSysProvider extends ContentProvider
         else if ((matcher_result == MatcherResult.KEY_VALUE_ITEMS) ||
                 (matcher_result == MatcherResult.KEY_VALUE_ITEM_ID)) {
             builder.setTables(OnyxKeyValueItem.DB_TABLE_NAME);
-            builder.setProjectionMap(sAppPreferenceProjectionMap);
+            builder.setProjectionMap(sKeyValueItemProjectionMap);
             
             if (matcher_result == MatcherResult.KEY_VALUE_ITEM_ID) {
                 builder.appendWhere(OnyxKeyValueItem.Columns._ID + "=" + uri.getPathSegments().get(1));

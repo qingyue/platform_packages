@@ -21,7 +21,7 @@ public class SettingsTimezoneActor extends AbstractItemActor
     public SettingsTimezoneActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Time Zone"), 
-                "Time Zone", 
+                R.string.Time_Zone, 
                 R.drawable.time_zone));
     }
 

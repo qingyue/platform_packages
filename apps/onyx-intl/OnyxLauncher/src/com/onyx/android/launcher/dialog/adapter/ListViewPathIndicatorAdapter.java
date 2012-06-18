@@ -83,7 +83,7 @@ public class ListViewPathIndicatorAdapter extends GridItemBaseAdapter
                 textView_pathName.setText(item_data.getText());
             }
             else if (position ==sOmit) {
-                textView_pathName.setText("����");
+                textView_pathName.setText(R.string.sOmit);
                 item_data = null;
             }
             else {

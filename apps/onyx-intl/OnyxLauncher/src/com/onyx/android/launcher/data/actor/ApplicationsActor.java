@@ -23,7 +23,7 @@ public class ApplicationsActor extends AbstractItemActor
     public ApplicationsActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Applications"), 
-                "Applications", 
+                R.string.Applications, 
                 R.drawable.applications));
     }
 

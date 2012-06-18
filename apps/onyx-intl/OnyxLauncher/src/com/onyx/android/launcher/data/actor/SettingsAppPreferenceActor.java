@@ -23,7 +23,7 @@ public class SettingsAppPreferenceActor extends AbstractItemActor
     public SettingsAppPreferenceActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Preferred Applications"), 
-                "Preferred Applications", 
+                R.string.Preferred_Applications, 
                 R.drawable.applications));
     }
 
