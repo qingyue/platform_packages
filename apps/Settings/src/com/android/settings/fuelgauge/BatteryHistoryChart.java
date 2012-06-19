@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Typeface;
@@ -177,7 +178,7 @@ public class BatteryHistoryChart extends View {
     public BatteryHistoryChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         
-        mBatteryBackgroundPaint.setARGB(255, 128, 128, 128);
+        mBatteryBackgroundPaint.setARGB(255, 255, 255, 255);
         mBatteryBackgroundPaint.setStyle(Paint.Style.FILL);
         mBatteryGoodPaint.setARGB(128, 0, 255, 0);
         mBatteryGoodPaint.setStyle(Paint.Style.STROKE);
@@ -287,7 +288,7 @@ public class BatteryHistoryChart extends View {
         
         a.recycle();
         
-        mTextPaint.setColor(textColor.getDefaultColor());
+        mTextPaint.setColor(Color.BLACK);
         mTextPaint.setTextSize(textSize);
         
         Typeface tf = null;

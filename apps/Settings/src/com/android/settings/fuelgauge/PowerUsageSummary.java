@@ -18,6 +18,7 @@ package com.android.settings.fuelgauge;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.os.BatteryStats;
 import android.os.Bundle;
@@ -100,6 +101,8 @@ public class PowerUsageSummary extends PreferenceActivity implements Runnable {
         mStats = (BatteryStatsImpl)getLastNonConfigurationInstance();
 
         addPreferencesFromResource(R.xml.power_usage_summary);
+        getListView().setBackgroundColor(Color.WHITE);
+        getListView().setCacheColorHint(Color.TRANSPARENT);
         mBatteryInfo = IBatteryStats.Stub.asInterface(
                 ServiceManager.getService("batteryinfo"));
         mAppListGroup = (PreferenceGroup) findPreference("app_list");
