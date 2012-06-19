@@ -19,7 +19,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
     <LinearLayout
         android:id="@+id/all_details"
         android:layout_width="match_parent"
@@ -51,7 +52,13 @@
         </LinearLayout>
 
         <TextView
-            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="25dip"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5sp"
             android:text="@string/storage_label" />
 
         <LinearLayout
@@ -68,7 +75,7 @@
                 <TextView
                     android:id="@+id/total_size_prefix"
                     android:text="@string/total_size_label"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:maxLines="1"
@@ -90,7 +97,7 @@
                     android:id="@+id/total_size_text"
                     android:paddingTop="6dip"
                     android:paddingRight="6dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:maxLines="1" />
@@ -105,7 +112,7 @@
                 <TextView
                     android:id="@+id/application_size_prefix"
                     android:text="@string/application_size_label"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:maxLines="1"
@@ -124,7 +131,7 @@
                     android:scaleType="center" />
                 <TextView
                     android:id="@+id/application_size_text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:paddingTop="6dip"
                     android:paddingRight="6dip"
                     android:layout_height="wrap_content"
@@ -142,7 +149,7 @@
                 <TextView
                     android:id="@+id/data_size_prefix"
                     android:text="@string/data_size_label"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:maxLines="1"
@@ -161,7 +168,7 @@
                     android:scaleType="center" />
                 <TextView
                     android:id="@+id/data_size_text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:paddingTop="6dip"
                     android:paddingRight="6dip"
                     android:layout_height="wrap_content"
@@ -183,7 +190,13 @@
             android:layout_height="wrap_content" >
             <TextView
                 android:id="@+id/cache_header"
-                style="?android:attr/listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="25dip"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingLeft="5sp"
                 android:text="@string/cache_header_label" />
             <LinearLayout
                 android:id="@+id/cache_size"
@@ -198,7 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:maxLines="1"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:paddingTop="6dip"
                     android:gravity="center_vertical"
                     android:paddingLeft="6dip"/>
@@ -214,7 +227,7 @@
                     android:scaleType="center" />
                 <TextView
                     android:id="@+id/cache_size_text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:paddingTop="6dip"
                     android:paddingRight="6dip"
                     android:layout_height="wrap_content"
@@ -233,7 +246,13 @@
 
         <!-- Prefered activities section -->
         <TextView
-            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="25dip"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5sp"
             android:text="@string/auto_launch_label" />
 
         <RelativeLayout 
@@ -241,7 +260,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
             <TextView android:id="@+id/auto_launch"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:layout_alignParentLeft="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -264,11 +283,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
-                style="?android:attr/listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="25dip"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingLeft="5sp"
                 android:text="@string/permissions_label" />
             <TextView
                 android:text="@string/security_settings_desc"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:paddingTop="6dip"
                 android:paddingLeft="6dip"
                 android:paddingBottom="6dip"
