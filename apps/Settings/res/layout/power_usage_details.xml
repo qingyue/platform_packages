@@ -17,8 +17,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/all_details"
         android:layout_width="match_parent"
@@ -60,7 +59,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/battery_percentage"
                     android:ellipsize="marquee"
-                    android:textAppearance="?android:attr/textAppearanceMediumInverse"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <TextView android:id="@+id/battery_percentage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,7 +67,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignBottom="@+id/name"
                     android:layout_gravity="bottom"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="bold"/>
                 <ImageView
                     android:id="@+id/gauge"
@@ -83,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/gauge"
                     android:layout_below="@id/gauge"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
             </RelativeLayout>
         </LinearLayout>
@@ -100,14 +99,9 @@
         </LinearLayout>
                     
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dip"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="5sp"
-            android:text="@string/details_subtitle" />
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:text="@string/details_subtitle"
+            android:textColor="#000000" />
 
         <LinearLayout
             android:id="@+id/details"
@@ -128,13 +122,8 @@
 
             <TextView
                 android:id="@+id/controls_title"
-                android:layout_width="match_parent"
-                android:layout_height="25dip"
-                android:textStyle="bold"
+                style="?android:attr/listSeparatorTextViewStyle"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:gravity="center_vertical"
-                android:paddingLeft="5sp"
                 android:layout_marginTop="6dip"
                 android:text="@string/controls_subtitle" />
 
@@ -144,13 +133,8 @@
                     
         <TextView
             android:id="@+id/packages_section_title"
-            android:layout_width="match_parent"
-            android:layout_height="25dip"
-            android:textStyle="bold"
+            style="?android:attr/listSeparatorTextViewStyle"
             android:textColor="#000000"
-            android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="5sp"
             android:layout_marginTop="6dip"
             android:text="@string/packages_subtitle" />
 

@@ -22,7 +22,6 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="vertical"
-    android:background="#ffffff"
     android:gravity="fill" >
 
     <LinearLayout
@@ -55,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingRight="4dip"
-                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"
                     android:singleLine="true"
                     android:ellipsize="marquee"
@@ -66,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:singleLine="true"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -81,14 +80,14 @@
                     android:paddingRight="4dip"
                     android:singleLine="true"
                     android:ellipsize="marquee"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
                 <TextView android:id="@+id/uptime"
                     android:layout_gravity="center_vertical|right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:singleLine="true"
-                    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -22,7 +22,6 @@
     android:paddingLeft="4dip"
     android:focusable="true"
     android:orientation="vertical"
-    android:background="#ffffff"
     android:paddingRight="?android:attr/scrollbarSize">
 
     <TextView android:id="@+id/summary"
@@ -31,7 +30,7 @@
             android:layout_marginTop="2dip"
             android:paddingBottom="4dip"
             android:ellipsize="marquee"
-            android:textAppearance="?android:attr/textAppearanceMediumInverse"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <LinearLayout
             android:layout_width="match_parent"
