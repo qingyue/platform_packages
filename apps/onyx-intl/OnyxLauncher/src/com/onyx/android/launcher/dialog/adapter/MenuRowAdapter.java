@@ -195,5 +195,4 @@ public class MenuRowAdapter extends OnyxPagedAdapter
         
         return false;
     }
-
 }

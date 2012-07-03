@@ -20,7 +20,7 @@ public class DictionaryActor extends AbstractItemActor
     public DictionaryActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Dictionary"), 
-                "Dictionary", 
+                R.string.Dictionary, 
                 R.drawable.dictionary));
     }
 

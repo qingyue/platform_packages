@@ -36,7 +36,7 @@ public class DialogTimeZone extends DialogBaseSettings
             }
         });
         
-        this.getTextViewTitle().setText("Time Zone");
+        this.getTextViewTitle().setText(R.string.Time_Zone);
         
         adapter.getPaginator().setPageSize(array.length);
     }

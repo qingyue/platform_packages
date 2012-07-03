@@ -23,7 +23,7 @@ public class SettingsFontActor extends AbstractItemActor
     public SettingsFontActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Default Font"), 
-                "Default Font", 
+               R.string.Default_Font, 
                 R.drawable.font_management));
     }
 

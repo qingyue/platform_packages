@@ -23,7 +23,7 @@ public class DialogFormatFlast extends OnyxDialogBase
         mSetButton = (Button)this.findViewById(R.id.button_yes_formatflash);
         mCancelButton = (Button)this.findViewById(R.id.button_no_formatflash);
         mTextViewTitle = (TextView)this.findViewById(R.id.textview_formatflash_title);
-        mTextViewTitle.setText("Warning");
+        mTextViewTitle.setText(R.string.Warning);
         
         mSetButton.setOnClickListener(new View.OnClickListener()
         {

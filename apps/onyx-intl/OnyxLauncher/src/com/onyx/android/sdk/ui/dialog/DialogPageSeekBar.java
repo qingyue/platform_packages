@@ -212,11 +212,11 @@ public class DialogPageSeekBar extends Dialog
                 mSeekBarPage.setProgress(page * 100);
             }
             else {
-                Toast.makeText(mContext, "Exceed the total number of pages", 1000).show();
+                Toast.makeText(mContext, R.string.Exceed_the_total_number_of_pages, 1000).show();
             }
         }
         else {
-            Toast.makeText(mContext, "Please enter the number", 1000).show();
+            Toast.makeText(mContext, R.string.Please_enter_the_number, 1000).show();
         }
     }
 }

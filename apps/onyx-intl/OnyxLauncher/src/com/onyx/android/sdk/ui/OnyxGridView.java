@@ -95,6 +95,7 @@ public class OnyxGridView extends GridView implements IBoundaryItemLocator, Gest
     private float mDownXLength = 0;
     private float mUpXLength = 0;
     private long mDownTime = 0;
+    private boolean enableOnFling = true;
 
     public OnyxGridView(Context context) {
         this(context, null);
@@ -417,7 +418,8 @@ public class OnyxGridView extends GridView implements IBoundaryItemLocator, Gest
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
             float velocityY)
     {
-        if (e1.getX() - e2.getX() > sMinFlingLength) {
+    	if(enableOnFling){
+    		if (e1.getX() - e2.getX() > sMinFlingLength) {
             if (mAdapter.getPaginator().canNextPage()) {
                 mAdapter.getPaginator().nextPage();
             }
@@ -429,10 +431,16 @@ public class OnyxGridView extends GridView implements IBoundaryItemLocator, Gest
             }
             return true;
         }
+    	}
+        
 
         return false;
     }
-
+    
+    public void enableOnFling(boolean value){
+    	enableOnFling = value;
+    }
+    
     /**
      * special focusable search method to select GridView's corresponding item
      * 

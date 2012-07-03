@@ -14,7 +14,7 @@ import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
 import com.onyx.android.launcher.data.FileIconFactory;
 import com.onyx.android.launcher.data.GridItemManager;
 import com.onyx.android.launcher.data.SDFileFactory;
-import com.onyx.android.launcher.dialog.DialogProgressBarRotundity;
+import com.onyx.android.launcher.dialog.DialogFileOperations;
 import com.onyx.android.sdk.ui.data.BookItemData;
 import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.FileItemData.FileType;
@@ -27,13 +27,13 @@ public class CutFileTask extends AsyncTask<Void, GridItemData, Void>
     private OnyxBaseActivity mActivity = null;
     private File mSourceFile = null;
     private File mFile = null;
-    private DialogProgressBarRotundity mDialogProgress = null;
+    private DialogFileOperations mDialogFileOperations = null;
     private List<File> mFiles = new ArrayList<File>();
 
     public CutFileTask(OnyxBaseActivity activity, Collection<FileItemData> items)
     {
         mActivity = activity;
-        
+
         for (FileItemData i : items) {
             mFiles.add(GridItemManager.getFileFromURI(i.getURI()));
         }
@@ -45,19 +45,23 @@ public class CutFileTask extends AsyncTask<Void, GridItemData, Void>
         GridItemBaseAdapter adapter = (GridItemBaseAdapter)mActivity.getGridView().getPagedAdapter();
         mFile = GridItemManager.getFileFromURI(adapter.getHostURI());
         for (int i = 0; i < mFiles.size(); i++) {
+        	if (mDialogFileOperations == null && !mDialogFileOperations.getIsShowing()) {
+        		this.cancel(true);
+				return null;
+			}
             mSourceFile = mFiles.get(i);
             if (mFile.getPath().startsWith(mSourceFile.getPath())) {
-                CutFileTask.this.cancel(true);
+                this.cancel(true);
                 return null;
             }
 
-            if (!SDFileFactory.cut(mSourceFile, mFile)) {
-                CutFileTask.this.cancel(true);
+            if (!SDFileFactory.copy(mSourceFile, mFile, mDialogFileOperations)) {
+                this.cancel(true);
                 return null;
             }
 
-            if (!SDFileFactory.delete(mSourceFile)) {
-                CutFileTask.this.cancel(true);
+            if (!SDFileFactory.delete(mSourceFile, mDialogFileOperations)) {
+                this.cancel(true);
                 return null;
             }
 
@@ -82,15 +86,15 @@ public class CutFileTask extends AsyncTask<Void, GridItemData, Void>
     @Override
     protected void onPostExecute(Void result)
     {
-        if(mDialogProgress.isShowing()) {
-            mDialogProgress.dismiss();
+        if(mDialogFileOperations.isShowing()) {
+            mDialogFileOperations.dismiss();
         }
 
         mActivity.getGridView().getPagedAdapter().notifyDataSetChanged();
         ((GridItemBaseAdapter)mActivity.getGridView().getPagedAdapter()).cleanSelectedItems();
 
         if (this.isCancelled()) {
-            Toast.makeText(mActivity, "Cut fail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.Cut_fail, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -105,7 +109,7 @@ public class CutFileTask extends AsyncTask<Void, GridItemData, Void>
     @Override
     protected void onPreExecute()
     {
-        mDialogProgress = new DialogProgressBarRotundity(mActivity);
-        mDialogProgress.show();
+        mDialogFileOperations = new DialogFileOperations(mActivity);
+        mDialogFileOperations.show();
     }
 }

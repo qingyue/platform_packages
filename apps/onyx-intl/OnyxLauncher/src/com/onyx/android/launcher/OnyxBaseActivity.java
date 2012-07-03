@@ -21,7 +21,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
-import com.onyx.android.launcher.data.StandardMenuFactory;
 import com.onyx.android.launcher.dialog.DialogContextMenu;
 import com.onyx.android.launcher.dialog.DialogScreenRotation;
 import com.onyx.android.sdk.data.util.ActivityUtil;
@@ -92,8 +91,6 @@ public abstract class OnyxBaseActivity extends Activity
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long id)
             {
-            	ArrayList<OnyxMenuSuite> suites = OnyxBaseActivity.this.getContextMenuSuites();
-                new DialogContextMenu(OnyxBaseActivity.this, suites).show();
                 return true;
             }
         });
@@ -103,7 +100,8 @@ public abstract class OnyxBaseActivity extends Activity
             @Override
             public void onLongPress()
             {
-//                OnyxBaseActivity.this.openOptionsMenu();
+            	ArrayList<OnyxMenuSuite> suites = OnyxBaseActivity.this.getContextMenuSuites();
+                new DialogContextMenu(OnyxBaseActivity.this, suites).show();
             }
         });
     }
@@ -118,14 +116,13 @@ public abstract class OnyxBaseActivity extends Activity
     public ArrayList<OnyxMenuSuite> getContextMenuSuites()
     {
         ArrayList<OnyxMenuSuite> suites = new ArrayList<OnyxMenuSuite>();
-        suites.add(StandardMenuFactory.getSystemMenuSuite(this));
         return suites;
     }
-    
+
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
     	Log.d(TAG, "onResume");
+
     	super.onResume();
     }
 
@@ -212,8 +209,8 @@ public abstract class OnyxBaseActivity extends Activity
                 }
             }
         }
-        
-//        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.DW);
+
+        OnyxBaseActivity.this.getWindow().getDecorView().requestFocusFromTouch();
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -261,13 +258,17 @@ public abstract class OnyxBaseActivity extends Activity
     @Override
     public boolean onSearchRequested()
     {
-        GridItemBaseAdapter adapter = (GridItemBaseAdapter)this.getGridView().getPagedAdapter();
-
-        Bundle app_data = new Bundle();
-        app_data.putString(SearchResultActivity.HOST_URI, adapter.getHostURI().toString());
-        this.startSearch(null, false, app_data, false);
-
-        return true;
+        if (this.getGridView().getPagedAdapter() instanceof GridItemBaseAdapter) {
+            GridItemBaseAdapter adapter = (GridItemBaseAdapter)this.getGridView().getPagedAdapter();
+            Bundle app_data = new Bundle();
+            app_data.putString(SearchResultActivity.HOST_URI, adapter.getHostURI().toString());
+            this.startSearch(null, false, app_data, false);
+            return true;
+        }
+        else {
+            assert(false);
+            return false;
+        }
     }
 
     @Override

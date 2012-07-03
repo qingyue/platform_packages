@@ -14,26 +14,33 @@ import com.onyx.android.sdk.ui.data.GridItemData;
 
 /**
  * @author joy
- *
+ * 
  */
 public class SettingsPowerActor extends AbstractItemActor
 {
 
     public SettingsPowerActor(OnyxItemURI parentURI)
     {
-        super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Power Management"), 
-                "Power Management", 
+        super(new GridItemData(
+                ((OnyxItemURI) parentURI.clone()).append("Power Management"),
+                R.string.Power_Management,
                 R.drawable.power_management));
     }
 
-    /* (non-Javadoc)
-     * @see com.onyx.android.homework.data.actor.AbstractGridItemActor#process(com.onyx.android.sdk.ui.OnyxGridView, com.onyx.android.sdk.data.ItemURI)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.onyx.android.homework.data.actor.AbstractGridItemActor#process(com
+     * .onyx.android.sdk.ui.OnyxGridView, com.onyx.android.sdk.data.ItemURI)
      */
     @Override
-    public boolean process(OnyxGridView gridView, OnyxItemURI uri, Activity hostActivity)
+    public boolean process(OnyxGridView gridView, OnyxItemURI uri,
+            Activity hostActivity)
     {
         Intent i = new Intent();
-        i.setClassName("com.android.settings", "com.android.settings.DisplaySettings");
+        i.setClassName("com.android.settings",
+                "com.android.settings.DisplaySettings");
         return ActivityUtil.startActivitySafely(hostActivity, i);
     }
 

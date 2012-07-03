@@ -76,19 +76,20 @@ public class SettingsActivity extends OnyxBaseActivity
         SettingsAdapter adapter = new SettingsAdapter(this, mGridView);
         adapter.getPaginator().registerOnPageIndexChangedListener(new OnPageIndexChangedListener()
         {
-            
-            @Override
-            public void onPageIndexChanged()
-            {
-                ScreenUpdateManager.invalidate(SettingsActivity.this.getWindow().getDecorView(), UpdateMode.GC);
-            }
+
+        	@Override
+        	public void onPageIndexChanged()
+        	{
+        		ScreenUpdateManager.invalidate(mGridView, UpdateMode.GC);
+        	}
         });
-        
+
         ArrayList<GridItemData> settings = GridItemManager.getSettings();
-        adapter.fillItems(null, settings);
+        adapter.fillItems(GridItemManager.getSettingsURI(), settings);
         mGridView.setAdapter(adapter);
 
         this.registerLongPressListener();
+        this.initGridViewItemNavigation();
     }
 
     @Override
@@ -96,5 +97,11 @@ public class SettingsActivity extends OnyxBaseActivity
     {
         SettingsActivity.this.disabledMenuMultiple(menu);
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    protected void initGridViewItemNavigation()
+    {
+    	mGridView.setCrossVertical(true);
+    	mGridView.setCrossHorizon(false);
     }
 }

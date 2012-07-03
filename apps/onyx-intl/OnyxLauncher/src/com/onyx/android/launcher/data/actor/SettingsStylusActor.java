@@ -20,7 +20,7 @@ public class SettingsStylusActor extends AbstractItemActor
     public SettingsStylusActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Stylus Calibration"), 
-                "Stylus Calibration", 
+                R.string.Stylus_Calibration, 
                 R.drawable.screen_calibration));
     }
 

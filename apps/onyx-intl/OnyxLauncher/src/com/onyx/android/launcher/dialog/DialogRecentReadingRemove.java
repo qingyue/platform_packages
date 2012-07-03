@@ -36,11 +36,11 @@ public class DialogRecentReadingRemove extends OnyxDialogBase
         Button button_cancel = (Button)this.findViewById(R.id.button_cancel);
         
         if (fileHandler.getSourceItems().size() == 1) {
-            textview_fileName.setText("Remove record " + fileHandler.getSourceItems().get(0).getText() + "?");
+            textview_fileName.setText(R.string.Remove_record + fileHandler.getSourceItems().get(0).getText() + "?");
         }
         else {
             assert(fileHandler.getSourceItems().size() > 1);
-            textview_fileName.setText("Remove " + fileHandler.getSourceItems().size() + " records?");
+            textview_fileName.setText(R.string.Remove + fileHandler.getSourceItems().size() + R.string.records + "?");
         }
         
         button_set.setOnClickListener(new View.OnClickListener()

@@ -20,7 +20,7 @@ public class ScribbleActor extends AbstractItemActor
     public ScribbleActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Scribble"), 
-                "Scribble", 
+                R.string.Scribble, 
                 R.drawable.scribble));
     }
 

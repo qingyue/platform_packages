@@ -100,7 +100,8 @@
                     
         <TextView
             style="?android:attr/listSeparatorTextViewStyle"
-            android:text="@string/details_subtitle" />
+            android:text="@string/details_subtitle"
+            android:textColor="#000000" />
 
         <LinearLayout
             android:id="@+id/details"
@@ -122,6 +123,7 @@
             <TextView
                 android:id="@+id/controls_title"
                 style="?android:attr/listSeparatorTextViewStyle"
+                android:textColor="#000000"
                 android:layout_marginTop="6dip"
                 android:text="@string/controls_subtitle" />
 
@@ -132,6 +134,7 @@
         <TextView
             android:id="@+id/packages_section_title"
             style="?android:attr/listSeparatorTextViewStyle"
+            android:textColor="#000000"
             android:layout_marginTop="6dip"
             android:text="@string/packages_subtitle" />
 

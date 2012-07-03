@@ -23,7 +23,7 @@ public class RecentDocumentsActor extends AbstractItemActor
     public RecentDocumentsActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Recent Documents"), 
-                "Recent Documents", 
+                R.string.Recent_Documents, 
                 R.drawable.recent_document));
     }
 

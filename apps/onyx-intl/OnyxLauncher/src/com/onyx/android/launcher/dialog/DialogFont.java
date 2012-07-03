@@ -35,7 +35,7 @@ public class DialogFont extends DialogBaseSettings
             }
         });
         
-        this.getTextViewTitle().setText("Default Font");
+        this.getTextViewTitle().setText(R.string.Default_Font);
         
         adapter.getPaginator().setPageSize(array.length);
     }

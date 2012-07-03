@@ -15,7 +15,7 @@ import com.onyx.android.launcher.data.GridItemManager;
 import com.onyx.android.launcher.data.SDFileFactory;
 import com.onyx.android.launcher.view.OnyxDialogBase;
 import com.onyx.android.sdk.data.util.RefValue;
-import com.onyx.android.sdk.ui.data.BookItemData;
+import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.FileItemData.FileType;
 import com.onyx.android.sdk.ui.data.GridItemData;
 
@@ -43,14 +43,14 @@ public class DialogFileNewFolder extends OnyxDialogBase
             {
                 GridItemBaseAdapter adapter = fileHandler.getAdapter();
                 
-                String file_name = mEditTextFileName.getText().toString();
+                String file_name = mEditTextFileName.getText().toString().trim();
                 if (file_name.length() != 0) {
                     String dir = GridItemManager.getFileFromURI(adapter.getHostURI()).getPath();
                     File file = new File(dir, file_name);
                     
                     RefValue<String> err_msg = new RefValue<String>(); 
                     if (SDFileFactory.createFolder(file, err_msg)) {
-                        GridItemData item = new BookItemData(GridItemManager.getURIFromFilePath(file.getAbsolutePath()),
+                        GridItemData item = new FileItemData(GridItemManager.getURIFromFilePath(file.getAbsolutePath()),
                                 FileType.Directory, mEditTextFileName.getText().toString(), R.drawable.directory);
                         adapter.appendItem(item);
                     }

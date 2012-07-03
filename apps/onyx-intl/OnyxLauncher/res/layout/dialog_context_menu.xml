@@ -2,33 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="400dp"
-    android:minWidth="290dp"
-    android:orientation="horizontal" >
+    android:minHeight="510dp"
+    android:minWidth="500dp"
+    android:orientation="vertical" >
 
-    <com.onyx.android.launcher.view.ContextMenuGridView
-        android:id="@+id/gridview_suite_title"
-        style="@style/background"
-        android:layout_width="100dp"
-        android:layout_height="400dp"
-        android:columnWidth="40dp"
-        android:fadingEdge="none"
-        android:gravity="center"
-        android:horizontalSpacing="2dp"
-        android:numColumns="1"
-        android:stretchMode="spacingWidth"
-        android:verticalSpacing="2dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:orientation="horizontal" >
+
+        <com.onyx.android.launcher.view.ContextMenuGridView
+            android:id="@+id/gridview_suite_title"
+            style="@style/background"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:columnWidth="40dp"
+            android:fadingEdge="none"
+            android:gravity="center"
+            android:horizontalSpacing="2dp"
+            android:numColumns="1"
+            android:stretchMode="spacingWidth"
+            android:verticalSpacing="2dp" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#000000" />
+
+        <com.onyx.android.launcher.view.ContextMenuGridView
+            android:id="@+id/gridview_suite_content"
+            style="@style/background"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:columnWidth="40dp"
+            android:fadingEdge="none"
+            android:gravity="center"
+            android:horizontalSpacing="2dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="spacingWidth"
+            android:verticalSpacing="2dp" />
+    </LinearLayout>
 
     <TextView
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:background="#000000" />
 
     <com.onyx.android.launcher.view.ContextMenuGridView
-        android:id="@+id/gridview_suite_content"
+        android:id="@+id/gridview_system_menu"
         style="@style/background"
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
         android:columnWidth="40dp"
         android:fadingEdge="none"
         android:gravity="center"
