@@ -33,6 +33,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.media.AudioManager;
@@ -64,6 +65,7 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.EditText;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -343,6 +345,7 @@ public class LatinIME extends InputMethodService
     public void onCreate() {
         LatinImeLogger.init(this);
         KeyboardSwitcher.init(this);
+
         super.onCreate();
         //setStatusIcon(R.drawable.ime_qwerty);
         mResources = getResources();
@@ -392,6 +395,16 @@ public class LatinIME extends InputMethodService
               });
         }
         prefs.registerOnSharedPreferenceChangeListener(this);
+
+        WindowManager.LayoutParams params = getWindow().getWindow().getAttributes();
+        params.type = WindowManager.LayoutParams.TYPE_SEARCH_BAR;
+        getWindow().getWindow().setAttributes(params);
+
+        EditText editText = new EditText(this);
+        editText.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        editText.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        editText.setTextColor(Color.BLACK);
+        this.setContentFrameView(editText);
     }
 
     /**
