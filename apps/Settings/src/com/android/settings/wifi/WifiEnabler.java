@@ -16,6 +16,11 @@
 
 package com.android.settings.wifi;
 
+import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT;
+import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT_BACKUP;
+import static android.provider.Settings.System.DEFAULT_SCREEN_OFF_TIMEOUT_WIFI;
+import android.util.Log;
+
 import com.android.settings.R;
 import com.android.settings.WirelessSettings;
 
@@ -34,6 +39,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 public class WifiEnabler implements Preference.OnPreferenceChangeListener {
+    private static final String TAG = "WifiEnabler";
     private final Context mContext; 
     private final CheckBoxPreference mCheckBox;
     private final CharSequence mOriginalSummary;
@@ -102,6 +108,26 @@ public class WifiEnabler implements Preference.OnPreferenceChangeListener {
         }
         if (mWifiManager.setWifiEnabled(enable)) {
             mCheckBox.setEnabled(false);
+            if (enable) {
+                Settings.System.putInt(mContext.getContentResolver(), SCREEN_OFF_TIMEOUT_BACKUP,
+                        Settings.System.getInt(mContext.getContentResolver(), SCREEN_OFF_TIMEOUT,
+                                -1));// save screen_off_timeout to
+                                     // screen_off_timeout_backup
+                Log.d(TAG,
+                        "Set SCREEN_OFF_TIMEOUT_BACKUP is "
+                                + Settings.System.getInt(mContext.getContentResolver(),
+                                        SCREEN_OFF_TIMEOUT_BACKUP, -1));
+                Settings.System.putInt(mContext.getContentResolver(), SCREEN_OFF_TIMEOUT,
+                        DEFAULT_SCREEN_OFF_TIMEOUT_WIFI);
+            } else {
+                Settings.System.putInt(mContext.getContentResolver(), SCREEN_OFF_TIMEOUT,
+                        Settings.System.getInt(mContext.getContentResolver(),
+                                SCREEN_OFF_TIMEOUT_BACKUP, -1));
+                Log.d(TAG,
+                        "Get SCREEN_OFF_TIMEOUT_BACKUP is "
+                                + Settings.System.getInt(mContext.getContentResolver(),
+                                        SCREEN_OFF_TIMEOUT_BACKUP, -1));
+            }
         } else {
             mCheckBox.setSummary(R.string.wifi_error);
         }
