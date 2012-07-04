@@ -15,7 +15,6 @@ import com.onyx.android.launcher.data.FileIconFactory;
 import com.onyx.android.launcher.data.GridItemManager;
 import com.onyx.android.launcher.data.SDFileFactory;
 import com.onyx.android.launcher.dialog.DialogFileOperations;
-import com.onyx.android.sdk.ui.data.BookItemData;
 import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.FileItemData.FileType;
 import com.onyx.android.sdk.ui.data.GridItemData;
@@ -55,7 +54,7 @@ public class CutFileTask extends AsyncTask<Void, GridItemData, Void>
                 return null;
             }
 
-            if (!SDFileFactory.copy(mSourceFile, mFile, mDialogFileOperations)) {
+            if (!SDFileFactory.copy(mSourceFile, mFile.getPath(), mDialogFileOperations)) {
                 this.cancel(true);
                 return null;
             }
@@ -69,11 +68,11 @@ public class CutFileTask extends AsyncTask<Void, GridItemData, Void>
             String str = mFile.getPath() + File.separator + mSourceFile.getName();
             mSourceFile = new File(str);
             if (mSourceFile.isFile()) {
-                gridItemData = new BookItemData(GridItemManager.getURIFromFilePath(str), FileType.NormalFile,
+                gridItemData = new FileItemData(GridItemManager.getURIFromFilePath(str), FileType.NormalFile,
                         mSourceFile.getName(), FileIconFactory.getIconByFileName(mSourceFile.getName()));
             }
             else {
-                gridItemData = new BookItemData(GridItemManager.getURIFromFilePath(str), FileType.Directory,
+                gridItemData = new FileItemData(GridItemManager.getURIFromFilePath(str), FileType.Directory,
                         mSourceFile.getName(), R.drawable.directory);
             }
 

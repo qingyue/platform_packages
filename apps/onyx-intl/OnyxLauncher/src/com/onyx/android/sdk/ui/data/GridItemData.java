@@ -19,7 +19,6 @@ public class GridItemData extends OnyxBaseItemData {
 	private int mTextId = -1;
 	private int mImageResourceId = -1;
 	private Bitmap mBitmap = null;
-	private String mFlag = null;
 	
 	public GridItemData(OnyxItemURI uri, String text, int imageResourceId)
 	{
@@ -55,15 +54,6 @@ public class GridItemData extends OnyxBaseItemData {
 	    
        mImageResourceId = imageResourceId;
 	}
-	public GridItemData(OnyxItemURI uri, int textId, int imageResourceId, String flag)
-	{
-	    super(uri);
-
-	    mTextId = textId;
-	    
-       mImageResourceId = imageResourceId;
-       mFlag = flag;
-	}
 	
 	public String getText()
 	{
@@ -87,13 +77,5 @@ public class GridItemData extends OnyxBaseItemData {
 	public void setBitmap(Bitmap bitmap)
 	{
 	    this.mBitmap = bitmap;
-	}
-	public String getFlag()
-	{
-	return mFlag;	
-	}
-	public void setFlag(String flag)
-	{
-		this.mFlag = flag;
 	}
 }

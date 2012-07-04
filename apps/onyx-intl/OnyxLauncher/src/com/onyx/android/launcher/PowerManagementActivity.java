@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.onyx.android.launcher.adapter.PowerManagementAdapter;
 import com.onyx.android.launcher.view.OnyxPagedGridViewHost;
@@ -30,7 +30,7 @@ import com.onyx.android.sdk.ui.data.GridItemData;
 public class PowerManagementActivity extends OnyxBaseActivity
 {
     private OnyxGridView mGridView = null;
-    private Button mButtonHome = null;
+    private ImageButton mButtonHome = null;
     private PowerManagementAdapter mAdapter = null;
     private ContentResolver mResolver = null;
 
@@ -48,7 +48,7 @@ public class PowerManagementActivity extends OnyxBaseActivity
         this.setContentView(R.layout.activity_settings_powermanagement);
 
         mGridView = ((OnyxPagedGridViewHost)findViewById(R.id.gridview_powermanagement)).getGridView(); ;
-        mButtonHome = (Button)this.findViewById(R.id.button_home);
+        mButtonHome = (ImageButton)this.findViewById(R.id.button_home);
         
         mGridView.setOnItemClickListener(new OnItemClickListener()
         {

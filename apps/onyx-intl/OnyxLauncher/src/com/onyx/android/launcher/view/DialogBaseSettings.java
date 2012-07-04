@@ -156,7 +156,7 @@ public class DialogBaseSettings extends OnyxDialogBase
         final int page_count = (mGridView.getPagedAdapter().getPaginator().getPageCount() != 0) ? 
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
-                mTextViewProgress.setText(String.valueOf(current_page) + OnyxApplication.getInstance().getResources().getString(R.string.slahs) + String.valueOf(page_count));
+                mTextViewProgress.setText(String.valueOf(current_page) + OnyxApplication.getInstance().getResources().getString(R.string.slash) + String.valueOf(page_count));
     }
 
     private void setSelection(int position)

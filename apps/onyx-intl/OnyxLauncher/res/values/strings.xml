@@ -28,7 +28,7 @@
     <string name="search_hint">Searching…</string>
     <string name="search_result">Search result.</string>
     <string name="set">Set</string>
-    <string name="slahs">/</string>
+    <string name="slash">/</string>
     <string name="thumbnail">Thumbnail</string>
     <string name="title">title</string>
     <string name="unknown">unknown</string>
@@ -59,7 +59,7 @@
     <string name="order_asc">ASC</string>
     <string name="order_desc">DESC</string>
     <string name="recent_reading_remove_title">remove reading record</string>
-    <string name="recent_reading_remove_file_on_disk">remove file on disk?</string>
+    <string name="recent_reading_remove_file_on_disk">remove file on disk?</string>   
     <string name="file_property_name">Name:</string>
     <string name="file_property_title">Title:</string>
     <string name="file_property_authors">Author(s):</string>
@@ -135,8 +135,13 @@
     <string name="select_mutiple">select mutiple</string>
     <string name="Others">Others</string>
     <string name="running">running&#8230;</string>
-
-       <string name="menu_suite_file">File</string>
+    <string name="ShortCuts">ShortCuts</string>
+    <string name="Image">Image</string>
+    <string name="Music">Music</string>
+    <string name="Favorite">Favorite</string>
+    <string name="Books">Books</string>
+    
+    <string name="menu_suite_file">File</string>
     <string name="menu_file_new">New File</string>
     <string name="menu_file_new_folder">New Folder</string>
     <string name="menu_file_rename">Rename</string>
@@ -148,10 +153,13 @@
     
     <string name="menu_suite_system">System</string>
     <string name="menu_system_notification">Notifications</string>
+    <string name="more">more</string>
+    <string name="book_mark">BookMark</string>
+    <string name="recent_document">Recent Document</string>
 
-    <string name="slash">/</string>
-    <string name="open_item_failed">open item failed</string>
-    <string name="not_found"> not found</string>
-    <string name="not_allowed"> not allowed</string>
-
+    <string name="home_image_button">Home</string>
+    <string name="sort_image_button">Sort</string>
+    <string name="view_model_button">View Change</string>
+    <string name="tag_image_button">Tag</string>
+    
 </resources>

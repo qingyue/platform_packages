@@ -11,14 +11,17 @@ import com.onyx.android.launcher.R;
 import com.onyx.android.sdk.data.sys.OnyxAppPreference;
 import com.onyx.android.sdk.data.sys.OnyxAppPreferenceCenter;
 import com.onyx.android.sdk.ui.OnyxGridView;
-import com.onyx.android.sdk.ui.data.GridViewPageLayout.GridViewMode;
 
 public class PreferredApplicationsAdapter extends GridItemBaseAdapter
 {
     private String[] mFileFormats = null;
     private Context mContext = null;
 
-    private static final int sItemMinHeight = 60;
+    private static final int sItemMinWidth = 85;
+    private static final int sItemMinHeight = 130;
+    private static final int sItemDetailMinHeight = 70;
+    private static final int sHorizontalSpacing = 0;
+    private static final int sVerticalSpacing = 10;
 
     public PreferredApplicationsAdapter(Context context, OnyxGridView gridView, String[] arrars)
     {
@@ -27,15 +30,14 @@ public class PreferredApplicationsAdapter extends GridItemBaseAdapter
         mFileFormats = arrars;
         mContext = context;
         
+        this.getPageLayout().setItemMinWidth(sItemMinWidth);
         this.getPageLayout().setItemMinHeight(sItemMinHeight);
         this.getPageLayout().setItemThumbnailMinHeight(sItemMinHeight);
-        this.getPageLayout().setItemDetailMinHeight(sItemMinHeight);
-        this.getPageLayout().setViewMode(GridViewMode.Detail);
-
-        this.getPaginator().initializePageData(mFileFormats.length,
-                this.getPaginator().getPageSize());
-        this.notifyDataSetChanged();
+        this.getPageLayout().setItemDetailMinHeight(sItemDetailMinHeight);
+        this.getPageLayout().setHorizontalSpacing(sHorizontalSpacing);
+        this.getPageLayout().setVerticalSpacing(sVerticalSpacing);
     }
+
 
     @Override
     public Object getItem(int position)

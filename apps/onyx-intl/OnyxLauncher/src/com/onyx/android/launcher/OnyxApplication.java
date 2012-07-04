@@ -4,6 +4,9 @@
 package com.onyx.android.launcher;
 
 import android.app.Application;
+import android.util.Log;
+
+import com.onyx.android.launcher.data.GridItemManager;
 
 /**
  * @author joy
@@ -11,6 +14,8 @@ import android.app.Application;
  */
 public class OnyxApplication extends Application
 {
+    private final static String TAG = "OnyxApplication";
+    
     private static OnyxApplication sInstance = null;
     
     public static boolean UpdatePolicyInitialized = false;
@@ -20,6 +25,10 @@ public class OnyxApplication extends Application
      */
     public OnyxApplication()
     {
+        Log.d(TAG, "creating OnyxApplication");
+
+        GridItemManager.initialize();
+        
         sInstance = this;
     }
     

@@ -529,8 +529,12 @@ public class OnyxGridView extends GridView implements IBoundaryItemLocator, Gest
             Rect previouslyFocusedRect)
     {
         if (gainFocus) {
-            if (this.searchAndSelectNextFocusableChildItem(direction, previouslyFocusedRect)) {
-                return;
+            if (previouslyFocusedRect != null)
+            {
+                Rect r = OnyxFocusFinder.getAbsoluteCoorinateRect(this, previouslyFocusedRect);
+                if (this.searchAndSelectNextFocusableChildItem(direction, r)) {
+                    return;
+                }
             }
         }
 

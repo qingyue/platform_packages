@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +30,7 @@ import com.onyx.android.launcher.data.FileOperationHandler;
 import com.onyx.android.launcher.data.GridItemManager;
 import com.onyx.android.launcher.data.StandardMenuFactory;
 import com.onyx.android.launcher.data.StandardMenuFactory.FileOperationMenuItem;
+import com.onyx.android.launcher.data.actor.StorageActor.GoUpLevelItem;
 import com.onyx.android.launcher.dialog.DialogPathIndicator;
 import com.onyx.android.launcher.dialog.DialogSortBy;
 import com.onyx.android.launcher.task.LoadBookMetadataTask;
@@ -74,9 +75,9 @@ public class StorageActivity extends OnyxBaseActivity
 
     private OnyxFileGridView mFileGridView = null;
     private TextView mTextViewPathIndicator = null;
-    private Button mButtonHome = null;
-    private Button mButtonSortBy = null;
-    private Button mButtonChangeView = null;
+    private ImageButton mButtonHome = null;
+    private ImageButton mButtonSortBy = null;
+    private ImageButton mButtonChangeView = null;
     private ImageView mImageViewPathIndicator = null;
     private StorageAdapter mAdapter = null;
 
@@ -85,7 +86,7 @@ public class StorageActivity extends OnyxBaseActivity
     private LoadBookMetadataTask mLoadBookMetadataTask = null;
 
     private FileOperationHandler mFileOperationHandler = null;
-
+    
     private GridItemData mGoUpItem = null;
 
     /**
@@ -203,13 +204,13 @@ public class StorageActivity extends OnyxBaseActivity
 
         mFileGridView = (OnyxFileGridView)this.findViewById(R.id.gridview_storage);
         mTextViewPathIndicator = (TextView)this.findViewById(R.id.textview_path_indicator);
-        mButtonHome = (Button)findViewById(R.id.button_home);
-        mButtonSortBy = (Button)findViewById(R.id.button_sort_by);
-        mButtonChangeView = (Button)findViewById(R.id.button_change_view);
+        mButtonHome = (ImageButton)findViewById(R.id.button_home);
+        mButtonSortBy = (ImageButton)findViewById(R.id.button_sort_by);
+        mButtonChangeView = (ImageButton)findViewById(R.id.button_change_view);
         mImageViewPathIndicator = (ImageView)findViewById(R.id.imageview_path_indicator);
 
         mFileGridView.setCanPaste(true);
-
+        
         assert(this.getGridView() == mFileGridView.getGridView());
         this.getGridView().registerOnAdapterChangedListener(new OnyxGridView.OnAdapterChangedListener()
         {
@@ -279,7 +280,7 @@ public class StorageActivity extends OnyxBaseActivity
                         mAdapter.sortItems(order, ascOrder);
                         StorageActivity.SortPolicy = order;
                         for(GridItemData data : mAdapter.getItems()){
-                        	if(data.getFlag()!=null){
+                        	if(data instanceof GoUpLevelItem){
                         		mGoUpItem = data;
                         		break;
                         	}
@@ -296,10 +297,10 @@ public class StorageActivity extends OnyxBaseActivity
         });
 
         if (StorageActivity.ViewMode == GridViewMode.Detail) {
-            mButtonChangeView.setText(R.string.thumbnail);
+        	mButtonChangeView.setImageResource(R.drawable.gridlittle);
         }
         else {
-            mButtonChangeView.setText(R.string.detail);
+        	mButtonChangeView.setImageResource(R.drawable.listbulletslittle);
         }
 
         mButtonChangeView.setOnClickListener(new View.OnClickListener()
@@ -310,11 +311,11 @@ public class StorageActivity extends OnyxBaseActivity
             {
                 if (StorageActivity.this.getGridView().getPagedAdapter().getPageLayout().getViewMode() == GridViewMode.Thumbnail) {
                     StorageActivity.this.changeViewMode(GridViewMode.Detail);
-                    mButtonChangeView.setText(R.string.thumbnail);
+                    mButtonChangeView.setImageResource(R.drawable.gridlittle);
                 }
                 else {
                     StorageActivity.this.changeViewMode(GridViewMode.Thumbnail);
-                    mButtonChangeView.setText(R.string.detail);
+                    mButtonChangeView.setImageResource(R.drawable.listbulletslittle);
                 }
             }
         });
