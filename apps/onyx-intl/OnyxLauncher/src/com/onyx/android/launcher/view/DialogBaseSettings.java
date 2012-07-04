@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.onyx.android.launcher.OnyxApplication;
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.adapter.SelectionAdapter;
 import com.onyx.android.sdk.ui.OnyxGridView;
@@ -155,7 +156,7 @@ public class DialogBaseSettings extends OnyxDialogBase
         final int page_count = (mGridView.getPagedAdapter().getPaginator().getPageCount() != 0) ? 
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
-                mTextViewProgress.setText(String.valueOf(current_page) + "/" + String.valueOf(page_count));
+                mTextViewProgress.setText(String.valueOf(current_page) + OnyxApplication.getInstance().getResources().getString(R.string.slash) + String.valueOf(page_count));
     }
 
     private void setSelection(int position)

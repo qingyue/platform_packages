@@ -10,7 +10,8 @@
 
     <application android:label="@string/english_ime_name"
             android:backupAgent="LatinIMEBackupAgent"
-            android:killAfterRestore="false">
+            android:killAfterRestore="false"
+            android:theme="@android:style/Theme.Light">
 
         <service android:name="LatinIME"
                 android:label="@string/english_ime_name"

@@ -22,7 +22,7 @@ public class SettingsAboutActor extends AbstractItemActor
     public SettingsAboutActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("About phone"), 
-                "About phone", 
+                R.string.About_phone, 
                 R.drawable.about));
     }
 

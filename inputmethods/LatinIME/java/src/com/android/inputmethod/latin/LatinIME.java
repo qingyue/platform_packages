@@ -65,7 +65,6 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import android.widget.EditText;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -76,6 +75,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MotionEvent;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -397,14 +400,10 @@ public class LatinIME extends InputMethodService
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         WindowManager.LayoutParams params = getWindow().getWindow().getAttributes();
+        //Settings LatinIME display type is TYPE_SEARCH_BAR(Require system privileges).
+        //The default type will be adjusted Activity Window
         params.type = WindowManager.LayoutParams.TYPE_SEARCH_BAR;
         getWindow().getWindow().setAttributes(params);
-
-        EditText editText = new EditText(this);
-        editText.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        editText.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        editText.setTextColor(Color.BLACK);
-        this.setContentFrameView(editText);
     }
 
     /**
@@ -876,6 +875,9 @@ public class LatinIME extends InputMethodService
 
     @Override
     public void hideWindow() {
+        //Used hidden mOnyxContentFrame and mExtractEditText
+        this.hideOnyxContentFrame();
+
         LatinImeLogger.commit();
         onAutoCompletionStateChanged(false);
 
@@ -931,6 +933,9 @@ public class LatinIME extends InputMethodService
     private void setCandidatesViewShownInternal(boolean shown, boolean needsInputViewShown) {
         // TODO: Remove this if we support candidates with hard keyboard
         if (onEvaluateInputViewShown()) {
+            //Set to true will always show CandidatesView.
+            //Because only shows CandidatesView, OnyxContentFrameView can display
+            shown = true;
             super.setCandidatesViewShown(shown && mKeyboardSwitcher.getInputView() != null
                     && (needsInputViewShown ? mKeyboardSwitcher.getInputView().isShown() : true));
         }
@@ -2639,4 +2644,12 @@ public class LatinIME extends InputMethodService
     public void onAutoCompletionStateChanged(boolean isAutoCompletion) {
         mKeyboardSwitcher.onAutoCompletionStateChanged(isAutoCompletion);
     }
+
+    @Override
+	public void showWindow(boolean showInput) {
+		super.showWindow(showInput);
+
+        //Must be in after "super.showWindow(showInput)" call
+        this.setOnyxContentFrameView();
+	}
 }

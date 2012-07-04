@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.StorageActivity;
-import com.onyx.android.sdk.data.AscDescOrder;
 import com.onyx.android.sdk.data.OnyxItemURI;
 import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.BookItemData;
@@ -57,7 +56,7 @@ public class StorageAdapter extends GridItemBaseAdapter
     {
         super.fillItems(hostURI, items);
         
-        this.sortItems(StorageActivity.SortPolicy, AscDescOrder.Asc);
+        this.sortItems(StorageActivity.SortPolicy, StorageActivity.AscOrder);
     }
     
     @Override
@@ -65,7 +64,7 @@ public class StorageAdapter extends GridItemBaseAdapter
     {
         super.fillItems(hostURI, items);
         
-        this.sortItems(StorageActivity.SortPolicy, AscDescOrder.Asc);
+        this.sortItems(StorageActivity.SortPolicy, StorageActivity.AscOrder);
     }
     
     @Override
@@ -73,7 +72,7 @@ public class StorageAdapter extends GridItemBaseAdapter
     {
         super.appendItem(data);
         
-        this.sortItems(StorageActivity.SortPolicy, AscDescOrder.Asc);
+        this.sortItems(StorageActivity.SortPolicy, StorageActivity.AscOrder);
     }
     
     @Override
@@ -81,7 +80,7 @@ public class StorageAdapter extends GridItemBaseAdapter
     {
         super.appendItems(data);
         
-        this.sortItems(StorageActivity.SortPolicy, AscDescOrder.Asc);
+        this.sortItems(StorageActivity.SortPolicy, StorageActivity.AscOrder);
     }
     
     @Override
@@ -89,7 +88,7 @@ public class StorageAdapter extends GridItemBaseAdapter
     {
         super.appendItems(data);
         
-        this.sortItems(StorageActivity.SortPolicy, AscDescOrder.Asc);
+        this.sortItems(StorageActivity.SortPolicy, StorageActivity.AscOrder);
     }
 
     @Override
@@ -132,8 +131,13 @@ public class StorageAdapter extends GridItemBaseAdapter
                 imageview_thumbnail_item.setImageResource(item_data.getImageResourceId());
             }
 
-            assert(textview_thumbnail_item_name != null);
-            textview_thumbnail_item_name.setText(item_data.getText());
+            if (item_data.getTextId() != -1) {
+            	textview_thumbnail_item_name.setText(item_data.getTextId());
+            }
+            else {
+                assert(textview_thumbnail_item_name != null);
+            	textview_thumbnail_item_name.setText(item_data.getText());
+            }
         }
         else {
             assert(this.getPageLayout().getViewMode() == GridViewMode.Detail);
@@ -198,4 +202,5 @@ public class StorageAdapter extends GridItemBaseAdapter
 
         return ret_view;
     }
+    
 }

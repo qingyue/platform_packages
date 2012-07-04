@@ -84,8 +84,8 @@ public class ApplicationsAdapter extends OnyxPagedAdapter
         
     };
             
-    private static final int sItemMinWidth = 145;
-    private static final int sItemMinHeight = 140;
+    private static final int sItemMinWidth = 128;
+    private static final int sItemMinHeight = 128;
     private static final int sHorizontalSpacing = 0;
     private static final int sVerticalSpacing = 0;
     private static final int sItemDetailMinHeight = 70;

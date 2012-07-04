@@ -47,7 +47,7 @@ public class DialogFileRename extends OnyxDialogBase
             {
                 File currentFile = GridItemManager.getFileFromURI(dstItem.getURI());
                 
-                String new_path = currentFile.getParent() + "/" + mEditTextRename.getText();
+                String new_path = currentFile.getParent() + "/" + mEditTextRename.getText().toString().trim();
                 File newFile = new File(new_path); 
                 if (SDFileFactory.reName(currentFile, newFile)) {
                     if (newFile.isFile()) {
@@ -60,7 +60,7 @@ public class DialogFileRename extends OnyxDialogBase
                     fileHandler.getAdapter().notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(fileHandler.getContext(), "rename failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fileHandler.getContext(), R.string.rename_failed, Toast.LENGTH_SHORT).show();
                 }
                 DialogFileRename.this.dismiss();
             }

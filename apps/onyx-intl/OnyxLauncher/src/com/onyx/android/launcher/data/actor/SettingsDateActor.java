@@ -22,7 +22,7 @@ public class SettingsDateActor extends AbstractItemActor
     public SettingsDateActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Date"), 
-                "Date", 
+                R.string.Date, 
                 R.drawable.date));
     }
 

@@ -20,7 +20,7 @@ public class WebSitesActor extends AbstractItemActor
     public WebSitesActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Web Sites"), 
-                "Web Sites", 
+                R.string.Web_Sites, 
                 R.drawable.websites));
     }
 

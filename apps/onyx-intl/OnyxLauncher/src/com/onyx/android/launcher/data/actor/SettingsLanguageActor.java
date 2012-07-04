@@ -22,7 +22,7 @@ public class SettingsLanguageActor extends AbstractItemActor
     public SettingsLanguageActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Language"), 
-                "Language", 
+                R.string.Language, 
                 R.drawable.locale));
     }
 

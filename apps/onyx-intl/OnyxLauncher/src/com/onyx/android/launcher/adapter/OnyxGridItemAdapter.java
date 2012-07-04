@@ -18,7 +18,7 @@ public class OnyxGridItemAdapter extends GridItemBaseAdapter
     private LayoutInflater mInflater = null;
     
     private static final int sItemMinWidth = 145;
-    private static final int sItemMinHeight = 140;
+    private static final int sItemMinHeight = 100;
     private static final int sHorizontalSpacing = 0;
     private static final int sVerticalSpacing = 0;
     private static final int sItemDetailMinHeight = 70;
@@ -76,7 +76,7 @@ public class OnyxGridItemAdapter extends GridItemBaseAdapter
 	        }
 
 	        assert(thumbnailHolder.textview_thumbnail_launcher_name != null);
-	        thumbnailHolder.textview_thumbnail_launcher_name.setText(item_data.getText());
+	        thumbnailHolder.textview_thumbnail_launcher_name.setText(item_data.getTextId());
         }
         else {
             assert(this.getPageLayout().getViewMode() == GridViewMode.Detail);

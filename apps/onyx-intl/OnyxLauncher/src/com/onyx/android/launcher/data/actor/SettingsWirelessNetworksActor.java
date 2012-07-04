@@ -14,26 +14,36 @@ import com.onyx.android.sdk.ui.data.GridItemData;
 
 /**
  * @author joy
- *
+ * 
  */
 public class SettingsWirelessNetworksActor extends AbstractItemActor
 {
 
     public SettingsWirelessNetworksActor(OnyxItemURI parentURI)
     {
-        super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Wireless & networks"), 
-                "Wireless & networks", 
-                R.drawable.wifi));
+
+        super(
+                new GridItemData(
+                        ((OnyxItemURI) parentURI.clone())
+                                .append("Wireless & networks"),
+                        R.string.Wireless_networks,
+                        R.drawable.wifi));
     }
 
-    /* (non-Javadoc)
-     * @see com.onyx.android.homework.data.actor.AbstractGridItemActor#process(com.onyx.android.sdk.ui.OnyxGridView, com.onyx.android.sdk.data.ItemURI)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.onyx.android.homework.data.actor.AbstractGridItemActor#process(com
+     * .onyx.android.sdk.ui.OnyxGridView, com.onyx.android.sdk.data.ItemURI)
      */
     @Override
-    public boolean process(OnyxGridView gridView, OnyxItemURI uri, Activity hostActivity)
+    public boolean process(OnyxGridView gridView, OnyxItemURI uri,
+            Activity hostActivity)
     {
         Intent i = new Intent();
-        i.setClassName("com.android.settings", "com.android.settings.WirelessSettings");
+        i.setClassName("com.android.settings",
+                "com.android.settings.WirelessSettings");
         return ActivityUtil.startActivitySafely(hostActivity, i);
     }
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.onyx.android.launcher.OnyxBaseActivity;
+import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.adapter.SelectionAdapter;
 import com.onyx.android.launcher.view.DialogBaseSettings;
 import com.onyx.android.sdk.data.sys.OnyxAppPreferenceCenter;
@@ -56,18 +57,18 @@ public class DialogPreferredApplications extends DialogBaseSettings
                     String cls = resolve_info.activityInfo.name;
 
                     if (OnyxAppPreferenceCenter.setAppPreference(mActivity, mExt, name, pkg, cls)) {
-                        Toast.makeText(mActivity, "Successfully set", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, R.string.Successfully_set, Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(mActivity, "Fail set", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, R.string.Fail_set, Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
                     if (OnyxAppPreferenceCenter.removeAppPreference(mActivity, mExt)) {
-                        Toast.makeText(mActivity, "Successfully remove", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, R.string.Successfully_remove, Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(mActivity, "Fail remove", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, R.string.Fail_remove, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -87,7 +88,7 @@ public class DialogPreferredApplications extends DialogBaseSettings
             }
         });
 
-        this.getTextViewTitle().setText("Settings preferred applications");
+        this.getTextViewTitle().setText(R.string.Settings_preferred_applications);
         mAdapter.getPaginator().setPageSize(mListInfos.size());
     }
 }

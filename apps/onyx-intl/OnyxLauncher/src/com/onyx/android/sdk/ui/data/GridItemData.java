@@ -4,7 +4,6 @@
 package com.onyx.android.sdk.ui.data;
 
 import android.graphics.Bitmap;
-
 import com.onyx.android.sdk.data.OnyxBaseItemData;
 import com.onyx.android.sdk.data.OnyxItemURI;
 
@@ -17,6 +16,7 @@ import com.onyx.android.sdk.data.OnyxItemURI;
  */
 public class GridItemData extends OnyxBaseItemData {
 	private String mText = null;
+	private int mTextId = -1;
 	private int mImageResourceId = -1;
 	private Bitmap mBitmap = null;
 	
@@ -37,9 +37,30 @@ public class GridItemData extends OnyxBaseItemData {
 	    mBitmap = bitmap;
 	}
 	
+	public GridItemData(OnyxItemURI uri, int textId, Bitmap bitmap)
+	{
+	    super(uri);
+	    
+	    mTextId = textId;
+	    
+	    mBitmap = bitmap;
+	}
+	
+	public GridItemData(OnyxItemURI uri, int textId, int imageResourceId)
+	{
+	    super(uri);
+
+	    mTextId = textId;
+	    
+       mImageResourceId = imageResourceId;
+	}
+	
 	public String getText()
 	{
 		return mText;
+	}
+	public int getTextId(){
+		return mTextId;
 	}
     public void setText(String text)
     {

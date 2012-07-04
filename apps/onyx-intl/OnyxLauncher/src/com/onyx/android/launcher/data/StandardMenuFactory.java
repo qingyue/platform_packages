@@ -5,10 +5,14 @@ package com.onyx.android.launcher.data;
 
 import java.lang.reflect.Method;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
+import com.onyx.android.launcher.OnyxBaseActivity;
 import com.onyx.android.launcher.R;
+import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
+import com.onyx.android.launcher.dialog.DialogScreenRotation;
+import com.onyx.android.sdk.data.util.ActivityUtil;
 import com.onyx.android.sdk.ui.menu.OnyxMenuItem;
 import com.onyx.android.sdk.ui.menu.OnyxMenuItem.OnMenuItemClickListener;
 import com.onyx.android.sdk.ui.menu.OnyxMenuRow;
@@ -23,7 +27,7 @@ public class StandardMenuFactory
 {
     private static final String TAG = "StandardMenuFactory";
     
-    public enum FileOperationMenuItem { New, NewFolder, Rename, Copy, Cut, Remove, Property, GotoFolder, }
+    public enum FileOperationMenuItem { New, NewFolder, Rename, Copy, Cut, Remove, Property, GotoFolder, Multiple}
     
     public interface IFileOperationHandler
     {
@@ -124,7 +128,7 @@ public class StandardMenuFactory
         });
         row.getMenuItems().add(item);
             
-        enabled = testContains(enabledItems, FileOperationMenuItem.Remove); 
+        enabled = testContains(enabledItems, FileOperationMenuItem.Remove);
         item = new OnyxMenuItem(R.string.menu_file_remove, R.drawable.remove, enabled);
         item.setOnMenuItemClickListener(new OnMenuItemClickListener()
         {
@@ -142,8 +146,9 @@ public class StandardMenuFactory
         }
         
         row = new OnyxMenuRow();
-        
-        item = new OnyxMenuItem(R.string.menu_file_property, R.drawable.file, true);
+
+        enabled = testContains(enabledItems, FileOperationMenuItem.Property);
+        item = new OnyxMenuItem(R.string.menu_file_property, R.drawable.file, enabled);
         item.setOnMenuItemClickListener(new OnMenuItemClickListener()
         {
 
@@ -154,8 +159,9 @@ public class StandardMenuFactory
             }
         });
         row.getMenuItems().add(item);
-        
-        item = new OnyxMenuItem(R.string.menu_file_goto_folder, R.drawable.file, true);
+
+        enabled = testContains(enabledItems, FileOperationMenuItem.GotoFolder);
+        item = new OnyxMenuItem(R.string.menu_file_goto_folder, R.drawable.file, enabled);
         item.setOnMenuItemClickListener(new OnMenuItemClickListener()
         {
 
@@ -166,6 +172,22 @@ public class StandardMenuFactory
             }
         });
         row.getMenuItems().add(item);
+
+        enabled = testContains(enabledItems, FileOperationMenuItem.Multiple);
+    	item = new OnyxMenuItem(R.string.select_mutiple, R.drawable.multi, enabled);
+    	item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+    		@Override
+    		public void onClick() {
+    			if (handler instanceof FileOperationHandler) {
+    				GridItemBaseAdapter adapter = ((FileOperationHandler)handler).getAdapter();
+    				if (!adapter.getMultipleSelectionMode()) {
+    					adapter.setMultipleSelectionMode(true);
+    				}
+				}
+    		}
+    	});
+    	row.getMenuItems().add(item);
         
         suite.getMenuRows().add(row);
         
@@ -177,16 +199,58 @@ public class StandardMenuFactory
         return getFileOperationMenuSuite(handler, new FileOperationMenuItem[] { FileOperationMenuItem.New,
                 FileOperationMenuItem.NewFolder, FileOperationMenuItem.Rename, 
                 FileOperationMenuItem.Copy, FileOperationMenuItem.Cut, 
-                FileOperationMenuItem.Remove });
+                FileOperationMenuItem.Remove, FileOperationMenuItem.Property, FileOperationMenuItem.GotoFolder });
     }
-    
-    public static OnyxMenuSuite getSystemMenuSuite(final Activity hostActivity)
-    {
-        OnyxMenuSuite suite = new OnyxMenuSuite(R.string.menu_suite_system, R.drawable.ic_menu_preferences);
-        
-        OnyxMenuRow row = new OnyxMenuRow();
-        
-        OnyxMenuItem item = new OnyxMenuItem(R.string.menu_system_notification, R.drawable.ic_menu_notifications, true);
+
+    public static OnyxMenuSuite getSystemMenuSuite(final OnyxBaseActivity activity) {
+    	OnyxMenuSuite suite = new OnyxMenuSuite(-1, -1);
+    	OnyxMenuRow row = new OnyxMenuRow();
+
+    	OnyxMenuItem item = null;
+
+    	item = new OnyxMenuItem(R.string.Screen_Rotation, R.drawable.screen_rotation, true);
+    	item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+    		@Override
+    		public void onClick() {
+    			DialogScreenRotation rotation = new DialogScreenRotation(activity);
+    			rotation.show();
+    		}
+    	});
+    	row.getMenuItems().add(item);
+
+    	item = new OnyxMenuItem(R.string.Safely_Remove_SD, R.drawable.sd, true);
+    	item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+    		@Override
+    		public void onClick() {
+    			Intent i = new Intent(android.provider.Settings.ACTION_MEMORY_CARD_SETTINGS);
+    			ActivityUtil.startActivitySafely(activity, i);
+    		}
+    	});
+    	row.getMenuItems().add(item);
+
+    	item = new OnyxMenuItem(R.string.Search, R.drawable.file_search, true);
+    	item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+    		@Override
+    		public void onClick() {
+    			activity.onSearchRequested();
+    		}
+    	});
+    	row.getMenuItems().add(item);
+
+    	item = new OnyxMenuItem(R.string.Exit, R.drawable.exit, true);
+    	item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+    		@Override
+    		public void onClick() {
+    			activity.finish();
+    		}
+    	});
+    	row.getMenuItems().add(item);
+
+    	item = new OnyxMenuItem(R.string.menu_system_notification, R.drawable.ic_menu_notifications, true);
         item.setOnMenuItemClickListener(new OnMenuItemClickListener()
         {
             
@@ -194,7 +258,7 @@ public class StandardMenuFactory
             public void onClick()
             {
                 try {
-                    Object service  = hostActivity.getSystemService("statusbar");
+                    Object service  = activity.getSystemService("statusbar");
                     Class<?> statusbarManager = Class.forName("android.app.StatusBarManager");
                     Method expand = statusbarManager.getMethod("expand");
                     expand.invoke(service);
@@ -205,11 +269,11 @@ public class StandardMenuFactory
             }
         });
         row.getMenuItems().add(item);
-        
-        suite.getMenuRows().add(row);
-        return suite;
+
+    	suite.getMenuRows().add(row);
+    	return suite;
     }
-    
+
     public static OnyxMenuSuite getDummyMenuSuite()
     {
         OnyxMenuSuite suite = new OnyxMenuSuite(R.string.menu_suite_file, R.drawable.file_copy);

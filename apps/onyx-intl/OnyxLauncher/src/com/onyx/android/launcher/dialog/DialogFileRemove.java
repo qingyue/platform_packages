@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.onyx.android.launcher.OnyxApplication;
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.data.FileOperationHandler;
 import com.onyx.android.launcher.task.DeleteFileTask;
@@ -25,10 +26,10 @@ public class DialogFileRemove extends OnyxDialogBase
         Button button_cancel = (Button)this.findViewById(R.id.button_cancel_deletefile);
         
         if (fileHandler.getSourceItems().size() == 1) {
-            textview_fileName.setText("Delete " + fileHandler.getSourceItems().get(0).getText() + "?");
+            textview_fileName.setText(OnyxApplication.getInstance().getResources().getString(R.string.Delete) + ": " + fileHandler.getSourceItems().get(0).getText() + "?");
         }
         else {
-            textview_fileName.setText("Delete " + fileHandler.getSourceItems().size() + " files?");
+        	textview_fileName.setText(context.getText(R.string.Delete) + ": " + String.valueOf(fileHandler.getSourceItems().size()) + context.getText(R.string.files) + "?");
         }
         
         button_set.setOnClickListener(new View.OnClickListener()

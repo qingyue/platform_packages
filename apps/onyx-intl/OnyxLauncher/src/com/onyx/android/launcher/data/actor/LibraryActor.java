@@ -28,7 +28,7 @@ public class LibraryActor extends ItemContainerActor
     public LibraryActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Library"), 
-                "Library", 
+                R.string.Books, 
                 R.drawable.books));
     }
     

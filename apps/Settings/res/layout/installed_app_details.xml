@@ -52,7 +52,8 @@
 
         <TextView
             style="?android:attr/listSeparatorTextViewStyle"
-            android:text="@string/storage_label" />
+            android:text="@string/storage_label"
+            android:textColor="#000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -184,7 +185,8 @@
             <TextView
                 android:id="@+id/cache_header"
                 style="?android:attr/listSeparatorTextViewStyle"
-                android:text="@string/cache_header_label" />
+                android:text="@string/cache_header_label"
+                android:textColor="#000000" />
             <LinearLayout
                 android:id="@+id/cache_size"
                 android:layout_width="match_parent"
@@ -234,7 +236,8 @@
         <!-- Prefered activities section -->
         <TextView
             style="?android:attr/listSeparatorTextViewStyle"
-            android:text="@string/auto_launch_label" />
+            android:text="@string/auto_launch_label"
+            android:textColor="#000000" />
 
         <RelativeLayout 
             android:layout_width="match_parent"
@@ -265,7 +268,8 @@
             android:orientation="vertical">
             <TextView
                 style="?android:attr/listSeparatorTextViewStyle"
-                android:text="@string/permissions_label" />
+                android:text="@string/permissions_label"
+                android:textColor="#000000" />
             <TextView
                 android:text="@string/security_settings_desc"
                 android:textAppearance="?android:attr/textAppearanceSmall"

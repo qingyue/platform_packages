@@ -18,7 +18,6 @@ package com.android.packageinstaller;
 
 import com.android.packageinstaller.R;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -57,7 +56,7 @@ public class UninstallerActivity extends Activity implements OnClickListener,
     public Dialog onCreateDialog(int id) {
         switch (id) {
         case DLG_APP_NOT_FOUND :
-            return new AlertDialog.Builder(this)
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.app_not_found_dlg_title)
                     .setIcon(com.android.internal.R.drawable.ic_dialog_alert)
                     .setMessage(R.string.app_not_found_dlg_text)
@@ -73,7 +72,7 @@ public class UninstallerActivity extends Activity implements OnClickListener,
            String dlgText = getString(R.string.uninstall_failed_msg,
                     appTitle.toString());
             // Display uninstall failed dialog
-            return new AlertDialog.Builder(this)
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.uninstall_failed)
                     .setIcon(com.android.internal.R.drawable.ic_dialog_alert)
                     .setMessage(dlgText)
@@ -153,4 +152,10 @@ public class UninstallerActivity extends Activity implements OnClickListener,
     public void onCancel(DialogInterface dialog) {
         finish();
     }
+
+    @Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+        mOk.requestFocusFromTouch();
+		super.onWindowFocusChanged(hasFocus);
+	}
 }

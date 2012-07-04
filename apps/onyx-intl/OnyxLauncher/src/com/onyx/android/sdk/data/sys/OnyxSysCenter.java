@@ -49,13 +49,13 @@ public class OnyxSysCenter
         ArrayList<OnyxKeyValueItem> items = new ArrayList<OnyxKeyValueItem>();
         
         if (!queryKeyValueItems(context, items)) {
+        	
             return false;
         }
         
         for (OnyxKeyValueItem i : items) {
             sItemMap.put(i.getKey(), i);
         }
-        
         sInitialized = true; 
         return true;
     }
@@ -190,10 +190,10 @@ public class OnyxSysCenter
             return false;
         }
         
-        OnyxKeyValueItem item = sItemMap.get(KEY_DEFAULT_FONT_FAMILY);
+        OnyxKeyValueItem item = sItemMap.get(key);
         if (item == null) {
             item = new OnyxKeyValueItem();
-            item.setKey(KEY_DEFAULT_FONT_FAMILY);
+            item.setKey(key);
             item.setValue(value);
             
             if (!insert(context, item)) {

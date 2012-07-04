@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#999999" >
+    android:background="#FFFFFF" >
 
     <ViewSwitcher
         android:id="@+id/viewswitcher_library_title_left"
@@ -11,7 +11,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="2dp"
         android:layout_marginRight="2dp"
-        android:layout_marginTop="2dp" >
+        android:layout_marginTop="2dp" 
+        android:layout_marginLeft="20dp" >
 
         <ProgressBar
             android:layout_width="25dp"
@@ -23,10 +24,11 @@
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/title"
-            android:src="@drawable/title_left" />
-    </ViewSwitcher>
+            android:src="@drawable/books"/>
 
-    <Button
+    </ViewSwitcher>
+    
+    <ImageButton
         android:id="@+id/button_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,10 +40,10 @@
         android:minHeight="25dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="@string/home"
-        android:textColor="#FFFFFF" />
+        android:src="@drawable/home_l"
+        android:contentDescription="@string/home_image_button"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/button_sort_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,14 +51,14 @@
         android:layout_alignTop="@id/viewswitcher_library_title_left"
         android:layout_marginRight="2dp"
         android:layout_toLeftOf="@id/button_home"
-        android:background="@drawable/button_background_onyxpathindicator"
         android:minHeight="25dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="@string/symbol_sort_by"
-        android:textColor="#FFFFFF" />
+        android:background="@drawable/button_background_onyxpathindicator"
+        android:src="@drawable/listnumlittle"
+        android:contentDescription="@string/sort_image_button"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/button_change_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,8 +71,24 @@
         android:minHeight="25dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="@string/detail"
-        android:textColor="#FFFFFF" />
+        android:src="@drawable/listbulletslittle"
+        android:contentDescription="@string/view_model_button"/>
+    
+    <ImageButton 
+        android:id="@+id/button_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/viewswitcher_library_title_left"
+        android:layout_alignTop="@id/viewswitcher_library_title_left"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/button_change_view"
+        android:background="@drawable/button_background_onyxpathindicator"
+        android:minEms="5"
+        android:minHeight="25dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:src="@drawable/taglittle"
+        android:contentDescription="@string/tag_image_button"/>
 
     <TextView
         android:id="@+id/textview_library_title_layout"
@@ -78,19 +96,37 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/viewswitcher_library_title_left"
         android:layout_alignTop="@id/viewswitcher_library_title_left"
-        android:layout_toLeftOf="@id/button_change_view"
         android:layout_toRightOf="@id/viewswitcher_library_title_left"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:text="@string/library"
-        android:textColor="#FFFFFF"
-        android:textSize="15dp" />
-
+        android:text="@string/Books"
+        android:textColor="#000000"
+        android:textSize="20dp" 
+        android:layout_marginLeft="2dp"
+        android:textStyle="bold"/>
+    
+   <LinearLayout 
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:background="#000000"
+       android:layout_below="@id/viewswitcher_library_title_left" 
+       android:weightSum="0">
     <com.onyx.android.launcher.view.OnyxFileGridView
         android:id="@+id/gridview_library"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        android:layout_below="@id/viewswitcher_library_title_left" />
-
+        android:layout_marginTop="2dp"
+        android:layout_weight="1"/>
+    <com.onyx.android.sdk.ui.OnyxGridView
+       android:id="@+id/letter_gridview"
+       android:layout_height="match_parent"
+       android:layout_width="40dp"
+       android:numColumns="1"
+       android:background="#FFFFFF"
+       android:layout_marginTop="2dp"
+       android:listSelector="@drawable/gridview_selector_shape"
+       />
+   </LinearLayout>
+   
 </RelativeLayout>

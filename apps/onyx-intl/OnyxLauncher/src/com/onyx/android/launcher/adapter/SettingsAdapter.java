@@ -80,7 +80,7 @@ public class SettingsAdapter extends GridItemBaseAdapter
         }
 
         if (holder.textview_detail_launcher_name != null) {
-            holder.textview_detail_launcher_name.setText(item_data.getText());
+            holder.textview_detail_launcher_name.setText(item_data.getTextId());
         }
 
         return ret_view;

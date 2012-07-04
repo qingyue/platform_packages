@@ -22,7 +22,7 @@ public class SettingsFormatFlashActor extends AbstractItemActor
     public SettingsFormatFlashActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Format Flash"), 
-                "Format Flash", 
+                R.string.Format_Flash, 
                 R.drawable.format_flash));
     }
 

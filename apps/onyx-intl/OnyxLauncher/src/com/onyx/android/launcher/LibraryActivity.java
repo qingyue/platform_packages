@@ -10,19 +10,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ViewSwitcher;
 
-import com.onyx.android.launcher.adapter.BookrackGridViewAdapter;
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
+import com.onyx.android.launcher.adapter.LibraryAdapter;
+import com.onyx.android.launcher.adapter.LibraryFirstLetterAdapter;
 import com.onyx.android.launcher.data.CmsCenterHelper;
 import com.onyx.android.launcher.data.CopyService;
 import com.onyx.android.launcher.data.FileOperationHandler;
@@ -31,6 +32,7 @@ import com.onyx.android.launcher.data.StandardMenuFactory;
 import com.onyx.android.launcher.data.StandardMenuFactory.FileOperationMenuItem;
 import com.onyx.android.launcher.dialog.DialogProgressBarRotundity;
 import com.onyx.android.launcher.dialog.DialogSortBy;
+import com.onyx.android.launcher.dialog.DialogTagCloud;
 import com.onyx.android.launcher.task.LoadBookMetadataTask;
 import com.onyx.android.launcher.util.EventedArrayList;
 import com.onyx.android.launcher.view.OnyxFileGridView;
@@ -47,7 +49,9 @@ import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.GridItemData;
 import com.onyx.android.sdk.ui.data.GridViewPageLayout.GridViewMode;
 import com.onyx.android.sdk.ui.data.GridViewPaginator.OnPageIndexChangedListener;
+import com.onyx.android.sdk.ui.data.GridViewPaginator.OnStateChangedListener;
 import com.onyx.android.sdk.ui.menu.OnyxMenuSuite;
+import com.onyx.android.sdk.ui.util.OnyxFocusFinder;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
@@ -100,7 +104,7 @@ public class LibraryActivity extends OnyxBaseActivity
                 if (this.isCancelled()) {
                     return null;
                 }  
-                CmsCenterHelper.getLibraryItems(mActivity, LibraryActivity.SortPolicy, load_result);
+                CmsCenterHelper.getLibraryItems(mActivity, LibraryActivity.SortPolicy, LibraryActivity.AscOrder, load_result);
                 
                 if (this.isCancelled()) {
                     return null;
@@ -165,6 +169,7 @@ public class LibraryActivity extends OnyxBaseActivity
             
             ArrayList<GridItemData> items = values[0];
             mActivity.mAdapter.appendItems(items);
+//            mAdapter.sortItems(LibraryActivity.SortPolicy,LibraryActivity.AscOrder);
             
             if (mActivity.mProgressDialog.isShowing()) {
                 ScreenUpdateManager.postInvalidate(mActivity.getWindow().getDecorView(), UpdateMode.GU);
@@ -211,15 +216,16 @@ public class LibraryActivity extends OnyxBaseActivity
     }
     
     public static SortOrder SortPolicy = SortOrder.Name;
+    public static AscDescOrder AscOrder = AscDescOrder.Asc;
     public static GridViewMode ViewMode = GridViewMode.Thumbnail;
     
     private OnyxFileGridView mFileGridView = null;
-    private Button mButtonHome = null;
-    private Button mButtonSortBy = null;
-    private Button mButtonChangeView = null;
+    private ImageButton mButtonHome = null;
+    private ImageButton mButtonSortBy = null;
+    private ImageButton mButtonChangeView = null;
     private DialogProgressBarRotundity mProgressDialog = null;
     private ViewSwitcher mViewSwitcher = null;
-    private BookrackGridViewAdapter mAdapter = null;
+    private LibraryAdapter mAdapter = null;
     
     private FileOperationHandler mFileOperationHandler = null;
     
@@ -227,6 +233,12 @@ public class LibraryActivity extends OnyxBaseActivity
 
     private LoadLibraryItemsTask mLoadLibraryItemsTask = null;
     private LoadBookMetadataTask mLoadBookMetadataTask = null;
+    
+    private OnyxGridView mFirstLetterGridView = null;
+    private LibraryFirstLetterAdapter mLetterAdapter = null;
+    
+    private ImageButton mButtonTag = null;
+    
     
     @Override
     public OnyxGridView getGridView()
@@ -245,26 +257,66 @@ public class LibraryActivity extends OnyxBaseActivity
     @Override
     public ArrayList<OnyxMenuSuite> getContextMenuSuites()
     {
-        ArrayList<OnyxMenuSuite> suites = super.getContextMenuSuites();
-        if (mAdapter.getMultipleSelectionMode() && (mAdapter.getSelectedItems().size() > 0)) {
-            ArrayList<FileItemData> items = new ArrayList<FileItemData>(mAdapter.getSelectedItems().size());
-            for (GridItemData i : mAdapter.getSelectedItems()) {
-                items.add((FileItemData)i);
-            }
-            mFileOperationHandler.setSourceItems(items);
-            suites.add(StandardMenuFactory.getFileOperationMenuSuite(mFileOperationHandler));
-        }
-        else if (this.getSelectedGridItem() != null && (this.getSelectedGridItem() instanceof FileItemData)) {
-            ArrayList<FileItemData> items = new ArrayList<FileItemData>();
-            items.add((FileItemData)this.getSelectedGridItem());
-            mFileOperationHandler.setSourceItems(items);
-            suites.add(StandardMenuFactory.getFileOperationMenuSuite(mFileOperationHandler, 
-                    new FileOperationMenuItem[] { FileOperationMenuItem.Rename, 
-                  FileOperationMenuItem.Copy, FileOperationMenuItem.Cut, 
-                  FileOperationMenuItem.Remove }));
-        }
+		ArrayList<OnyxMenuSuite> suites = super.getContextMenuSuites();
 
-        return suites;
+		if (mAdapter.getMultipleSelectionMode() && (mAdapter.getSelectedItems().size() > 0) 
+				&& this.getSelectedGridItem() != null) {
+			ArrayList<FileItemData> items = new ArrayList<FileItemData>(mAdapter.getSelectedItems().size());
+			for (GridItemData i : mAdapter.getSelectedItems()) {
+				items.add((FileItemData) i);
+			}
+			mFileOperationHandler.setSourceItems(items);
+
+			suites.add(StandardMenuFactory.getFileOperationMenuSuite(
+					mFileOperationHandler, new FileOperationMenuItem[] {
+							FileOperationMenuItem.Rename,
+							FileOperationMenuItem.Copy,
+							FileOperationMenuItem.Cut,
+							FileOperationMenuItem.Remove,
+							FileOperationMenuItem.Property }));
+
+			return suites;
+		}
+		if (this.getSelectedGridItem() != null && (this.getSelectedGridItem() instanceof FileItemData)) {
+			ArrayList<FileItemData> items = new ArrayList<FileItemData>();
+			items.add((FileItemData) this.getSelectedGridItem());
+			mFileOperationHandler.setSourceItems(items);
+
+			if (mAdapter.getMultipleSelectionMode()) {
+				suites.add(StandardMenuFactory.getFileOperationMenuSuite(
+						mFileOperationHandler, new FileOperationMenuItem[] {
+								FileOperationMenuItem.Rename,
+								FileOperationMenuItem.Copy,
+								FileOperationMenuItem.Cut,
+								FileOperationMenuItem.Remove,
+								FileOperationMenuItem.Property,
+								FileOperationMenuItem.GotoFolder }));
+			}
+			else {
+				suites.add(StandardMenuFactory.getFileOperationMenuSuite(
+						mFileOperationHandler, new FileOperationMenuItem[] {
+								FileOperationMenuItem.Rename,
+								FileOperationMenuItem.Copy,
+								FileOperationMenuItem.Cut,
+								FileOperationMenuItem.Remove,
+								FileOperationMenuItem.Property,
+								FileOperationMenuItem.GotoFolder,
+								FileOperationMenuItem.Multiple }));
+			}
+
+			return suites;
+		}
+		if(!mAdapter.getMultipleSelectionMode()) {
+			mFileOperationHandler.getSourceItems().clear();
+
+			suites.add(StandardMenuFactory.getFileOperationMenuSuite(
+					mFileOperationHandler, new FileOperationMenuItem[] { 
+							FileOperationMenuItem.Multiple }));
+
+			return suites;
+		}
+
+		return suites;
     }
 
     @Override
@@ -275,9 +327,9 @@ public class LibraryActivity extends OnyxBaseActivity
         this.setContentView(R.layout.activity_library);
         
         mFileGridView = (OnyxFileGridView)this.findViewById(R.id.gridview_library);
-        mButtonHome = (Button)this.findViewById(R.id.button_home);
-        mButtonSortBy = (Button)this.findViewById(R.id.button_sort_by);
-        mButtonChangeView = (Button)this.findViewById(R.id.button_change_view);
+        mButtonHome = (ImageButton)this.findViewById(R.id.button_home);
+        mButtonSortBy = (ImageButton)this.findViewById(R.id.button_sort_by);
+        mButtonChangeView = (ImageButton)this.findViewById(R.id.button_change_view);
         
         mFileGridView.setCanPaste(false);
         
@@ -341,6 +393,13 @@ public class LibraryActivity extends OnyxBaseActivity
                         ScreenUpdateManager.invalidate(LibraryActivity.this.getGridView(), UpdateMode.GC);
                     }
                 });
+                mAdapter.getPaginator().registerOnStateChangedListener(new OnStateChangedListener() {
+
+					@Override
+					public void onStateChanged() {
+						ScreenUpdateManager.invalidate(mFileGridView.getGridView(), UpdateMode.GU);
+					}
+				});
             }
         });
 
@@ -363,17 +422,20 @@ public class LibraryActivity extends OnyxBaseActivity
                 DialogSortBy dlg = new DialogSortBy(LibraryActivity.this, 
                         new SortOrder[] { SortOrder.Name,
                         SortOrder.FileType, SortOrder.Size, 
-                        SortOrder.AccessTime, }
-                );
+                        SortOrder.AccessTime, },
+                LibraryActivity.SortPolicy, AscOrder);
                 dlg.setOnSortByListener(new DialogSortBy.OnSortByListener()
                 {
                     
                     @Override
-                    public void onSortBy(SortOrder order)
+                    public void onSortBy(SortOrder order, AscDescOrder ascOrder)
                     {
-                        mAdapter.sortItems(order, AscDescOrder.Asc);
+                        mAdapter.sortItems(order, ascOrder);
                         
                         LibraryActivity.SortPolicy = order;
+                        LibraryActivity.AscOrder = ascOrder;
+                        mLetterAdapter.notifyDataSetInvalidated();
+                        ScreenUpdateManager.invalidate(mFileGridView, ScreenUpdateManager.UpdateMode.GC);
                     }
                 });
                 
@@ -382,10 +444,10 @@ public class LibraryActivity extends OnyxBaseActivity
         });
         
         if (StorageActivity.ViewMode == GridViewMode.Detail) {
-            mButtonChangeView.setText("Thumbnail");
+            mButtonChangeView.setImageResource(R.drawable.gridlittle);
         }
         else {
-            mButtonChangeView.setText("Detail");
+            mButtonChangeView.setImageResource(R.drawable.listbulletslittle);
         }
 
         mButtonChangeView.setOnClickListener(new View.OnClickListener()
@@ -396,11 +458,11 @@ public class LibraryActivity extends OnyxBaseActivity
             {
                 if (mAdapter.getPageLayout().getViewMode() == GridViewMode.Thumbnail) {
                     LibraryActivity.this.changeViewMode(GridViewMode.Detail);
-                    mButtonChangeView.setText("Thumbnail");
+                    mButtonChangeView.setImageResource(R.drawable.gridlittle);
                 }
                 else {
                     LibraryActivity.this.changeViewMode(GridViewMode.Thumbnail);
-                    mButtonChangeView.setText("Detail");
+                    mButtonChangeView.setImageResource(R.drawable.listbulletslittle);
                 }
             }
         });
@@ -453,7 +515,7 @@ public class LibraryActivity extends OnyxBaseActivity
         IntentFilter filter = IntentFilterFactory.getSDCardUnmountedFilter();
         registerReceiver(this.mSDCardUnmountedReceiver, filter);
 
-        mAdapter = new BookrackGridViewAdapter(this, mFileGridView.getGridView());
+        mAdapter = new LibraryAdapter(this, mFileGridView.getGridView());
         mAdapter.getPageLayout().setViewMode(LibraryActivity.ViewMode);
         mFileGridView.getGridView().setAdapter(mAdapter);
         mFileGridView.getGridView().setVisibility(View.INVISIBLE);
@@ -477,30 +539,61 @@ public class LibraryActivity extends OnyxBaseActivity
         mLoadLibraryItemsTask = new LoadLibraryItemsTask(this);
         mLoadLibraryItemsTask.execute();
         
+        mFirstLetterGridView = (OnyxGridView) findViewById(R.id.letter_gridview);
+        
+        mFirstLetterGridView.setOnItemClickListener(new OnItemClickListener()
+        {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (LibraryActivity.SortPolicy == SortOrder.Name) {
+                    String letter = mLetterAdapter.getItems().get(position).getText();
+                    for (int i = 0; i < mAdapter.getItems().size(); i++) {
+                        String name = mAdapter.getItems().get(i).getText();
+                        if (name.regionMatches(true, 0, letter, 0, 1)) {
+                            mAdapter.locatePageByItemIndex(i);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+        
+        String[] letters = LibraryActivity.this.getResources().getStringArray(R.array.letter);
+        ArrayList<GridItemData> items = new ArrayList<GridItemData>();
+        for (int i = 0; i < letters.length; i++) {
+            GridItemData item_data = new GridItemData(null, letters[i], null);
+            items.add(item_data);
+        }
+        mLetterAdapter = new LibraryFirstLetterAdapter(this,mFirstLetterGridView);
+        mLetterAdapter.fillItems(null, items);
+        mFirstLetterGridView.setAdapter(mLetterAdapter);
+        
         mProgressDialog = new DialogProgressBarRotundity(this);
         mProgressDialog.show();
         
         if (CopyService.getSourceItems() != null) {
             mFileGridView.onPreparePaste();
         }
-
-        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC);
+        
+        mButtonTag = (ImageButton)findViewById(R.id.button_tag);
+        mButtonTag.setOnClickListener(new View.OnClickListener()
+        {
+            
+            @Override
+            public void onClick(View v)
+            {
+                DialogTagCloud tagCloud = new DialogTagCloud(LibraryActivity.this);
+                tagCloud.show();
+                
+            }
+        });
+        
+       
 
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId()) {
-        case R.id.home_option_menu_select_mutiple:
-            mAdapter.setMultipleSelectionMode(true);
-            mFileGridView.onPrepareMultipleSelection();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
     }
     
     @Override
@@ -540,8 +633,68 @@ public class LibraryActivity extends OnyxBaseActivity
                 return true;
             }
         }
+        
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_UP) || 
+                (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) ||
+                (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) ||
+                (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT)) {
+            ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.DW);
+            
+            if (this.getCurrentFocus() != null) {
+                int direction = 0;
+                switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    direction = View.FOCUS_UP;
+                    break;
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    direction = View.FOCUS_DOWN;
+                    break;
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    direction = View.FOCUS_LEFT;
+                    break;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    direction = View.FOCUS_RIGHT;
+                    break;
+                default:
+                    assert(false);
+                    throw new IndexOutOfBoundsException();
+                }
 
+                View dst_view = this.getCurrentFocus().focusSearch(direction);
+                if (dst_view == null) {
+                    if (direction == View.FOCUS_RIGHT) {
+                        dst_view = this.getCurrentFocus().focusSearch(View.FOCUS_LEFT);
+                    }
+                    else {
+                        int reverse_direction = OnyxFocusFinder.getReverseDirection(direction);
+                        dst_view = OnyxFocusFinder.findFartherestViewInDirection(this.getCurrentFocus(),
+                                reverse_direction);
+                    }
+
+                    Rect rect = OnyxFocusFinder.getAbsoluteFocusedRect(this.getCurrentFocus());
+
+                    if (dst_view instanceof OnyxGridView) {
+                        // simply requestFocus() wont work here, use the method provided by OnyxGridView instead
+                        ((OnyxGridView)dst_view).searchAndSelectNextFocusableChildItem(direction, rect);
+                    }
+                    else {
+                        dst_view.requestFocus(direction, rect);
+                    }
+
+                    return true;
+                }
+            }
+        }
+        
         return super.onKeyDown(keyCode, event);
+    }
+    
+    @Override
+    protected void initGridViewItemNavigation()
+    {
+
+        mFirstLetterGridView.setCrossVertical(true);
+        mFirstLetterGridView.setCrossHorizon(true);
     }
 
     private void loadBookMetadataAsync()

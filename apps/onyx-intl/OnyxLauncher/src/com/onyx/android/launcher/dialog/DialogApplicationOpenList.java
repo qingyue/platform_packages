@@ -98,10 +98,10 @@ public class DialogApplicationOpenList extends OnyxDialogBase
                     String cls = resolve_info.activityInfo.name;
 
                     if (OnyxAppPreferenceCenter.setAppPreference(mContext, mExt, appName, pkg, cls)) {
-                        Toast.makeText(mContext, "Succeed setting", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, R.string.Succeed_setting, Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(mContext, "Fail setting", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, R.string.Fail_setting, Toast.LENGTH_SHORT).show();
                     }
                 }
                 

@@ -27,6 +27,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.util.Log;
 
 import java.util.List;
 

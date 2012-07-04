@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.onyx.android.launcher.OnyxApplication;
 import com.onyx.android.launcher.OnyxBaseActivity;
 import com.onyx.android.launcher.R;
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
@@ -26,7 +27,6 @@ import com.onyx.android.launcher.task.CopyFileTask;
 import com.onyx.android.launcher.task.CutFileTask;
 import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.FileItemData;
-import com.onyx.android.sdk.ui.data.OnyxPagedAdapter;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager;
 import com.onyx.android.sdk.ui.util.ScreenUpdateManager.UpdateMode;
 
@@ -160,12 +160,16 @@ public class OnyxFileGridView extends LinearLayout
             @Override
             public void onAdapterChanged()
             {
-                OnyxPagedAdapter adapter = mGridView.getPagedAdapter();
+            	final GridItemBaseAdapter adapter = (GridItemBaseAdapter)mGridView.getPagedAdapter();
                 adapter.registerDataSetObserver(new DataSetObserver()
                 {
                     @Override
                     public void onChanged()
                     {
+                    	if (adapter.getMultipleSelectionMode()) {
+                    		OnyxFileGridView.this.onPrepareMultipleSelection();
+                    	}
+
                         OnyxFileGridView.this.updatemTextViewProgress();
                     }
 
@@ -343,7 +347,7 @@ public class OnyxFileGridView extends LinearLayout
         final int page_count = mGridView.getPagedAdapter().getPaginator().getPageCount() != 0 ? 
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
-        mButtonProgress.setText(String.valueOf(current_page) + "/" + String.valueOf(page_count));
+        mButtonProgress.setText(String.valueOf(current_page) + OnyxApplication.getInstance().getResources().getString(R.string.slash) + String.valueOf(page_count));
         ScreenUpdateManager.invalidate(mButtonProgress, UpdateMode.GU);
     }
 

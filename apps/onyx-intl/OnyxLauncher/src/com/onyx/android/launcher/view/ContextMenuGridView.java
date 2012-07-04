@@ -19,17 +19,14 @@ public class ContextMenuGridView extends OnyxGridView {
 
 	public ContextMenuGridView(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 
 	public ContextMenuGridView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		// TODO Auto-generated constructor stub
 	}
 
 	public ContextMenuGridView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -60,7 +57,6 @@ public class ContextMenuGridView extends OnyxGridView {
 		}
 		else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
 			if ((selected_item + column_count) < this.getCount()) {
-				System.out.println("KEYCODE_DPAD_DOWN");
 				for (int i = (selected_item + column_count); i < this.getCount(); i += column_count) {
 					if (this.getChildAt(i).getTag() != null) {
 						ScreenUpdateManager.invalidate(this, UpdateMode.DW);

@@ -61,6 +61,42 @@ public class OnyxFocusFinder
             return view;
         }
         
+        // double-check whether find_view is what we want in direction
+        Rect src_rect = getAbsoluteCoorinateRect(view);
+        Rect dst_rect = getAbsoluteCoorinateRect(find_view);
+        switch (direction) {
+        case View.FOCUS_UP:
+            if (((dst_rect.right <= src_rect.left) || (dst_rect.left >= src_rect.right)) &&
+                    (dst_rect.top <= src_rect.top))
+            {
+                return view;
+            }
+            break;
+        case View.FOCUS_DOWN:
+            if (((dst_rect.right <= src_rect.left) || (dst_rect.left >= src_rect.right)) &&
+                    (dst_rect.bottom >= src_rect.bottom))
+            {
+                return view;
+            }
+            break;
+        case View.FOCUS_LEFT:
+            if (((dst_rect.bottom <= src_rect.top) || (dst_rect.top >= dst_rect.bottom)) &&
+                    (dst_rect.left >= src_rect.left))
+            {
+                return view;
+            }
+            break;
+        case View.FOCUS_RIGHT:
+            if (((dst_rect.bottom <= src_rect.top) || (dst_rect.top >= dst_rect.bottom)) &&
+                    (dst_rect.right <= src_rect.right))
+            {
+                return view;
+            }
+            break;
+        default:
+            break;
+        }
+        
         View dst_view = find_view;
         while (find_view != null) {
             // when revert_view is null, meaning can't move down any more, so dst_view is bottom most
@@ -82,6 +118,20 @@ public class OnyxFocusFinder
         return ret;
     }
     
+    public static Rect getAbsoluteCoorinateRect(View view)
+    {
+        Rect r = new Rect();
+        view.getHitRect(r);
+        
+        return getAbsoluteCoorinateRect((View)view.getParent(), r);
+    }
+    
+    /**
+     * NOTICE: when view is GridView, view.getFocusedRect() will return it's child's focused rect
+     * 
+     * @param view
+     * @return
+     */
     public static Rect getAbsoluteFocusedRect(View view)
     {
         Rect r = new Rect();

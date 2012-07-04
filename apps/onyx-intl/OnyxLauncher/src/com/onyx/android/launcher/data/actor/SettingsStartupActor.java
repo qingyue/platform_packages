@@ -21,7 +21,7 @@ public class SettingsStartupActor extends AbstractItemActor
     public SettingsStartupActor(OnyxItemURI parentURI)
     {
         super(new GridItemData(((OnyxItemURI)parentURI.clone()).append("Startup Settings"), 
-                "Startup Settings", 
+                R.string.Startup_Settings, 
                 R.drawable.startup));
     }
 

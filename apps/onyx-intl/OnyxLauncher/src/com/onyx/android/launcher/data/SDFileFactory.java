@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.onyx.android.launcher.dialog.DialogFileOperations;
 import com.onyx.android.sdk.data.util.EnviromentUtil;
 import com.onyx.android.sdk.data.util.RefValue;
 
@@ -123,34 +124,45 @@ public class SDFileFactory {
         }
 	    return false;
 	}
-	
-	static public boolean delete(File file)
+
+
+    static DialogFileOperations sDialogFileOperations = null;
+	static public boolean delete(File file, DialogFileOperations dialogFileOperations)
 	{
+		sDialogFileOperations = dialogFileOperations;
+		if (sDialogFileOperations == null && !sDialogFileOperations.getIsShowing()) {
+			return false;
+		}
+
 	    if (file.exists()) {
 	        if (file.isFile()) {
 	            return file.delete();
 	        }
 	        else {
-	            return SDFileFactory.deleteFile(file);
+	            return SDFileFactory.deleteDirectory(file);
 	        }
         }
 	    
 	    return true;
 	}
 	
-    static private boolean deleteFile(File file)
+    static private boolean deleteDirectory(File file)
     {
         if (file.exists()) {
             File currentFile = new File(file.toString());
             File[] files = currentFile.listFiles();
             for (int i = 0; i < files.length; i++) {
+            	if (sDialogFileOperations == null && !sDialogFileOperations.getIsShowing()) {
+            		return false;
+            	}
+
                 if (files[i].isFile()) {
                     if (!files[i].delete()) {
                         return false;
                     }
                 }
                 else if (files[i].isDirectory()) {
-                    deleteFile(files[i]);
+                    deleteDirectory(files[i]);
                 }
             }
 
@@ -190,26 +202,36 @@ public class SDFileFactory {
         
         return sCount;
     }
-    
-    static public boolean cut(File sourceFile, File file)
+
+    static public boolean copy(File sourceFile, String filePath, DialogFileOperations dialogFileOperations)
     {
-        File copyFile = new File(file.getPath(), sourceFile.getName());
+    	sDialogFileOperations = dialogFileOperations;
+    	if (sDialogFileOperations == null && !sDialogFileOperations.getIsShowing()) {
+			return false;
+		}
+
+        File copyFile = new File(filePath, sourceFile.getName());
         if (copyFile.exists()) {
             return false;
         }
 
         if (sourceFile.isFile()) {
-            cutFile(sourceFile, copyFile);
+            copyFile(sourceFile, filePath);
         }
         else {
-            cutDirectory(sourceFile, copyFile);
+            copyDirectory(sourceFile, filePath);
         }
         
         return true;
     }
     
-    static public boolean cutFile(File sourceFile, File file)
+    static public boolean copyFile(File sourceFile, String filePath)
     {
+    	File file = new File(filePath, sourceFile.getName());
+    	if (!sDialogFileOperations.getIsShowing()) {
+			return false;
+		}
+
         try {
             if (!file.createNewFile()) {
                 return false;
@@ -218,7 +240,7 @@ public class SDFileFactory {
             FileInputStream inputStream = new FileInputStream(sourceFile);
             FileOutputStream outputStream = new FileOutputStream(file);
             int i = 0;
-            byte[] b = new byte[6120];
+            byte[] b = new byte[5096];
 
             while ((i = inputStream.read(b)) != -1) {
                 outputStream.write(b, 0, i);
@@ -231,12 +253,13 @@ public class SDFileFactory {
         catch (IOException e) {
             return false;
         }
-        
+
         return true;
     }
     
-    static public boolean cutDirectory(File sourceFile, File file)
+    static public boolean copyDirectory(File sourceFile, String filePath)
     {
+    	File file = new File(filePath, sourceFile.getName());
         if (!file.mkdir()) {
             return false;
         }
@@ -244,11 +267,15 @@ public class SDFileFactory {
 
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
+            	if (!sDialogFileOperations.getIsShowing()) {
+            		return false;
+            	}
+
                 if (files[i].isFile()) {
-                    cut(files[i], file);
+                    copyFile(files[i], file.getPath());
                 }
                 else if (files[i].isDirectory()) {
-                    cut(files[i], file);
+                    copyDirectory(files[i], filePath+File.separator+file.getName());
                 }
             }
         }

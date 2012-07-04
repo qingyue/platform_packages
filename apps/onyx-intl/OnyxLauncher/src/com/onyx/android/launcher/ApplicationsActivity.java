@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.onyx.android.launcher.adapter.ApplicationsAdapter;
 import com.onyx.android.launcher.adapter.ApplicationsAdapter.AppItem;
@@ -51,7 +51,7 @@ public class ApplicationsActivity extends OnyxBaseActivity
         this.setContentView(R.layout.activity_applications);
         
         mGridView = ((OnyxPagedGridViewHost)this.findViewById(R.id.gridview_applications)).getGridView();
-        Button button_home = (Button)this.findViewById(R.id.button_home);
+        ImageButton button_home = (ImageButton)this.findViewById(R.id.button_home);
         
         mGridView.setOnItemClickListener(new OnItemClickListener()
         {

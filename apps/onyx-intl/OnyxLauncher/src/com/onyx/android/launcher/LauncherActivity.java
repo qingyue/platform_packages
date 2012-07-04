@@ -13,28 +13,27 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.onyx.android.launcher.adapter.BookmarkGridViewAdapter;
 import com.onyx.android.launcher.adapter.BookrackGridViewAdapter;
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
+import com.onyx.android.launcher.adapter.OnyxGridAppsItemAdapter;
 import com.onyx.android.launcher.adapter.OnyxGridItemAdapter;
 import com.onyx.android.launcher.data.CmsCenterHelper;
-import com.onyx.android.launcher.data.FileIconFactory;
 import com.onyx.android.launcher.data.FileOperationHandler;
 import com.onyx.android.launcher.data.GridItemManager;
-import com.onyx.android.launcher.data.StandardMenuFactory;
-import com.onyx.android.launcher.data.StandardMenuFactory.FileOperationMenuItem;
 import com.onyx.android.launcher.dialog.DialogContextMenu;
 import com.onyx.android.launcher.dialog.DialogRecentReadingRemove;
-import com.onyx.android.launcher.view.OnyxPagedGridViewHost;
+import com.onyx.android.launcher.view.OnyxGridViewCanPaged;
 import com.onyx.android.sdk.data.OnyxItemURI;
 import com.onyx.android.sdk.data.SortOrder;
-import com.onyx.android.sdk.data.sys.OnyxAppPreferenceCenter;
+import com.onyx.android.sdk.data.sys.OnyxSysCenter;
 import com.onyx.android.sdk.data.util.ActivityUtil;
 import com.onyx.android.sdk.data.util.RefValue;
 import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.BookItemData;
-import com.onyx.android.sdk.ui.data.FileItemData;
 import com.onyx.android.sdk.ui.data.GridItemData;
 import com.onyx.android.sdk.ui.data.GridViewPageLayout.GridViewMode;
 import com.onyx.android.sdk.ui.menu.OnyxMenuSuite;
@@ -53,6 +52,14 @@ public class LauncherActivity extends OnyxBaseActivity
     
     private FileOperationHandler mFileOperationHandler = null;
     
+    private OnyxGridView mGridViewShortCuts = null;
+    private OnyxGridAppsItemAdapter mShortCutsAdapter = null;
+    
+    private Button mRecentButton = null;
+    private Button mBookmarkButton = null;
+    private OnyxGridView mGridViewBookmark = null;
+    @SuppressWarnings("unused")
+	private BookmarkGridViewAdapter mBookmarkAdapter = null;
     /**
      * helper function of "go home"
      * 
@@ -75,15 +82,17 @@ public class LauncherActivity extends OnyxBaseActivity
     @Override
     public GridItemData getSelectedGridItem()
     {
-        if (mGridViewMain.getSelectedView() != null) {
-            return (GridItemData)mGridViewMain.getSelectedView().getTag();
+    	if (mGridViewMain.getSelectedView() != null) {
+    		return (GridItemData)mGridViewMain.getSelectedView().getTag();
+    	}
+    	else if (mGridViewBookrack.getSelectedView() != null) {
+    		return (GridItemData)mGridViewBookrack.getSelectedView().getTag();
+    	} else if (mGridViewShortCuts.getSelectedView() != null) {
+            return (GridItemData) mGridViewShortCuts.getSelectedView().getTag();
         }
-        else if (mGridViewBookrack.getSelectedView() != null) {
-            return (GridItemData)mGridViewBookrack.getSelectedView().getTag();
-        }
-        else {
-            return null;
-        }
+    	else {
+    		return null;
+    	}
     }
 
     @Override
@@ -95,52 +104,24 @@ public class LauncherActivity extends OnyxBaseActivity
     @Override
     public void registerLongPressListener()
     {
-        assert(this.getGridView() == mGridViewMain);
-        
-        super.registerLongPressListener();
-        
-        if (mGridViewBookrack == null) {
-            assert(false);
-            return;
-        }
-        mGridViewBookrack.setOnItemLongClickListener(new OnItemLongClickListener()
-        {
+    	assert(this.getGridView() == mGridViewMain);
 
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,
-                    int position, long id)
-            {
-//                LauncherActivity.this.openOptionsMenu();
-                return true;
-            }
-        });
-        mGridViewBookrack.registerOnLongPressListener(new OnyxGridView.OnLongPressListener()
-        {
-            
-            @Override
-            public void onLongPress()
-            {
-            	ArrayList<OnyxMenuSuite> suites = new ArrayList<OnyxMenuSuite>();
-                suites.add(StandardMenuFactory.getSystemMenuSuite(LauncherActivity.this));
-                new DialogContextMenu(LauncherActivity.this, suites).show();
-            }
-        });
-    }
-    
-    @Override
-    public ArrayList<OnyxMenuSuite> getContextMenuSuites()
-    {
-        ArrayList<OnyxMenuSuite> suites = super.getContextMenuSuites();
-        if (this.getSelectedGridItem() != null &&
-                (this.getSelectedGridItem() instanceof FileItemData)) {
-            ArrayList<FileItemData> items = new ArrayList<FileItemData>();
-            items.add((FileItemData)this.getSelectedGridItem());
-            mFileOperationHandler.setSourceItems(items);
-            suites.add(StandardMenuFactory.getFileOperationMenuSuite(mFileOperationHandler, 
-                    new FileOperationMenuItem[] { FileOperationMenuItem.Remove }));
-        }
-        
-        return suites;
+    	super.registerLongPressListener();
+
+    	if (mGridViewBookrack == null) {
+    		assert(false);
+    		return;
+    	}
+    	mGridViewBookrack.registerOnLongPressListener(new OnyxGridView.OnLongPressListener()
+    	{
+
+    		@Override
+    		public void onLongPress()
+    		{
+    			ArrayList<OnyxMenuSuite> suites = LauncherActivity.this.getContextMenuSuites();
+    			new DialogContextMenu(LauncherActivity.this, suites).show();
+    		}
+    	});
     }
 
     /** Called when the activity is first created. */
@@ -148,13 +129,11 @@ public class LauncherActivity extends OnyxBaseActivity
     public void onCreate(Bundle savedInstanceState)
     {
         Log.d(TAG, "onCreate");
-
+        
         super.onCreate(savedInstanceState);
         //Thread.setDefaultUncaughtExceptionHandler(new OnyxUncaughtExceptionHandler(this));
 
         setContentView(R.layout.activity_home);
-
-        OnyxAppPreferenceCenter.init(this);
 
         mGridViewBookrack = (OnyxGridView)findViewById(R.id.gridview_bookrack);
         mGridViewBookrack.setOnItemClickListener(new OnItemClickListener()
@@ -184,13 +163,12 @@ public class LauncherActivity extends OnyxBaseActivity
             public void onInvalidated()
             {
                 super.onInvalidated();
-                
+               
                 LauncherActivity.this.refreshBookrackThumbnail();
             }
         });
-        
 
-        mGridViewMain = ((OnyxPagedGridViewHost)findViewById(R.id.gridview_main)).getGridView();
+        mGridViewMain = ((OnyxGridViewCanPaged) findViewById(R.id.onyxgridviewpaged)).getGridView();
         mGridViewMain.setOnItemClickListener(new OnItemClickListener()
         {
 
@@ -205,11 +183,24 @@ public class LauncherActivity extends OnyxBaseActivity
         mAdapter = new OnyxGridItemAdapter(this, mGridViewMain); 
         mGridViewMain.setAdapter(mAdapter);
 
+        mGridViewShortCuts = (OnyxGridView) findViewById(R.id.gridview_shortcuts);
+        mGridViewShortCuts.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent,View view,
+                    int position, long id)
+            {
+                LauncherActivity.this.startGridViewItem(view);
+            }
+        });
+        mShortCutsAdapter = new OnyxGridAppsItemAdapter(this, mGridViewShortCuts);
+        mGridViewShortCuts.setAdapter(mShortCutsAdapter);
+
         // FileItemData.RegisterCreator();
         // DynamicItemData.RegisterCreator();
 
-        FileIconFactory.init(this);
-        GridItemManager.initializeDesktop(mGridViewMain, this);
+        GridItemManager.fillDesktop(mGridViewMain, this);
+        GridItemManager.fillShortCuts(mGridViewShortCuts, this);
         
         mFileOperationHandler = new FileOperationHandler(this, mAdapterBookrack) 
         {
@@ -222,6 +213,31 @@ public class LauncherActivity extends OnyxBaseActivity
 
         this.initGridViewItemNavigation();
         this.registerLongPressListener();
+        
+        mRecentButton = (Button) findViewById(R.id.recent_doc_button);
+        mRecentButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(LauncherActivity.this,RecentDocumentsActivity.class);
+				startActivity(intent);
+				
+			}
+		});
+        
+        mBookmarkButton =(Button) findViewById(R.id.bookmark_button);
+        mBookmarkButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "BookMark",Toast.LENGTH_SHORT).show();
+				
+			}
+		});
+
+        mGridViewBookmark = (OnyxGridView) findViewById(R.id.gridview_bookmark);
+        mBookmarkAdapter = new BookmarkGridViewAdapter(this, mGridViewBookmark);
+        mGridViewBookmark.setAdapter(mAdapterBookrack);
 
         Log.d(TAG, "onCreate finished");
     }
@@ -229,8 +245,9 @@ public class LauncherActivity extends OnyxBaseActivity
     @Override
     protected void onResume()
     {
+        Log.d(TAG, "onResume");
         super.onResume();
-
+        
         GridItemBaseAdapter adapter = (GridItemBaseAdapter)mGridViewBookrack.getPagedAdapter();
         adapter.fillItems(null, CmsCenterHelper.getRecentReadings(this));
     }
@@ -240,10 +257,21 @@ public class LauncherActivity extends OnyxBaseActivity
     {
         super.onWindowFocusChanged(hasFocus);
         
-        if (!OnyxApplication.UpdatePolicyInitialized) {
-            ScreenUpdateManager.setUpdatePolicy(this.getWindow().getDecorView(), UpdatePolicy.GUIntervally, 5);
-            OnyxApplication.UpdatePolicyInitialized = true;
-        }
+		if (!OnyxApplication.UpdatePolicyInitialized) {
+		    if (OnyxSysCenter.init(LauncherActivity.this)) {
+			    int initValue = OnyxSysCenter.getScreenUpdateGCInterval();
+			    if (initValue == -1) {
+				    ScreenUpdateManager.setUpdatePolicy(this.getWindow()
+							.getDecorView(), UpdatePolicy.GUIntervally, 0);
+				} else {
+				    ScreenUpdateManager.setUpdatePolicy(this.getWindow()
+							.getDecorView(), UpdatePolicy.GUIntervally,
+							initValue);
+				}
+			}
+
+			OnyxApplication.UpdatePolicyInitialized = true;
+		}
     }
 
     @Override
@@ -276,10 +304,20 @@ public class LauncherActivity extends OnyxBaseActivity
     protected void initGridViewItemNavigation()
     {
         mGridViewMain.setCrossVertical(true);
-        mGridViewMain.setCrossHorizon(false);
+        mGridViewMain.setCrossHorizon(true);
+        mGridViewMain.enableOnFling(false);
 
         mGridViewBookrack.setCrossVertical(true);
         mGridViewBookrack.setCrossHorizon(true);
+        mGridViewBookrack.enableOnFling(false);
+        
+        mGridViewShortCuts.setCrossVertical(true);
+        mGridViewShortCuts.setCrossHorizon(true);
+        mGridViewShortCuts.enableOnFling(false);
+        
+        mGridViewBookrack.setCrossVertical(true);
+        mGridViewBookrack.setCrossHorizon(true);
+        mGridViewBookrack.enableOnFling(false);
     }
 
     private void startGridViewItem(View itemView)
@@ -327,7 +365,6 @@ public class LauncherActivity extends OnyxBaseActivity
     {
         GridItemBaseAdapter adapter = (GridItemBaseAdapter)mGridViewMain.getPagedAdapter();
 
-//        ScreenUpdateManager.invalidate(this.getWindow().getDecorView(), UpdateMode.GC);
         if (uri.equals(GridItemManager.getStorageURI())) {
             // start new Storage Activity can not be elegantly done in StorageActor.process(), 
             // so explicitly start activity here

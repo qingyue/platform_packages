@@ -19,7 +19,6 @@ package com.android.packageinstaller;
 import com.android.packageinstaller.R;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -73,12 +72,14 @@ public class InstallAppProgress extends Activity implements View.OnClickListener
             switch (msg.what) {
                 case INSTALL_COMPLETE:
                     // Update the status text
+                    mProgressBar.invalidate(View.UI_GU_MODE);
                     mProgressBar.setVisibility(View.INVISIBLE);
                     // Show the ok button
                     int centerTextLabel;
                     Drawable centerTextDrawable = null;
                     if(msg.arg1 == PackageManager.INSTALL_SUCCEEDED) {
                         mLaunchButton.setVisibility(View.VISIBLE);
+                        mLaunchButton.requestFocusFromTouch();
                         centerTextDrawable = getResources().getDrawable(R.drawable.button_indicator_finish);
                         centerTextLabel = R.string.install_done;
                         // Enable or disable launch button
@@ -107,6 +108,8 @@ public class InstallAppProgress extends Activity implements View.OnClickListener
                         centerTextLabel = R.string.install_failed;
                         mLaunchButton.setVisibility(View.INVISIBLE);
                     }
+
+                    mStatusTextView.invalidate(View.UI_GU_MODE);
                     if (centerTextDrawable != null) {
                     centerTextDrawable.setBounds(0, 0,
                             centerTextDrawable.getIntrinsicWidth(),
@@ -137,7 +140,7 @@ public class InstallAppProgress extends Activity implements View.OnClickListener
         switch (id) {
         case DLG_OUT_OF_SPACE:
             String dlgText = getString(R.string.out_of_space_dlg_text, mLabel);
-            return new AlertDialog.Builder(this)
+            return new OnyxAlertDialog.Builder(this)
                     .setTitle(R.string.out_of_space_dlg_title)
                     .setMessage(dlgText)
                     .setPositiveButton(R.string.manage_applications, new DialogInterface.OnClickListener() {

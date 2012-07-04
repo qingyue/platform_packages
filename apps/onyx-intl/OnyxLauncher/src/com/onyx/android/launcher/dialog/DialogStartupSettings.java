@@ -36,7 +36,7 @@ public class DialogStartupSettings extends DialogBaseSettings
             }
         });
         
-        this.getTextViewTitle().setText("Startup Settings");
+        this.getTextViewTitle().setText(R.string.Startup_Settings);
         
         adapter.getPaginator().setPageSize(array.length);
     }
