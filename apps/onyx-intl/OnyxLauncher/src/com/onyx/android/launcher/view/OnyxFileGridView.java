@@ -347,7 +347,7 @@ public class OnyxFileGridView extends LinearLayout
         final int page_count = mGridView.getPagedAdapter().getPaginator().getPageCount() != 0 ? 
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
-        mButtonProgress.setText(String.valueOf(current_page) + OnyxApplication.getInstance().getResources().getString(R.string.slahs) + String.valueOf(page_count));
+        mButtonProgress.setText(String.valueOf(current_page) + OnyxApplication.getInstance().getResources().getString(R.string.slash) + String.valueOf(page_count));
         ScreenUpdateManager.invalidate(mButtonProgress, UpdateMode.GU);
     }
 

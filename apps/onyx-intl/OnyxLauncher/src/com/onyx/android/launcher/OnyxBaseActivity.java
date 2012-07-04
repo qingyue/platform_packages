@@ -259,7 +259,7 @@ public abstract class OnyxBaseActivity extends Activity
     public boolean onSearchRequested()
     {
         if (this.getGridView().getPagedAdapter() instanceof GridItemBaseAdapter) {
-            GridItemBaseAdapter adapter = (GridItemBaseAdapter)this.getGridView().getPagedAdapter();
+            GridItemBaseAdapter adapter = (GridItemBaseAdapter)this.getGridView().getPagedAdapter();            
             Bundle app_data = new Bundle();
             app_data.putString(SearchResultActivity.HOST_URI, adapter.getHostURI().toString());
             this.startSearch(null, false, app_data, false);

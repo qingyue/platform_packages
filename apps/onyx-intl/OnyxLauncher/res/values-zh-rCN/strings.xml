@@ -26,7 +26,7 @@
     <string name="search_hint">查找中…</string>
     <string name="search_result">查找结果.</string>
     <string name="set">确定</string>
-    <string name="slahs">/</string>
+    <string name="slash">/</string>
     <string name="thumbnail">缩略图</string>
     <string name="title">题目</string>
     <string name="unknown">未知</string>
@@ -119,22 +119,5 @@
     <string name="Exit">退出</string>
     <string name="select_mutiple">多项选定</string>
     <string name="Others">其它</string>
-
-    <string name="menu_suite_file">文件</string>
-    <string name="menu_file_new">新建文件</string>
-    <string name="menu_file_new_folder">新建文件夹</string>
-    <string name="menu_file_rename">修改名称</string>
-    <string name="menu_file_copy">复制</string>
-    <string name="menu_file_cut">剪切</string>
-    <string name="menu_file_remove">删除</string>
-    <string name="menu_file_property">属性</string>
-    <string name="menu_file_goto_folder">到文件</string>
     
-    <string name="menu_suite_system">系统</string>
-    <string name="menu_system_notification">通知</string>
-    
-    <string name="slash">/</string>
-    <string name="open_item_failed">打开项目失败</string>
-    <string name="not_found"> 没有发现</string>
-    <string name="not_allowed"> 未允许</string>
 </resources>

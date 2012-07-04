@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.onyx.android.launcher.adapter.RecentDocumentsAdapter;
 import com.onyx.android.launcher.data.CmsCenterHelper;
@@ -50,9 +50,9 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
     public static AscDescOrder AscOrder = AscDescOrder.Asc;
 
     private OnyxFileGridView mFileGridView = null;
-    private Button mButtonHome = null;
-    private Button mButtonSortBy = null;
-    private Button mButtonChangeView = null;
+    private ImageButton mButtonHome = null;
+    private ImageButton mButtonSortBy = null;
+    private ImageButton mButtonChangeView = null;
     private RecentDocumentsAdapter mAdapter = null;
 
     private FileOperationHandler mFileOperationHandler = null;
@@ -80,9 +80,9 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
         this.setContentView(R.layout.activity_recent_documents);
 
         mFileGridView = (OnyxFileGridView)this.findViewById(R.id.gridview_recent_documents);
-        mButtonHome = (Button)this.findViewById(R.id.button_home);
-        mButtonSortBy = (Button)this.findViewById(R.id.button_sort_by);
-        mButtonChangeView = (Button)findViewById(R.id.button_change_view);
+        mButtonHome = (ImageButton)this.findViewById(R.id.button_home);
+        mButtonSortBy = (ImageButton)this.findViewById(R.id.button_sort_by);
+        mButtonChangeView = (ImageButton)findViewById(R.id.button_change_view);
 
         mFileGridView.setCanPaste(false);
         
@@ -130,7 +130,7 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
                         new SortOrder[] { SortOrder.Name,
                         SortOrder.FileType, SortOrder.Size, 
                         SortOrder.AccessTime, },
-                        RecentDocumentsActivity.SortPolicy, AscOrder);
+                        SortOrder.AccessTime, AscOrder);
                 dlg.setOnSortByListener(new DialogSortBy.OnSortByListener()
                 {
 
@@ -148,10 +148,10 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
         });
 
         if (RecentDocumentsActivity.ViewMode == GridViewMode.Detail) {
-            mButtonChangeView.setText(R.string.thumbnail);
+        	mButtonChangeView.setImageResource(R.drawable.gridlittle);
         }
         else {
-            mButtonChangeView.setText(R.string.detail);
+        	mButtonChangeView.setImageResource(R.drawable.listbulletslittle);
         }
 
         mButtonChangeView.setOnClickListener(new View.OnClickListener()
@@ -162,11 +162,11 @@ public class RecentDocumentsActivity extends OnyxBaseActivity
             {
                 if (mAdapter.getPageLayout().getViewMode() == GridViewMode.Thumbnail) {
                     RecentDocumentsActivity.this.changeViewMode(GridViewMode.Detail);
-                    mButtonChangeView.setText(R.string.thumbnail);
+                    mButtonChangeView.setImageResource(R.drawable.gridlittle);
                 }
                 else {
                     RecentDocumentsActivity.this.changeViewMode(GridViewMode.Thumbnail);
-                    mButtonChangeView.setText(R.string.detail);
+                    mButtonChangeView.setImageResource(R.drawable.listbulletslittle);
                 }
             }
         });

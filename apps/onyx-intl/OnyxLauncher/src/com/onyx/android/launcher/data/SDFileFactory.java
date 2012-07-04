@@ -203,30 +203,31 @@ public class SDFileFactory {
         return sCount;
     }
 
-    static public boolean copy(File sourceFile, File file, DialogFileOperations dialogFileOperations)
+    static public boolean copy(File sourceFile, String filePath, DialogFileOperations dialogFileOperations)
     {
     	sDialogFileOperations = dialogFileOperations;
     	if (sDialogFileOperations == null && !sDialogFileOperations.getIsShowing()) {
 			return false;
 		}
 
-        File copyFile = new File(file.getPath(), sourceFile.getName());
+        File copyFile = new File(filePath, sourceFile.getName());
         if (copyFile.exists()) {
             return false;
         }
 
         if (sourceFile.isFile()) {
-            copyFile(sourceFile, copyFile);
+            copyFile(sourceFile, filePath);
         }
         else {
-            copyDirectory(sourceFile, copyFile);
+            copyDirectory(sourceFile, filePath);
         }
         
         return true;
     }
     
-    static public boolean copyFile(File sourceFile, File file)
+    static public boolean copyFile(File sourceFile, String filePath)
     {
+    	File file = new File(filePath, sourceFile.getName());
     	if (!sDialogFileOperations.getIsShowing()) {
 			return false;
 		}
@@ -256,8 +257,9 @@ public class SDFileFactory {
         return true;
     }
     
-    static public boolean copyDirectory(File sourceFile, File file)
+    static public boolean copyDirectory(File sourceFile, String filePath)
     {
+    	File file = new File(filePath, sourceFile.getName());
         if (!file.mkdir()) {
             return false;
         }
@@ -270,10 +272,10 @@ public class SDFileFactory {
             	}
 
                 if (files[i].isFile()) {
-                    copyFile(files[i], file);
+                    copyFile(files[i], file.getPath());
                 }
                 else if (files[i].isDirectory()) {
-                    copyDirectory(files[i], file);
+                    copyDirectory(files[i], filePath+File.separator+file.getName());
                 }
             }
         }

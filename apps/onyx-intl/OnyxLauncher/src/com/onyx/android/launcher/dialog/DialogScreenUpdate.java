@@ -31,10 +31,9 @@ public class DialogScreenUpdate extends DialogBaseSettings
         String[] array = this.getGridView().getResources().getStringArray(R.array.screen_update);
         final SelectionAdapter adapter = new SelectionAdapter(hostActivity, this.getGridView(), items, -1);
         this.getGridView().setAdapter(adapter);
-
+        
         int initValue = OnyxSysCenter.getScreenUpdateGCInterval();
-        switch(initValue)
-        {
+        switch(initValue) {
         case -1 : 
         	adapter.setSelection(0);
         	break;
@@ -65,6 +64,7 @@ public class DialogScreenUpdate extends DialogBaseSettings
                     ScreenUpdateManager.setUpdatePolicy(DialogScreenUpdate.this.getGridView(),
                             UpdatePolicy.Automatic, 0);
                         OnyxSysCenter.setScreenUpdateGCInterval(hostActivity, -1);
+                   
                 }
                 else {
                     ScreenUpdateManager.setUpdatePolicy(DialogScreenUpdate.this.getGridView(),

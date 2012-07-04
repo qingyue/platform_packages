@@ -18,7 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ViewSwitcher;
 
 import com.onyx.android.launcher.adapter.GridItemBaseAdapter;
@@ -199,8 +199,8 @@ public class SearchResultActivity extends OnyxBaseActivity
     public static final String HOST_URI = "com.onyx.android.launcher.SearchResultActivity.HOST_URI";
     
     private OnyxFileGridView mFileGridView = null;
-    private Button mButtonHome = null;
-    private Button mButtonSortBy = null;
+    private ImageButton mButtonHome = null;
+    private ImageButton mButtonSortBy = null;
     private ViewSwitcher mViewSwitcher = null;
     private SearchResultAdapter mAdapter = null;
     
@@ -213,7 +213,7 @@ public class SearchResultActivity extends OnyxBaseActivity
     
     public static AscDescOrder AscOrder = AscDescOrder.Asc;
     public static SortOrder SortPolicy = SortOrder.Name;
-
+    
     @Override
     public OnyxGridView getGridView()
     {
@@ -299,8 +299,8 @@ public class SearchResultActivity extends OnyxBaseActivity
         this.setContentView(R.layout.activity_search_result);
         
         mFileGridView = (OnyxFileGridView)this.findViewById(R.id.gridview_search_result);
-        mButtonHome = (Button)this.findViewById(R.id.button_home);
-        mButtonSortBy = (Button)this.findViewById(R.id.button_sort_by);
+        mButtonHome = (ImageButton)this.findViewById(R.id.button_home);
+        mButtonSortBy = (ImageButton)this.findViewById(R.id.button_sort_by);
         
         mFileGridView.setCanPaste(false);
         

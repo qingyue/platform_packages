@@ -108,7 +108,12 @@ public class SearchResultAdapter extends GridItemBaseAdapter
             }
 
             if (textview_detail_item_name != null) {
-                textview_detail_item_name.setText(item_data.getText());
+            	if (item_data.getTextId() == -1) {
+            		textview_detail_item_name.setText(item_data.getText());
+            	}
+            	else {
+            		textview_detail_item_name.setText(item_data.getTextId());
+            	}
             }
 
             CheckBox cb = (CheckBox) ret_view.findViewById(R.id.checkbox_multi);

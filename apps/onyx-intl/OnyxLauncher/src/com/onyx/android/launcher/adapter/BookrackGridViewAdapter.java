@@ -19,8 +19,8 @@ public class BookrackGridViewAdapter extends GridItemBaseAdapter
 {
     private LayoutInflater mInflater = null;
 
-    private static final int sItemMinWidth = 165;
-    private static final int sItemMinHeight = 170;
+    private static final int sItemMinWidth = 125;
+    private static final int sItemMinHeight = 130;
     private static final int sItemDetailMinHeight = 70;
     private static final int sHorizontalSpacing = 0;
     private static final int sVerticalSpacing = 10;
@@ -79,8 +79,8 @@ public class BookrackGridViewAdapter extends GridItemBaseAdapter
             TextView textview_bookrack = (TextView)layout.findViewById(R.id.textview_bookrack_background);
             TextView textview_book_name = (TextView)ret_view.findViewById(R.id.textview_book_name);
 
-            int background_img_id = this.getBookrackBackground(position);
-            textview_bookrack.setBackgroundResource(background_img_id);
+//            int background_img_id = this.getBookrackBackground(position);
+//            textview_bookrack.setBackgroundResource(background_img_id);
             textview_bookrack.getBackground().setAlpha(130);
 
             int idx = this.getPaginator().getItemIndex(position, this.getPaginator().getPageIndex());
@@ -93,7 +93,7 @@ public class BookrackGridViewAdapter extends GridItemBaseAdapter
                     imageview_cover.setImageBitmap(book.getThumbnail());
                 }
                 else {
-                    imageview_cover.setImageResource(R.drawable.cover);
+                    imageview_cover.setImageResource(R.drawable.secretbookicon);
                 }
 
                 BookrackGridViewAdapter.this.setShowMultipleCheckbox(ret_view, item_data);
@@ -103,7 +103,7 @@ public class BookrackGridViewAdapter extends GridItemBaseAdapter
             else {
                 // the position may have nothing, so put an item standing for empty
                 textview_book_name.setText("");
-                imageview_cover.setImageResource(R.drawable.nothingness);
+                imageview_cover.setImageResource(R.drawable.defultdoc);
 
                 ret_view.setTag(null);
             }
@@ -127,7 +127,7 @@ public class BookrackGridViewAdapter extends GridItemBaseAdapter
                 imageview_cover.setImageBitmap(book.getThumbnail());
             }
             else {
-                imageview_cover.setImageResource(R.drawable.cover);
+                imageview_cover.setImageResource(R.drawable.secretbookicon);
             }
 
             BookrackGridViewAdapter.this.setShowMultipleCheckbox(ret_view, item_data);
@@ -155,6 +155,7 @@ public class BookrackGridViewAdapter extends GridItemBaseAdapter
         return ret_view;
     }
 
+    @SuppressWarnings("unused")
     private int getBookrackBackground(int position)
     {
         int mod = position % this.getPageLayout().getLayoutColumnCount();

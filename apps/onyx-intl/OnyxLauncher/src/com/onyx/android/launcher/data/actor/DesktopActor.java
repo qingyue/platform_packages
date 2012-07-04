@@ -6,12 +6,13 @@ package com.onyx.android.launcher.data.actor;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.onyx.android.launcher.R;
+import com.onyx.android.launcher.adapter.OnyxGridItemAdapter;
 import com.onyx.android.launcher.data.GridItemManager;
 import com.onyx.android.launcher.util.EventedArrayList;
 import com.onyx.android.sdk.data.OnyxItemURI;
+import com.onyx.android.sdk.ui.OnyxGridView;
 import com.onyx.android.sdk.ui.data.GridItemData;
 
 /**
@@ -20,10 +21,9 @@ import com.onyx.android.sdk.ui.data.GridItemData;
  */
 public class DesktopActor extends ItemContainerActor
 {
+    @SuppressWarnings("unused")
     private static final String TAG = "DesktopActor";
     
-    LibraryActor mLibrary = null;
-    StorageActor mStorage = null;
     RecentDocumentsActor mRecentDocuments = null;
     DictionaryActor mDictionary = null;
     ScribbleActor mScribble = null;
@@ -38,14 +38,6 @@ public class DesktopActor extends ItemContainerActor
                R.string.Desktop, 
                 R.drawable.icon));
         
-        mLibrary = new LibraryActor(this.getData().getURI());
-        GridItemManager.RegisterURIActor(mLibrary);
-        
-        mStorage = new StorageActor(this.getData().getURI());
-        GridItemManager.RegisterURIActor(mStorage);
-        
-        mRecentDocuments = new RecentDocumentsActor(this.getData().getURI());
-        GridItemManager.RegisterURIActor(mRecentDocuments);
         
         mDictionary = new DictionaryActor(this.getData().getURI());
         GridItemManager.RegisterURIActor(mDictionary);
@@ -64,19 +56,12 @@ public class DesktopActor extends ItemContainerActor
         
         mSettings = new SettingsActor(this.getData().getURI());
         GridItemManager.RegisterURIActor(mSettings);
+        
+        mRecentDocuments = new RecentDocumentsActor(this.getData().getURI());
+        GridItemManager.RegisterURIActor(mRecentDocuments);
     }
     
-    public LibraryActor getLibraryActor()
-    {
-        assert(mLibrary != null);
-        return mLibrary;
-    }
     
-    public StorageActor getStorageActor()
-    {
-        assert(mStorage != null);
-        return mStorage;
-    }
     
     public SettingsActor getSettingsActor()
     {
@@ -107,17 +92,31 @@ public class DesktopActor extends ItemContainerActor
             }
         }
         
-        for (AbstractItemActor a : actors) {
-            if ((a != mLibrary) && (a != mStorage)) {
-                if (!a.search(hostActivity, a.getData().getURI(), pattern, result)) {
-                    Log.w(TAG, "search failed: " + a.getData().getURI().toString());
-                }
-            }
+        return true;
+    }
+    
+    
+    @Override
+    public boolean process(OnyxGridView gridView, OnyxItemURI uri,
+            Activity hostActivity)
+    {
+        ArrayList<AbstractItemActor> actors = GridItemManager.getChildren(this.getData().getURI());
+        if (actors.isEmpty()) {
+            return true;
         }
         
-        if (!mStorage.search(hostActivity, mStorage.getData().getURI(), pattern, result)) {
-            Log.w(TAG, "search failed: " + mStorage.getData().getURI().toString());
-        }
+        assert(gridView.getAdapter() instanceof OnyxGridItemAdapter);
+        OnyxGridItemAdapter adapter = (OnyxGridItemAdapter)gridView.getAdapter();
+        
+        ArrayList<GridItemData> item_list = new ArrayList<GridItemData>();
+        for (AbstractItemActor a : actors) {
+            if(a != mWebSites && a != mRecentDocuments) {
+              item_list.add(a.getData());  
+            }
+            
+        } 
+        
+        adapter.fillItems(this.getData().getURI(), item_list);
         
         return true;
     }

@@ -54,7 +54,7 @@ public class CopyFileTask extends AsyncTask<Void, FileItemData, Void>
             	return null;
             }
 
-            if (!SDFileFactory.copy(mSourceFile, mFile, mDialogFileOperations)) {
+            if (!SDFileFactory.copy(mSourceFile, mFile.getPath(), mDialogFileOperations)) {
             	this.cancel(true);
             	return null;
             }

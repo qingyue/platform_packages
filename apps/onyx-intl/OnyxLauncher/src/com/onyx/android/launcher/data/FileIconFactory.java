@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.onyx.android.launcher.OnyxApplication;
 import com.onyx.android.launcher.R;
 
 /**
@@ -26,26 +27,6 @@ public class FileIconFactory
     private static HashMap<String, Integer> ourPredefinedIcons = createPredefinedIcons();
 
     /**
-     * must be called when application starting up
-     * 
-     * @param context
-     */
-    public static synchronized void init(Context context)
-    {
-        if (ourInited) {
-            return;
-        }
-        
-        ourContext = context; 
-        ourDefaultBitmap = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.unknown_document);
-        
-        ourInited = true;
-
-        return;
-    }
-
-    /**
      * should init() first
      * 
      * @param fileName
@@ -54,8 +35,7 @@ public class FileIconFactory
     public static synchronized Bitmap getIconByFileName(String fileName)
     {
         if (!ourInited) {
-            assert(false);
-            throw new RuntimeException();
+            init(OnyxApplication.getInstance());
         }
         
         String ext = getFileExtension(fileName);
@@ -76,6 +56,26 @@ public class FileIconFactory
         } else {
             return ourDefaultBitmap;
         }
+    }
+
+    /**
+     * 
+     * 
+     * @param context
+     */
+    private static synchronized void init(Context context)
+    {
+        if (ourInited) {
+            return;
+        }
+        
+        ourContext = context; 
+        ourDefaultBitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.unknown_document);
+        
+        ourInited = true;
+
+        return;
     }
 
     private static HashMap<String, Integer> createPredefinedIcons()

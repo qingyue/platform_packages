@@ -46,10 +46,19 @@ import com.onyx.android.sdk.ui.data.GridItemData;
  */
 public class StorageActor extends ItemContainerActor
 {
+    public static class GoUpLevelItem extends GridItemData
+    {
+        public GoUpLevelItem(OnyxItemURI uri, int textId, int imageResourceId)
+        {
+            super(uri, textId, imageResourceId);
+        }
+
+    }
+	
     private static final String TAG = "StorageActor";
 
-    private static final GridItemData sGoUpItem = new GridItemData(null,
-            R.string.Go_up, R.drawable.go_up, "go_up");
+    private static final GoUpLevelItem sGoUpItem = new GoUpLevelItem(null,
+            R.string.Go_up, R.drawable.go_up);
 
     /**
      * root directory corresponding to StorageURI
@@ -74,7 +83,8 @@ public class StorageActor extends ItemContainerActor
         File f = this.getFileFromURI(uri);
         if (f.isDirectory()) {
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -103,7 +113,8 @@ public class StorageActor extends ItemContainerActor
                 Toast.makeText(hostActivity, R.string.SD_card_has_been_removed,
                         Toast.LENGTH_SHORT).show();
                 throw new SDCardRemovedException();
-            } else {
+            }
+            else {
                 Toast.makeText(hostActivity,
                         R.string.file_not_exist + file.getAbsolutePath(),
                         Toast.LENGTH_SHORT).show();
@@ -135,7 +146,8 @@ public class StorageActor extends ItemContainerActor
                         dir_list.add(new FileItemData(copy_uri,
                                 FileType.Directory, f.getName(),
                                 R.drawable.directory));
-                    } else {
+                    }
+                    else {
                         Bitmap icon = FileIconFactory.getIconByFileName(f
                                 .getName());
                         file_list.add(new BookItemData(copy_uri,
@@ -150,9 +162,10 @@ public class StorageActor extends ItemContainerActor
             adapter.appendItems(dir_list);
             adapter.appendItems(file_list);
             adapter.getItems().remove(sGoUpItem);
-            adapter.getItems().add(0,sGoUpItem);
+            adapter.getItems().add(0, sGoUpItem);
             return true;
-        } else {
+        }
+        else {
             Log.d(TAG, "try openning file: " + file.getAbsolutePath());
 
             final Intent intent = new Intent();
@@ -169,7 +182,8 @@ public class StorageActor extends ItemContainerActor
                                             app_preference.getAppPackageName(),
                                             app_preference.getAppClassName()),
                                     0);
-                } catch (NameNotFoundException e) {
+                }
+                catch (NameNotFoundException e) {
                     Log.i(TAG, app_preference.getAppName() + " not found");
                     app_info = null;
                 }
@@ -178,7 +192,8 @@ public class StorageActor extends ItemContainerActor
             if (app_info != null) {
                 return ActivityUtil.startActivitySafely(hostActivity, intent,
                         app_info);
-            } else {
+            }
+            else {
                 intent.setAction(android.content.Intent.ACTION_VIEW);
 
                 String type = MimeTypeMap.getSingleton()
@@ -197,11 +212,13 @@ public class StorageActor extends ItemContainerActor
                     Toast.makeText(hostActivity,
                             R.string.unable_to_open_this_type_of_file,
                             Toast.LENGTH_SHORT).show();
-                } else if (info_list.size() == 1) {
+                }
+                else if (info_list.size() == 1) {
                     ResolveInfo info = info_list.get(0);
                     return ActivityUtil.startActivitySafely(hostActivity,
                             intent, info.activityInfo);
-                } else {
+                }
+                else {
                     assert (info_list.size() > 1);
 
                     final Activity host_activity = hostActivity;
@@ -258,7 +275,8 @@ public class StorageActor extends ItemContainerActor
                 if (f.isDirectory()) {
                     result.add(new FileItemData(copy_uri, FileType.Directory, f
                             .getName(), R.drawable.directory));
-                } else {
+                }
+                else {
                     Bitmap icon = FileIconFactory
                             .getIconByFileName(f.getName());
                     result.add(new BookItemData(copy_uri, FileType.NormalFile,
