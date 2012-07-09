@@ -19,6 +19,7 @@ package com.android.settings;
 import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT;
 import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT_BACKUP;
 import static android.provider.Settings.System.XEC_DLS_CONTROL;
+import static android.provider.Settings.System.DEFAULT_SCREEN_OFF_TIMEOUT_WIFI;
 
 import java.util.ArrayList;
 
@@ -218,6 +219,12 @@ public class DisplaySettings extends PreferenceActivity implements
                 } catch (NumberFormatException e) {
                     Log.e(TAG, "could not persist screen timeout backup setting", e);
                 }
+                if (value == -1 || value > DEFAULT_SCREEN_OFF_TIMEOUT_WIFI)
+                    try {
+                        Settings.System.putInt(getContentResolver(), SCREEN_OFF_TIMEOUT, value);
+                    } catch (NumberFormatException e) {
+                        Log.e(TAG, "could not persist screen timeout setting", e);
+                    }
             }
         }
         if (KEY_XEC_DLS_CONTROL.equals(key)) {
