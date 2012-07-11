@@ -16,6 +16,11 @@
 
 package com.android.settings.wifi;
 
+import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT;
+import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT_BACKUP;
+import static android.provider.Settings.System.DEFAULT_SCREEN_OFF_TIMEOUT_WIFI;
+import android.util.Log;
+
 import com.android.settings.R;
 import com.android.settings.WirelessSettings;
 
@@ -34,6 +39,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 public class WifiEnabler implements Preference.OnPreferenceChangeListener {
+    private static final String TAG = "WifiEnabler";
     private final Context mContext; 
     private final CheckBoxPreference mCheckBox;
     private final CharSequence mOriginalSummary;
@@ -83,12 +89,10 @@ public class WifiEnabler implements Preference.OnPreferenceChangeListener {
     
     public boolean onPreferenceChange(Preference preference, Object value) {
         boolean enable = (Boolean) value;
-    
+
         // Show toast message if Wi-Fi is not allowed in airplane mode
-        if (enable && !WirelessSettings
-                .isRadioAllowed(mContext, Settings.System.RADIO_WIFI)) {
-            Toast.makeText(mContext, R.string.wifi_in_airplane_mode,
-                    Toast.LENGTH_SHORT).show();
+        if (enable && !WirelessSettings.isRadioAllowed(mContext, Settings.System.RADIO_WIFI)) {
+            Toast.makeText(mContext, R.string.wifi_in_airplane_mode, Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -96,12 +100,35 @@ public class WifiEnabler implements Preference.OnPreferenceChangeListener {
          * Disable tethering if enabling Wifi
          */
         int wifiApState = mWifiManager.getWifiApState();
-        if (enable && ((wifiApState == WifiManager.WIFI_AP_STATE_ENABLING) ||
-                (wifiApState == WifiManager.WIFI_AP_STATE_ENABLED))) {
+        if (enable
+                && ((wifiApState == WifiManager.WIFI_AP_STATE_ENABLING) || (wifiApState == WifiManager.WIFI_AP_STATE_ENABLED))) {
             mWifiManager.setWifiApEnabled(null, false);
         }
         if (mWifiManager.setWifiEnabled(enable)) {
             mCheckBox.setEnabled(false);
+            if (enable) {
+                int timeout = Settings.System.getInt(mContext.getContentResolver(),
+                        SCREEN_OFF_TIMEOUT, -1);
+                Settings.System.putInt(mContext.getContentResolver(), SCREEN_OFF_TIMEOUT_BACKUP,
+                        timeout);// save screen_off_timeout to
+                                 // screen_off_timeout_backup
+                Log.d(TAG,
+                        "Set SCREEN_OFF_TIMEOUT_BACKUP is "
+                                + Settings.System.getInt(mContext.getContentResolver(),
+                                        SCREEN_OFF_TIMEOUT_BACKUP, -1));
+                if (timeout > 0 && timeout < DEFAULT_SCREEN_OFF_TIMEOUT_WIFI) {
+                    Settings.System.putInt(mContext.getContentResolver(), SCREEN_OFF_TIMEOUT,
+                            DEFAULT_SCREEN_OFF_TIMEOUT_WIFI);
+                }
+            } else {
+                Settings.System.putInt(mContext.getContentResolver(), SCREEN_OFF_TIMEOUT,
+                        Settings.System.getInt(mContext.getContentResolver(),
+                                SCREEN_OFF_TIMEOUT_BACKUP, -1));
+                Log.d(TAG,
+                        "Get SCREEN_OFF_TIMEOUT_BACKUP is "
+                                + Settings.System.getInt(mContext.getContentResolver(),
+                                        SCREEN_OFF_TIMEOUT_BACKUP, -1));
+            }
         } else {
             mCheckBox.setSummary(R.string.wifi_error);
         }

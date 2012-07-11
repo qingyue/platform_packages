@@ -17,7 +17,9 @@
 package com.android.settings;
 
 import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT;
+import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT_BACKUP;
 import static android.provider.Settings.System.XEC_DLS_CONTROL;
+import static android.provider.Settings.System.DEFAULT_SCREEN_OFF_TIMEOUT_WIFI;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,7 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.IWindowManager;
+import android.net.wifi.WifiManager;
 
 public class DisplaySettings extends PreferenceActivity implements
         Preference.OnPreferenceChangeListener {
@@ -49,6 +52,7 @@ public class DisplaySettings extends PreferenceActivity implements
     private static final String KEY_XEC_DLS_CONTROL = "xec_dls_control";
     private static final String KEY_ACCELEROMETER = "accelerometer";
 
+    private WifiManager mWifiManager;
     private ListPreference mAnimations;
     private ListPreference mXecDlsControl;
     private CheckBoxPreference mAccelerometer;
@@ -61,6 +65,7 @@ public class DisplaySettings extends PreferenceActivity implements
         super.onCreate(savedInstanceState);
         ContentResolver resolver = getContentResolver();
         mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
+        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
         addPreferencesFromResource(R.xml.display_settings);
 
@@ -200,11 +205,26 @@ public class DisplaySettings extends PreferenceActivity implements
         }
         if (KEY_SCREEN_TIMEOUT.equals(key)) {
             int value = Integer.parseInt((String) objValue);
-            try {
-                Settings.System.putInt(getContentResolver(),
-                        SCREEN_OFF_TIMEOUT, value);
-            } catch (NumberFormatException e) {
-                Log.e(TAG, "could not persist screen timeout setting", e);
+            int wifiState = mWifiManager.getWifiState();
+            Log.e(TAG, "wifiState is " + wifiState);
+            if (wifiState <= mWifiManager.WIFI_STATE_DISABLED) {
+                try {
+                    Settings.System.putInt(getContentResolver(), SCREEN_OFF_TIMEOUT, value);
+                } catch (NumberFormatException e) {
+                    Log.e(TAG, "could not persist screen timeout setting", e);
+                }
+            } else {
+                try {
+                    Settings.System.putInt(getContentResolver(), SCREEN_OFF_TIMEOUT_BACKUP, value);
+                } catch (NumberFormatException e) {
+                    Log.e(TAG, "could not persist screen timeout backup setting", e);
+                }
+                if (value == -1 || value > DEFAULT_SCREEN_OFF_TIMEOUT_WIFI)
+                    try {
+                        Settings.System.putInt(getContentResolver(), SCREEN_OFF_TIMEOUT, value);
+                    } catch (NumberFormatException e) {
+                        Log.e(TAG, "could not persist screen timeout setting", e);
+                    }
             }
         }
         if (KEY_XEC_DLS_CONTROL.equals(key)) {
