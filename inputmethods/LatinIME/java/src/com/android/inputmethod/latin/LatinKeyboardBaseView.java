@@ -187,7 +187,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
 
     // Key preview popup
     private TextView mPreviewText;
-    private PopupWindow mPreviewPopup;
+    //private PopupWindow mPreviewPopup;
     private int mPreviewTextSizeLarge;
     private int[] mOffsetInWindow;
     private int mOldPreviewKeyIndex = NOT_A_KEY;
@@ -266,10 +266,10 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_POPUP_PREVIEW:
-                    showKey(msg.arg1, (PointerTracker)msg.obj);
+                    //showKey(msg.arg1, (PointerTracker)msg.obj);
                     break;
                 case MSG_DISMISS_PREVIEW:
-                    mPreviewPopup.dismiss();
+                    //mPreviewPopup.dismiss();
                     break;
                 case MSG_REPEAT_KEY: {
                     final PointerTracker tracker = (PointerTracker)msg.obj;
@@ -287,13 +287,13 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
 
         public void popupPreview(long delay, int keyIndex, PointerTracker tracker) {
             removeMessages(MSG_POPUP_PREVIEW);
-            if (mPreviewPopup.isShowing() && mPreviewText.getVisibility() == VISIBLE) {
-                // Show right away, if it's already visible and finger is moving around
-                showKey(keyIndex, tracker);
-            } else {
-                sendMessageDelayed(obtainMessage(MSG_POPUP_PREVIEW, keyIndex, 0, tracker),
-                        delay);
-            }
+            //if (mPreviewPopup.isShowing() && mPreviewText.getVisibility() == VISIBLE) {
+            //    // Show right away, if it's already visible and finger is moving around
+            //    showKey(keyIndex, tracker);
+            //} else {
+            //    sendMessageDelayed(obtainMessage(MSG_POPUP_PREVIEW, keyIndex, 0, tracker),
+            //            delay);
+            //}
         }
 
         public void cancelPopupPreview() {
@@ -301,9 +301,9 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         }
 
         public void dismissPreview(long delay) {
-            if (mPreviewPopup.isShowing()) {
-                sendMessageDelayed(obtainMessage(MSG_DISMISS_PREVIEW), delay);
-            }
+            //if (mPreviewPopup.isShowing()) {
+            //    sendMessageDelayed(obtainMessage(MSG_DISMISS_PREVIEW), delay);
+            //}
         }
 
         public void cancelDismissPreview() {
@@ -484,17 +484,17 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
 
         final Resources res = getResources();
 
-        mPreviewPopup = new PopupWindow(context);
+        //mPreviewPopup = new PopupWindow(context);
         if (previewLayout != 0) {
             mPreviewText = (TextView) inflate.inflate(previewLayout, null);
             mPreviewTextSizeLarge = (int) res.getDimension(R.dimen.key_preview_text_size_large);
-            mPreviewPopup.setContentView(mPreviewText);
-            mPreviewPopup.setBackgroundDrawable(null);
+        //    mPreviewPopup.setContentView(mPreviewText);
+        //    mPreviewPopup.setBackgroundDrawable(null);
         } else {
             mShowPreview = false;
         }
-        mPreviewPopup.setTouchable(false);
-        mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
+        //mPreviewPopup.setTouchable(false);
+        //mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
         mDelayBeforePreview = res.getInteger(R.integer.config_delay_before_preview);
         mDelayAfterPreview = res.getInteger(R.integer.config_delay_after_preview);
 
@@ -685,7 +685,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
     public void setPopupOffset(int x, int y) {
         mPopupPreviewOffsetX = x;
         mPopupPreviewOffsetY = y;
-        mPreviewPopup.dismiss();
+        //mPreviewPopup.dismiss();
     }
 
     /**
@@ -1008,14 +1008,14 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
             popupPreviewY += popupHeight;
         }
 
-        if (mPreviewPopup.isShowing()) {
-            mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth, popupHeight);
-        } else {
-            mPreviewPopup.setWidth(popupWidth);
-            mPreviewPopup.setHeight(popupHeight);
-            mPreviewPopup.showAtLocation(mMiniKeyboardParent, Gravity.NO_GRAVITY,
-                    popupPreviewX, popupPreviewY);
-        }
+        //if (mPreviewPopup.isShowing()) {
+        //    mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth, popupHeight);
+        //} else {
+        //    mPreviewPopup.setWidth(popupWidth);
+        //    mPreviewPopup.setHeight(popupHeight);
+        //    mPreviewPopup.showAtLocation(mMiniKeyboardParent, Gravity.NO_GRAVITY,
+        //            popupPreviewX, popupPreviewY);
+        //}
         // Record popup preview position to display mini-keyboard later at the same positon
         mPopupPreviewDisplayedY = popupPreviewY;
         mPreviewText.setVisibility(VISIBLE);
@@ -1157,7 +1157,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         // TODO if popupKey.popupCharacters has only one letter, send it as key without opening
         // mini keyboard.
 
-        if (popupKey.popupResId == 0)
+        /*if (popupKey.popupResId == 0)
             return false;
 
         View container = mMiniKeyboardCache.get(popupKey);
@@ -1226,8 +1226,8 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
         mMiniKeyboard.onTouchEvent(downEvent);
         downEvent.recycle();
 
-        invalidateAllKeys();
-        return true;
+        invalidateAllKeys();*/
+        return false;
     }
 
     private static boolean hasMultiplePopupChars(Key key) {
@@ -1473,7 +1473,7 @@ public class LatinKeyboardBaseView extends View implements PointerTracker.UIProx
     }
 
     public void closing() {
-        mPreviewPopup.dismiss();
+        //mPreviewPopup.dismiss();
         mHandler.cancelAllMessages();
 
         dismissPopupKeyboard();
